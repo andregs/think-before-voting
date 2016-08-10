@@ -24,6 +24,7 @@ md-card {
 	border-radius: 3px;
 	border: 1px solid #ddd;
 	padding: 5px;
+	margin-bottom: 15px;
 }
 md-radio-button {
 	display: block;

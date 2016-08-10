@@ -14,12 +14,18 @@ export class AnswerComponent {
 	private statsFor = this.STATS[this.current];
 	private value = 25;
 
-	constructor() {}
+	private answer: number;
+
+	constructor() { }
 
 	changeStats() {
 		const next = ++this.current % this.STATS.length;
 		this.statsFor = this.STATS[next];
 		this.value = Math.floor(Math.random() * (90 - 20 + 1)) + 20;
+	}
+
+	get skipAnswer() {
+		return this.answer ? 'Answer' : 'Skip Question';
 	}
 
 }

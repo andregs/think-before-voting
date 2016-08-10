@@ -9,6 +9,7 @@
 
 	<button md-icon-button disableRipple>
 	<!--<button md-icon-button disableRipple [md-menu-trigger-for]="menu">-->
+		<!-- https://github.com/angular/material2/issues/983 -->
 		<md-icon>more_vert</md-icon>
 	</button>
 	<!--<md-menu #menu>
@@ -34,7 +35,7 @@
 			What's more important for you?
 		</md-card-title>
 		
-		<md-radio-group>
+		<md-radio-group [(ngModel)]='answer'>
 			<md-radio-button value="1">Quality improvement in public health.</md-radio-button>
 			<md-radio-button value="2">Fighting deforestation.</md-radio-button>
 		</md-radio-group>
@@ -45,7 +46,8 @@
 		</md-toolbar>
 
 		<md-card-content class="opinion">
-			<textarea placeholder="Your Opinion" class="fill-space"></textarea>
+			<textarea placeholder="Your Opinion" class="fill-space" [disabled]='!answer'></textarea>
+			<button md-button color='primary'> {{skipAnswer}} </button>
 		</md-card-content>
 	</md-card>
 
