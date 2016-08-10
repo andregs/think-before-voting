@@ -1,0 +1,20 @@
+md-content, md-sidenav {
+	/* without this a scrollbar appears when you hit the 'stats' button 
+	multiple times, but why? o_O */
+	overflow: hidden !important;
+}
+
+/* Extra small devices (portrait phones, less than 34em)*/
+@media (max-width: 33.9em) {}
+
+/* Small devices (landscape phones, 34em and up)*/
+@media (min-width: 34em) {}
+
+/* Medium devices (tablets, 48em and up)*/
+@media (min-width: 48em) {}
+
+/* Large devices (desktops, 62em and up)*/
+@media (min-width: 62em) {}
+
+/* Extra large devices (large desktops, 75em and up)*/
+@media (min-width: 75em) {}

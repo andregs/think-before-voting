@@ -1,0 +1,38 @@
+.fill-space {
+	flex: 1 1 auto;
+}
+md-progress-bar {
+	flex: 1 1 auto;
+	width: auto;
+	height: 50%;
+}
+md-card {
+	margin: 20px;
+}
+#sidenav {
+	display: flex;
+	flex-direction: column;
+	padding: 15px;
+}
+.opinion {
+	display: flex;
+	flex-direction: column;
+	padding: 15px 0;
+}
+.opinion textarea {
+	height: 70px;
+	border-radius: 3px;
+	border: 1px solid #ddd;
+	padding: 5px;
+}
+md-radio-button {
+	display: block;
+	line-height: 250%;
+}
+#stats button {
+	width: 125px;
+	margin-right: 15px;
+}
+#stats progress-bar {
+	height: 50%;
+}
