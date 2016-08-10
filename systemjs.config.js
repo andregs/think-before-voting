@@ -36,6 +36,7 @@
 		'card',
 		'grid-list',
 		'icon',
+		'input',
 		'list',
 		'menu',
 		'progress-bar',

@@ -12,6 +12,7 @@ import { MdToolbarModule } from '@angular2-material/toolbar';
 import { MdListModule } from '@angular2-material/list';
 import { MdSidenavModule } from '@angular2-material/sidenav';
 import { MdIconModule } from '@angular2-material/icon';
+import { MdInputModule } from '@angular2-material/input';
 import { MdRadioModule } from '@angular2-material/radio';
 import { MdMenuModule } from '@angular2-material/menu';
 import { MdTooltipModule } from '@angular2-material/tooltip';
@@ -30,6 +31,7 @@ import { AnswerComponent }  from './answer/answer.component';
 		MdListModule,
 		MdSidenavModule,
 		MdIconModule,
+		MdInputModule,
 		MdRadioModule,
 		MdMenuModule,
 		MdTooltipModule,
