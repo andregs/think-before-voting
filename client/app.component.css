@@ -11,6 +11,7 @@
 }
 md-card {
 	margin: 20px;
+	max-width: 650px;
 }
 .clear {
 	clear: both;
@@ -20,6 +21,12 @@ a {
 }
 a:hover {
 	text-decoration: underline;
+}
+.fab-button[md-fab] {
+	bottom: 24px;
+	position: absolute;
+	right: 24px;
+	z-index: 998;
 }
 
 /* Extra small devices (portrait phones, less than 34em)*/

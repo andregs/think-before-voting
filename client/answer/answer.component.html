@@ -1,11 +1,19 @@
 <md-card>
 	<md-card-subtitle>
-		Question by <a href="#">André</a>
+		Question by <a routerLink='/user/eneas'>Enéas Carneiro</a>
 	</md-card-subtitle>
 	<md-card-title>
 		What's more important for you?
 	</md-card-title>
-	
+
+	<button id='card-btn' md-icon-button [md-menu-trigger-for]="menu">
+		<md-icon>more_vert</md-icon>
+	</button>
+	<md-menu #menu="mdMenu" x-position='before'>
+		<button md-menu-item> Edit </button>
+		<button md-menu-item> Delete </button>
+	</md-menu>
+
 	<md-radio-group [(ngModel)]='answer'>
 		<md-radio-button value="1">Quality improvement in public health.</md-radio-button>
 		<md-radio-button value="2">Fighting deforestation.</md-radio-button>

@@ -16,11 +16,11 @@ let bodyParser = require('body-parser');
 app.use(bodyParser.json());
 // app.use(bodyParser.urlencoded({ extended: true }));
 
-const arangojs = require('arangojs');
-const username = process.env.ARANGODB_USERNAME;
-const password = process.env.ARANGODB_PASSWORD;
-const url = `http://${username}:${password}@localhost:8529`;
-const db = arangojs({ url, databaseName: 'think' });
+// const arangojs = require('arangojs');
+// const username = process.env.ARANGODB_USERNAME;
+// const password = process.env.ARANGODB_PASSWORD;
+// const url = `http://${username}:${password}@localhost:8529`;
+// const db = arangojs({ url, databaseName: 'think' });
 
 // require('./routes/user.router.js')(app, db);
 // require('./routes/answer.router.js')(app, db);
@@ -30,7 +30,10 @@ function renderIndex(req: express.Request, res: express.Response) {
 };
 
 app.get('/', renderIndex);
-app.get('/profile', renderIndex);
+app.get('/user/:name', renderIndex);
+app.get('/answer', renderIndex);
+app.get('/ask', renderIndex);
+app.get('/candidates', renderIndex);
 
 const port: number = process.env.PORT || 3000;
 const server = app.listen(port, function () {

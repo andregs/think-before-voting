@@ -15,6 +15,7 @@ import { MdIconModule } from '@angular2-material/icon';
 import { MdInputModule } from '@angular2-material/input';
 import { MdRadioModule } from '@angular2-material/radio';
 import { MdMenuModule } from '@angular2-material/menu';
+import { MdTabsModule } from '@angular2-material/tabs';
 import { MdTooltipModule } from '@angular2-material/tooltip';
 
 import { AnswerComponent }  from './answer/answer.component';
@@ -35,6 +36,7 @@ import { ProfileComponent }  from './profile/profile.component';
 		MdInputModule,
 		MdRadioModule,
 		MdMenuModule,
+		MdTabsModule,
 		MdTooltipModule,
 	],
 	declarations: [

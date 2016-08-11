@@ -4,8 +4,9 @@ import { AnswerComponent } from './answer/answer.component';
 import { ProfileComponent } from './profile/profile.component';
 
 const appRoutes: Routes = [
-	{ path: '', component: AnswerComponent },
-	{ path: 'profile', component: ProfileComponent },
+	{ path: '', redirectTo: '/answer', pathMatch: 'full' },
+	{ path: 'answer', component: AnswerComponent },
+	{ path: 'user/:name', component: ProfileComponent },
 ];
 
 export const routing = RouterModule.forRoot(appRoutes);

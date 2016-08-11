@@ -1,3 +1,8 @@
+#card-btn {
+	position: absolute;
+	top: 24px;
+	right: 24px;
+}
 md-progress-bar {
 	flex: 1 1 auto;
 	width: auto;

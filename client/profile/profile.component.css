@@ -3,10 +3,7 @@
 	margin-right: 20px;
 	margin-bottom: 20px;
 }
-#stats a {
-	text-decoration: none;
+md-card-subtitle a {
 	color: rgba(0, 0, 0, 0.54);
-}
-#stats a:hover {
-	text-decoration: underline;
+	cursor: pointer;
 }

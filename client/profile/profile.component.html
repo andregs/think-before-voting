@@ -1,24 +1,67 @@
 <md-card>
 	<img id="avatar" md-card-sm-image src="client/assets/anyone.png">
-	<md-card-title> André Gomes </md-card-title>
+	<md-card-title>
+		{{username === 'andre' ? 'André Gomes' : 'Enéas Carneiro'}}
+	</md-card-title>
 	<md-card-subtitle>
 		<p> Belo Horizonte, MG, Brazil </p>
-		<div id="stats">
-			<a href="#">Follows 17</a> ♦
+		<div *ngIf='username === "andre"'>
+			<a href="#">Follows 17</a> &nbsp;&nbsp;♦&nbsp;&nbsp;
 			<a href="#">Followers 12</a>
 		</div>
+		<a *ngIf='username !== "andre"' (click)='isFollowing = !isFollowing'>
+			{{isFollowing ? 'Unf' : 'F'}}ollow
+		</a>
 	</md-card-subtitle>
 
-	<md-list dense class="clear">
-		<h3 md-subheader> Recent Updates </h3>
-		<md-list-item>
-			<a href="#" md-line> Justin Trodeau has answered 3 new questions. </a>
-		</md-list-item>
-		<md-list-item>
-			<a href="#" md-line> Ilya Brotzky is now following you. </a>
-		</md-list-item>
-		<md-list-item>
-			<a href="#" md-line> Enéas Carneiro has answered 6 new questions. </a>
-		</md-list-item>
-	</md-list>
+	<md-tab-group *ngIf='username === "andre"'>
+		<md-tab>
+			<template md-tab-label> News Feed </template>
+			<template md-tab-content>
+				<md-list dense>
+					<a md-list-item href="#"> Justin Trodeau has answered 3 new questions. </a>
+					<a md-list-item href="#"> Ilya Brotzky is now following you. </a>
+					<a md-list-item href="#"> Enéas Carneiro has answered 6 new questions. </a>
+				</md-list>
+			</template>
+		</md-tab>
+
+		<md-tab>
+			<template md-tab-label> Recent Answers </template>
+			<template md-tab-content>
+				<md-list dense>
+					<a md-list-item href="#"> Should Marijuana be legal? </a>
+					<a md-list-item href="#"> Should the rich pay a higher tax rate than the middle class? </a>
+					<a md-list-item href="#"> Should same sex marriage be legal? </a>
+				</md-list>
+			</template>
+		</md-tab>
+	</md-tab-group>
+
+	<md-card-content *ngIf='username !== "andre"'>
+		<p>
+			The political affinity between you two is <strong> moderate </strong> based on
+			<a routerLink='/answer' 
+				md-tooltip='Answer more'>3 answers</a>.
+		</p>
+		<md-progress-bar value="39"> </md-progress-bar>
+		<md-list dense>
+			<h3 md-subheader> 👍 You agree on </h3>
+			<a md-list-item href="#"> Should Marijuana be legal? </a>
+			<a md-list-item href="#"> Should the rich pay a higher tax rate than the middle class? </a>
+			<h3 md-subheader> 👎 You disagree on </h3>
+			<a md-list-item href="#"> Should same sex marriage be legal? </a>
+		</md-list>
+	</md-card-content>
+
+	<button md-fab *ngIf='username === "andre"' class='fab-button'
+		md-tooltip='Edit profile' tooltip-position='above'>
+		<md-icon> edit </md-icon>
+	</button>
+	
+	<a md-fab *ngIf='username !== "andre"' class='fab-button'
+		routerLink='/answer'
+		md-tooltip='Answer more to improve the accuracy of the political affinity' tooltip-position='before'>
+		<md-icon> thumbs_up_down </md-icon>
+	</a>
 </md-card>

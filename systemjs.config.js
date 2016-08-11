@@ -42,6 +42,7 @@
 		'progress-bar',
 		'radio',
 		'sidenav',
+		'tabs',
 		'toolbar',
 		'tooltip',
 	];
