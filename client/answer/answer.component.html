@@ -1,60 +1,23 @@
-<md-toolbar color="primary">
-	<button md-icon-button (click)='sidenav.toggle()' disableRipple>
-		<md-icon>menu</md-icon>
-	</button>
-
-	<h1 class="fill-space">
-		Think Before Voting
-	</h1>
+<md-card>
+	<md-card-subtitle>
+		Question by <a href="#">André</a>
+	</md-card-subtitle>
+	<md-card-title>
+		What's more important for you?
+	</md-card-title>
 	
-	<md-input placeholder="🔍"></md-input>
+	<md-radio-group [(ngModel)]='answer'>
+		<md-radio-button value="1">Quality improvement in public health.</md-radio-button>
+		<md-radio-button value="2">Fighting deforestation.</md-radio-button>
+	</md-radio-group>
 
-	<button md-icon-button disableRipple>
-		<md-icon>person</md-icon>
-	</button>
+	<md-toolbar id="stats">
+		<button md-button (click)='changeStats()'>{{statsFor}}</button>
+		<md-progress-bar value="{{value}}"> </md-progress-bar>
+	</md-toolbar>
 
-	<button md-icon-button disableRipple>
-	<!--<button md-icon-button disableRipple [md-menu-trigger-for]="menu">-->
-		<!-- https://github.com/angular/material2/issues/983 -->
-		<md-icon>more_vert</md-icon>
-	</button>
-	<!--<md-menu #menu="mdMenu">
-			<button md-menu-item> Edit </button>
-			<button md-menu-item> Delete </button>
-	</md-menu>-->
-</md-toolbar>
-
-<md-sidenav-layout>
-	<md-sidenav id="sidenav" #sidenav (open)="firstButton.focus()">
-		<a md-button #firstButton> Answer </a>
-		<a md-button> Ask </a>
-		<a md-button> Find Candidates </a>
-		<a md-button> My Profile </a>
-		<a md-button> My Network </a>
-	</md-sidenav>
-
-	<md-card>
-		<md-card-subtitle>
-			Question by <a href="#">André</a>
-		</md-card-subtitle>
-		<md-card-title>
-			What's more important for you?
-		</md-card-title>
-		
-		<md-radio-group [(ngModel)]='answer'>
-			<md-radio-button value="1">Quality improvement in public health.</md-radio-button>
-			<md-radio-button value="2">Fighting deforestation.</md-radio-button>
-		</md-radio-group>
-
-		<md-toolbar id="stats">
-			<button md-button (click)='changeStats()'>{{statsFor}}</button>
-			<md-progress-bar value="{{value}}"> </md-progress-bar>
-		</md-toolbar>
-
-		<md-card-content class="opinion">
-			<textarea placeholder="Your Opinion" class="fill-space" [disabled]='!answer'></textarea>
-			<button md-button color='primary'> {{skipAnswer}} </button>
-		</md-card-content>
-	</md-card>
-
-</md-sidenav-layout>
+	<md-card-content class="opinion">
+		<textarea placeholder="Your Opinion" [disabled]='!answer'></textarea>
+		<button md-button color='primary'> {{skipAnswer}} </button>
+	</md-card-content>
+</md-card>

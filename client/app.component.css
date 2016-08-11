@@ -1,7 +1,25 @@
-md-content, md-sidenav {
-	/* without this a scrollbar appears when you hit the 'stats' button 
-	multiple times, but why? o_O */
-	overflow: hidden !important;
+#sidenav {
+	display: flex;
+	flex-direction: column;
+	padding: 15px;
+}
+#app-title {
+	font-size: 100%;
+	padding: 0 5px;
+	white-space: nowrap;
+	flex: 1 1 auto;
+}
+md-card {
+	margin: 20px;
+}
+.clear {
+	clear: both;
+}
+a {
+	text-decoration: none;
+}
+a:hover {
+	text-decoration: underline;
 }
 
 /* Extra small devices (portrait phones, less than 34em)*/

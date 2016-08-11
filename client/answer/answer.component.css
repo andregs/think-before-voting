@@ -1,18 +1,7 @@
-.fill-space {
-	flex: 1 1 auto;
-}
 md-progress-bar {
 	flex: 1 1 auto;
 	width: auto;
 	height: 50%;
-}
-md-card {
-	margin: 20px;
-}
-#sidenav {
-	display: flex;
-	flex-direction: column;
-	padding: 15px;
 }
 .opinion {
 	display: flex;
@@ -25,6 +14,7 @@ md-card {
 	border: 1px solid #ddd;
 	padding: 5px;
 	margin-bottom: 15px;
+	flex: 1 1 auto;
 }
 md-radio-button {
 	display: block;
@@ -36,9 +26,4 @@ md-radio-button {
 }
 #stats progress-bar {
 	height: 50%;
-}
-h1 {
-	font-size: 100%;
-	padding: 0 5px;
-	white-space: nowrap;
 }

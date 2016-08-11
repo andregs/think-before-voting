@@ -18,6 +18,7 @@ import { MdMenuModule } from '@angular2-material/menu';
 import { MdTooltipModule } from '@angular2-material/tooltip';
 
 import { AnswerComponent }  from './answer/answer.component';
+import { ProfileComponent }  from './profile/profile.component';
 
 @NgModule({
 	imports: [
@@ -38,7 +39,8 @@ import { AnswerComponent }  from './answer/answer.component';
 	],
 	declarations: [
 		AppComponent,
-		AnswerComponent
+		AnswerComponent,
+		ProfileComponent,
 	],
 	bootstrap: [AppComponent]
 })

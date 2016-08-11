@@ -30,6 +30,7 @@ function renderIndex(req: express.Request, res: express.Response) {
 };
 
 app.get('/', renderIndex);
+app.get('/profile', renderIndex);
 
 const port: number = process.env.PORT || 3000;
 const server = app.listen(port, function () {

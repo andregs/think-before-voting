@@ -1,1 +1,34 @@
-<router-outlet></router-outlet>
+<md-toolbar color="primary">
+	<button md-icon-button (click)='sidenav.toggle()'>
+		<md-icon>menu</md-icon>
+	</button>
+
+	<h1 id='app-title'> Think Before Voting </h1>
+	
+	<md-input placeholder="🔍"></md-input>
+
+	<button md-icon-button routerLink='/profile'>
+		<md-icon>person</md-icon>
+	</button>
+
+	<button md-icon-button [md-menu-trigger-for]="menu">
+		<md-icon>more_vert</md-icon>
+	</button>
+	<md-menu #menu="mdMenu" x-position='before'>
+			<button md-menu-item> Edit </button>
+			<button md-menu-item> Delete </button>
+	</md-menu>
+</md-toolbar>
+
+<md-sidenav-layout>
+	<md-sidenav id="sidenav" #sidenav (open)="firstButton.focus()">
+		<a md-button #firstButton> Answer </a>
+		<a md-button> Ask </a>
+		<a md-button> Find Candidates </a>
+		<a md-button> My Profile </a>
+		<a md-button> My Network </a>
+	</md-sidenav>
+
+	<router-outlet></router-outlet>
+
+</md-sidenav-layout>
