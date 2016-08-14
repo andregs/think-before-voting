@@ -1,6 +1,6 @@
 <md-card>
 	<md-card-subtitle>
-		Question by <a routerLink='/user/eneas'>Enéas Carneiro</a>
+		{{ 'QUESTION.BY' | translate }} <a routerLink='/user/eneas'>Enéas Carneiro</a>
 	</md-card-subtitle>
 	<md-card-title>
 		What's more important for you?
@@ -10,8 +10,8 @@
 		<md-icon>more_vert</md-icon>
 	</button>
 	<md-menu #menu="mdMenu" x-position='before'>
-		<button md-menu-item> Edit </button>
-		<button md-menu-item> Delete </button>
+		<button md-menu-item> {{ 'QUESTION.EDIT' | translate }} </button>
+		<button md-menu-item> {{ 'QUESTION.DELETE' | translate }} </button>
 	</md-menu>
 
 	<md-radio-group [(ngModel)]='answer'>
@@ -20,12 +20,12 @@
 	</md-radio-group>
 
 	<md-toolbar id="stats">
-		<button md-button (click)='changeStats()'>{{statsFor}}</button>
+		<button md-button (click)='changeStats()'> {{ statsFor | translate }} </button>
 		<md-progress-bar value="{{value}}"> </md-progress-bar>
 	</md-toolbar>
 
 	<md-card-content class="opinion">
-		<textarea placeholder="Your Opinion" [disabled]='!answer'></textarea>
-		<button md-button color='primary'> {{skipAnswer}} </button>
+		<textarea placeholder="{{ 'QUESTION.OPINION' | translate }}" [disabled]='!answer'></textarea>
+		<button md-button color='primary'> {{ skipAnswer | translate }} </button>
 	</md-card-content>
 </md-card>

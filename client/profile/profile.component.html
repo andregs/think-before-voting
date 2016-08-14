@@ -46,28 +46,30 @@
 
 	<md-card-content *ngIf='username !== "andre"'>
 		<p>
-			The political affinity between you two is <strong> moderate </strong> based on
-			<a routerLink='/answer' 
-				md-tooltip='Answer more'>3 answers</a>.
+			<span [innerHtml]="'PROFILE.AFFINITY.MODERATE' | translate"></span>
+			<!-- https://github.com/angular/material2/issues/1045 -->
+			<a routerLink='/answer' md-tooltip='PROFILE.AFFINITY.TOOLTIP'>{{
+				'PROFILE.AFFINITY.VALUE' | translate:{value: 3}
+			}}</a>.
 		</p>
 		<md-progress-bar value="39"> </md-progress-bar>
 		<md-list dense>
-			<h3 md-subheader> 👍 You agree on </h3>
+			<h3 md-subheader> 👍 {{ 'PROFILE.AGREE' | translate }} </h3>
 			<a md-list-item href="#"> Should Marijuana be legal? </a>
 			<a md-list-item href="#"> Should the rich pay a higher tax rate than the middle class? </a>
-			<h3 md-subheader> 👎 You disagree on </h3>
+			<h3 md-subheader> 👎 {{ 'PROFILE.DISAGREE' | translate }} </h3>
 			<a md-list-item href="#"> Should same sex marriage be legal? </a>
 		</md-list>
 	</md-card-content>
 
 	<button md-fab *ngIf='username === "andre"' class='fab-button'
-		md-tooltip='Edit profile' tooltip-position='above'>
+		md-tooltip='PROFILE.FAB.EDIT' tooltip-position='above'>
 		<md-icon> edit </md-icon>
 	</button>
 	
 	<a md-fab *ngIf='username !== "andre"' class='fab-button'
 		routerLink='/answer'
-		md-tooltip='Answer more to improve the accuracy of the political affinity' tooltip-position='before'>
+		md-tooltip='PROFILE.FAB.ANSWER' tooltip-position='before'>
 		<md-icon> thumbs_up_down </md-icon>
 	</a>
 </md-card>

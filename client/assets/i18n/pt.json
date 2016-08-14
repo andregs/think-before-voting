@@ -18,6 +18,33 @@
 			"ANSWERS": "Respostas Recentes",
 			"ANSWERED": "{{who}} respondeu {{questions}} novas questões.",
 			"FOLLOWER": "{{who}} seguiu você."
+		},
+		"AFFINITY": {
+			"LOW": "A afinidade política entre vocês dois é <strong> baixa </strong> baseada em",
+			"MODERATE": "A afinidade política entre vocês dois é <strong> moderada </strong> baseada em",
+			"HIGH": "A afinidade política entre vocês dois é <strong> alta </strong> baseada em",
+			"VALUE": "{{value}} respostas",
+			"TOOLTIP": "Responder mais"
+		},
+		"AGREE": "Vocês concordam em",
+		"DISAGREE": "Vocês discordam em",
+		"FAB": {
+			"EDIT": "Editar perfil",
+			"ANSWER": "Responda mais para calcular a afinidade política com mais precisão"
 		}
+	},
+	"QUESTION": {
+		"BY" : "Pergunta de",
+		"EDIT": "Editar",
+		"DELETE": "Excluir",
+		"OPINION": "Sua opinião",
+		"STATS": {
+			"NETWORK": "Minha Rede",
+			"GLOBAL": "Global",
+			"REGION": "Meu Estado",
+			"CITY": "Minha Cidade"
+		},
+		"ANSWER": "Responder",
+		"SKIP": "Pular Pergunta"
 	}
 }

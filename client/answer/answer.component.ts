@@ -9,23 +9,25 @@ import { Component } from '@angular/core';
 })
 export class AnswerComponent {
 
-	private STATS = ['My Network', 'Global', 'My Region', 'My City'];
-	private current = 0;
-	private statsFor = this.STATS[this.current];
-	private value = 25;
+	private STATS = ['NETWORK', 'GLOBAL', 'REGION', 'CITY'];
+	private current = -1;
+	private statsFor: string;
+	private value: number;
 
 	private answer: number;
 
-	constructor() { }
+	constructor() {
+		this.changeStats();
+	}
 
 	changeStats() {
 		const next = ++this.current % this.STATS.length;
-		this.statsFor = this.STATS[next];
+		this.statsFor = 'QUESTION.STATS.' + this.STATS[next];
 		this.value = Math.floor(Math.random() * (90 - 20 + 1)) + 20;
 	}
 
 	get skipAnswer() {
-		return this.answer ? 'Answer' : 'Skip Question';
+		return `QUESTION.${ this.answer ? 'ANSWER' : 'SKIP' }`;
 	}
 
 }

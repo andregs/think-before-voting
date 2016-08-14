@@ -18,6 +18,33 @@
 			"ANSWERS": "Recent Answers",
 			"ANSWERED": "{{who}} has answered {{questions}} new questions.",
 			"FOLLOWER": "{{who}} is now following you."
+		},
+		"AFFINITY": {
+			"LOW": "The political affinity between you two is <strong> low </strong> based on",
+			"MODERATE": "The political affinity between you two is <strong> moderate </strong> based on",
+			"HIGH": "The political affinity between you two is <strong> high </strong> based on",
+			"VALUE": "{{value}} answers",
+			"TOOLTIP": "Answer more"
+		},
+		"AGREE": "You agree on",
+		"DISAGREE": "You disagree on",
+		"FAB": {
+			"EDIT": "Edit profile",
+			"ANSWER": "Answer more to improve the accuracy of the political affinity"
 		}
+	},
+	"QUESTION": {
+		"BY" : "Question by",
+		"EDIT": "Edit",
+		"DELETE": "Delete",
+		"OPINION": "Your opinion",
+		"STATS": {
+			"NETWORK": "My Network",
+			"GLOBAL": "Global",
+			"REGION": "My Region",
+			"CITY": "My City"
+		},
+		"ANSWER": "Answer",
+		"SKIP": "Skip Question"
 	}
 }
