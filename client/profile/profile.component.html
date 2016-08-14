@@ -4,30 +4,36 @@
 		{{username === 'andre' ? 'André Gomes' : 'Enéas Carneiro'}}
 	</md-card-title>
 	<md-card-subtitle>
-		<p> Belo Horizonte, MG, Brazil </p>
+		<p> {{ 'PROFILE.LOCATION' | translate }} </p>
 		<div *ngIf='username === "andre"'>
-			<a href="#">Follows 17</a> &nbsp;&nbsp;♦&nbsp;&nbsp;
-			<a href="#">Followers 12</a>
+			<a href="#">{{ 'PROFILE.FOLLOWING' | translate }} 17</a> &nbsp;&nbsp;♦&nbsp;&nbsp;
+			<a href="#">{{ 'PROFILE.FOLLOWERS' | translate }} 12</a>
 		</div>
 		<a *ngIf='username !== "andre"' (click)='isFollowing = !isFollowing'>
-			{{isFollowing ? 'Unf' : 'F'}}ollow
+			{{ (isFollowing ? 'PROFILE.UNFOLLOW' : 'PROFILE.FOLLOW') | translate }}
 		</a>
 	</md-card-subtitle>
 
 	<md-tab-group *ngIf='username === "andre"'>
 		<md-tab>
-			<template md-tab-label> News Feed </template>
+			<template md-tab-label> {{ 'PROFILE.NEWS.FEED' | translate }} </template>
 			<template md-tab-content>
 				<md-list dense>
-					<a md-list-item href="#"> Justin Trodeau has answered 3 new questions. </a>
-					<a md-list-item href="#"> Ilya Brotzky is now following you. </a>
-					<a md-list-item href="#"> Enéas Carneiro has answered 6 new questions. </a>
+					<a md-list-item href="#">
+						{{ 'PROFILE.NEWS.ANSWERED' | translate: { who: 'Justin Trudeau', questions: 3 } }}
+					</a>
+					<a md-list-item href="#">
+						{{ 'PROFILE.NEWS.FOLLOWER' | translate: { who: 'Ilya Brotzky' } }}
+					</a>
+					<a md-list-item href="#">
+						{{ 'PROFILE.NEWS.ANSWERED' | translate: { who: 'Enéas Carneiro', questions: 6 } }}
+					</a>
 				</md-list>
 			</template>
 		</md-tab>
 
 		<md-tab>
-			<template md-tab-label> Recent Answers </template>
+			<template md-tab-label> {{ 'PROFILE.NEWS.ANSWERS' | translate }} </template>
 			<template md-tab-content>
 				<md-list dense>
 					<a md-list-item href="#"> Should Marijuana be legal? </a>

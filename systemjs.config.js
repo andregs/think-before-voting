@@ -9,11 +9,13 @@
 		"angular2-jwt":				"node_modules/angular2-jwt/angular2-jwt.js",
 		'lodash':							'node_modules/lodash',
 		'rxjs':								'node_modules/rxjs',
+		'ng2-translate':			'node_modules/ng2-translate',
 	};
 	// packages tells the System loader how to load when no filename and/or no extension
 	var packages = {
 		'lodash': { main: 'index.js' },
 		'rxjs': { main: 'bundles/Rx.umd.min.js', defaultExtension: 'js' },
+		'ng2-translate': { main: 'bundles/ng2-translate.js', defaultExtension: 'js' },
 	};
 	var ngPackageNames = [
 		'common',

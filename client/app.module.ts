@@ -1,9 +1,12 @@
 import { NgModule }      from '@angular/core';
+import { Http }      from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 
 import { AppComponent }  from './app.component';
 import { routing }  from './app.routes';
+
+import { TranslateModule, TranslateLoader, TranslateStaticLoader } from 'ng2-translate/ng2-translate';
 
 import { MdCardModule } from '@angular2-material/card';
 import { MdButtonModule } from '@angular2-material/button';
@@ -26,6 +29,12 @@ import { ProfileComponent }  from './profile/profile.component';
 		BrowserModule,
 		FormsModule,
 		routing,
+		TranslateModule.forRoot({
+			provide: TranslateLoader,
+			useFactory: (http: Http) =>
+				new TranslateStaticLoader(http, '/client/assets/i18n', '.json'),
+			deps: [Http]
+		}),
 		MdCardModule,
 		MdButtonModule,
 		MdProgressBarModule,

@@ -1,0 +1,23 @@
+{
+	"APP": {
+		"TITLE": "Think Before Voting"
+	},
+	"MENU": {
+		"ANSWER": "Answer",
+		"ASK": "Ask",
+		"CANDIDATES": "Candidates"
+	},
+	"PROFILE": {
+		"LOCATION": "Vancouver, BC, Canada",
+		"FOLLOWING": "Following",
+		"FOLLOWERS": "Followers",
+		"FOLLOW": "Follow",
+		"UNFOLLOW": "Unfollow",
+		"NEWS": {
+			"FEED": "News Feed",
+			"ANSWERS": "Recent Answers",
+			"ANSWERED": "{{who}} has answered {{questions}} new questions.",
+			"FOLLOWER": "{{who}} is now following you."
+		}
+	}
+}

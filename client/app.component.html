@@ -3,7 +3,7 @@
 		<md-icon>menu</md-icon>
 	</button>
 
-	<h1 id='app-title'> Think Before Voting </h1>
+	<h1 id='app-title'> {{ 'APP.TITLE' | translate }} </h1>
 
 	<md-input #search placeholder="{{search.value ? '' : '🔍'}}"></md-input>
 
@@ -14,9 +14,9 @@
 
 <md-sidenav-layout>
 	<md-sidenav id="sidenav" #sidenav (open)="firstButton.focus()">
-		<a md-button routerLink='/answer' #firstButton> Answer </a>
-		<a md-button routerLink='/ask'> Ask </a>
-		<a md-button routerLink='/candidates'> Candidates </a>
+		<a md-button routerLink='/answer' #firstButton> {{ 'MENU.ANSWER' | translate }} </a>
+		<a md-button routerLink='/ask'> {{ 'MENU.ASK' | translate }} </a>
+		<a md-button routerLink='/candidates'> {{ 'MENU.CANDIDATES' | translate }} </a>
 	</md-sidenav>
 
 	<router-outlet></router-outlet>

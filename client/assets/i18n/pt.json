@@ -1,0 +1,23 @@
+{
+	"APP": {
+		"TITLE": "Pense & Vote"
+	},
+	"MENU": {
+		"ANSWER": "Responder",
+		"ASK": "Perguntar",
+		"CANDIDATES": "Candidatos"
+	},
+	"PROFILE": {
+		"LOCATION": "Belo Horizonte, MG, Brazil",
+		"FOLLOWING": "Seguindo",
+		"FOLLOWERS": "Seguidores",
+		"FOLLOW": "Seguir",
+		"UNFOLLOW": "Deixar de seguir",
+		"NEWS": {
+			"FEED": "Novidades",
+			"ANSWERS": "Respostas Recentes",
+			"ANSWERED": "{{who}} respondeu {{questions}} novas questões.",
+			"FOLLOWER": "{{who}} seguiu você."
+		}
+	}
+}
