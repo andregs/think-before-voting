@@ -1,24 +1,7 @@
-<md-toolbar color="primary">
-	<button md-icon-button (click)='sidenav.toggle()'>
-		<md-icon>menu</md-icon>
-	</button>
+<tbv-toolbar (toggleNav)='sidenav.toggle()'></tbv-toolbar>
 
-	<h1 id='app-title'> {{ 'APP.TITLE' | translate }} </h1>
-
-	<md-input #search placeholder="{{search.value ? '' : '🔍'}}"></md-input>
-
-	<button md-icon-button routerLink='/user/andre'>
-		<md-icon>person</md-icon>
-	</button>
-</md-toolbar>
-
-<md-sidenav-layout>
-	<md-sidenav id="sidenav" #sidenav (open)="firstButton.focus()">
-		<a md-button routerLink='/answer' #firstButton> {{ 'MENU.ANSWER' | translate }} </a>
-		<a md-button routerLink='/ask'> {{ 'MENU.ASK' | translate }} </a>
-		<a md-button routerLink='/candidates'> {{ 'MENU.CANDIDATES' | translate }} </a>
-	</md-sidenav>
-
-	<router-outlet></router-outlet>
-
-</md-sidenav-layout>
+<tbv-navigation #sidenav>
+	<tbv-nav-item link="/answer" label="MENU.ANSWER"></tbv-nav-item>
+	<tbv-nav-item link="/ask" label="MENU.ASK"></tbv-nav-item>
+	<tbv-nav-item link="/candidates" label="MENU.CANDIDATES"></tbv-nav-item>
+</tbv-navigation>

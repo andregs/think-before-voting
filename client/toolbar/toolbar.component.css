@@ -1,0 +1,6 @@
+#app-title {
+	font-size: 100%;
+	padding: 0 5px;
+	white-space: nowrap;
+	flex: 1 1 auto;
+}

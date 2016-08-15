@@ -21,6 +21,9 @@ import { MdMenuModule } from '@angular2-material/menu';
 import { MdTabsModule } from '@angular2-material/tabs';
 import { MdTooltipModule } from '@angular2-material/tooltip';
 
+import { ToolbarComponent }  from './toolbar/toolbar.component';
+import { NavigationComponent }  from './navigation/navigation.component';
+import { NavItemComponent }  from './navigation/nav-item.component';
 import { AnswerComponent }  from './answer/answer.component';
 import { ProfileComponent }  from './profile/profile.component';
 
@@ -50,6 +53,9 @@ import { ProfileComponent }  from './profile/profile.component';
 	],
 	declarations: [
 		AppComponent,
+		ToolbarComponent,
+		NavigationComponent,
+		NavItemComponent,
 		AnswerComponent,
 		ProfileComponent,
 	],
