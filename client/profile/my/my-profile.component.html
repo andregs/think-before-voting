@@ -1,0 +1,28 @@
+<md-tab-group>
+	<md-tab>
+		<template md-tab-label> {{ 'PROFILE.NEWS.FEED' | translate }} </template>
+		<template md-tab-content>
+			<md-list dense>
+				<a md-list-item href="#" *ngFor='let n of user.news'>
+					{{ 'PROFILE.NEWS.' + n.type | translate: n }}
+				</a>
+			</md-list>
+		</template>
+	</md-tab>
+
+	<md-tab>
+		<template md-tab-label> {{ 'PROFILE.NEWS.ANSWERS' | translate }} </template>
+		<template md-tab-content>
+			<md-list dense>
+				<a md-list-item href="#" *ngFor='let answer of user.answers'>
+					{{ answer }}
+				</a>
+			</md-list>
+		</template>
+	</md-tab>
+</md-tab-group>
+
+<button md-fab class='fab-button'
+	md-tooltip='PROFILE.FAB.EDIT' tooltip-position='above'>
+	<md-icon> edit </md-icon>
+</button>

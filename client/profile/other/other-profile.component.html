@@ -1,0 +1,26 @@
+<md-card-content>
+	<p>
+		<span [innerHtml]="user.affinity.text() | translate"></span>
+		<!-- https://github.com/angular/material2/issues/1045 -->
+		<a routerLink='/answer' md-tooltip='PROFILE.AFFINITY.TOOLTIP'>{{
+			'PROFILE.AFFINITY.VALUE' | translate:{value: user.affinity.answers}
+		}}</a>.
+	</p>
+	<md-progress-bar value="{{ user.affinity.percent() }}"> </md-progress-bar>
+	<md-list dense>
+		<h3 md-subheader> 👍 {{ 'PROFILE.AGREE' | translate }} </h3>
+		<a md-list-item href="#" *ngFor='let answer of user.agree'>
+			{{ answer }}
+		</a>
+		<h3 md-subheader> 👎 {{ 'PROFILE.DISAGREE' | translate }} </h3>
+		<a md-list-item href="#" *ngFor='let answer of user.disagree'>
+			{{ answer }}
+		</a>
+	</md-list>
+</md-card-content>
+
+<a md-fab class='fab-button'
+	routerLink='/answer'
+	md-tooltip='PROFILE.FAB.ANSWER' tooltip-position='before'>
+	<md-icon> thumbs_up_down </md-icon>
+</a>

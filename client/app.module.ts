@@ -26,6 +26,8 @@ import { NavigationComponent }  from './navigation/navigation.component';
 import { NavItemComponent }  from './navigation/nav-item.component';
 import { AnswerComponent }  from './answer/answer.component';
 import { ProfileComponent }  from './profile/profile.component';
+import { MyProfileComponent }  from './profile/my/my-profile.component';
+import { OtherProfileComponent }  from './profile/other/other-profile.component';
 
 @NgModule({
 	imports: [
@@ -58,6 +60,8 @@ import { ProfileComponent }  from './profile/profile.component';
 		NavItemComponent,
 		AnswerComponent,
 		ProfileComponent,
+		MyProfileComponent,
+		OtherProfileComponent,
 	],
 	bootstrap: [AppComponent]
 })

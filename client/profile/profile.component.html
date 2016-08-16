@@ -1,75 +1,18 @@
 <md-card>
-	<img id="avatar" md-card-sm-image src="client/assets/anyone.png">
-	<md-card-title>
-		{{username === 'andre' ? 'André Gomes' : 'Enéas Carneiro'}}
-	</md-card-title>
-	<md-card-subtitle>
-		<p> {{ 'PROFILE.LOCATION' | translate }} </p>
-		<div *ngIf='username === "andre"'>
-			<a href="#">{{ 'PROFILE.FOLLOWING' | translate }} 17</a> &nbsp;&nbsp;♦&nbsp;&nbsp;
-			<a href="#">{{ 'PROFILE.FOLLOWERS' | translate }} 12</a>
+	<img id="avatar" md-card-sm-image src="{{ user.avatar }}">
+	<md-card-title> {{ user.name }} </md-card-title>
+	<md-card-subtitle [ngSwitch]='user.me'>
+		<p> {{ user.location }} </p>
+		<div *ngSwitchCase='true'>
+			<a href="#">{{ 'PROFILE.FOLLOWING' | translate }} {{ user.following }}</a>
+			&nbsp;&nbsp;♦&nbsp;&nbsp;
+			<a href="#">{{ 'PROFILE.FOLLOWERS' | translate }} {{ user.followers }}</a>
 		</div>
-		<a *ngIf='username !== "andre"' (click)='isFollowing = !isFollowing'>
-			{{ (isFollowing ? 'PROFILE.UNFOLLOW' : 'PROFILE.FOLLOW') | translate }}
+		<a *ngSwitchCase='false' (click)='user.followed = !user.followed'>
+			{{ (user.followed ? 'PROFILE.UNFOLLOW' : 'PROFILE.FOLLOW') | translate }}
 		</a>
 	</md-card-subtitle>
 
-	<md-tab-group *ngIf='username === "andre"'>
-		<md-tab>
-			<template md-tab-label> {{ 'PROFILE.NEWS.FEED' | translate }} </template>
-			<template md-tab-content>
-				<md-list dense>
-					<a md-list-item href="#">
-						{{ 'PROFILE.NEWS.ANSWERED' | translate: { who: 'Justin Trudeau', questions: 3 } }}
-					</a>
-					<a md-list-item href="#">
-						{{ 'PROFILE.NEWS.FOLLOWER' | translate: { who: 'Ilya Brotzky' } }}
-					</a>
-					<a md-list-item href="#">
-						{{ 'PROFILE.NEWS.ANSWERED' | translate: { who: 'Enéas Carneiro', questions: 6 } }}
-					</a>
-				</md-list>
-			</template>
-		</md-tab>
-
-		<md-tab>
-			<template md-tab-label> {{ 'PROFILE.NEWS.ANSWERS' | translate }} </template>
-			<template md-tab-content>
-				<md-list dense>
-					<a md-list-item href="#"> Should Marijuana be legal? </a>
-					<a md-list-item href="#"> Should the rich pay a higher tax rate than the middle class? </a>
-					<a md-list-item href="#"> Should same sex marriage be legal? </a>
-				</md-list>
-			</template>
-		</md-tab>
-	</md-tab-group>
-
-	<md-card-content *ngIf='username !== "andre"'>
-		<p>
-			<span [innerHtml]="'PROFILE.AFFINITY.MODERATE' | translate"></span>
-			<!-- https://github.com/angular/material2/issues/1045 -->
-			<a routerLink='/answer' md-tooltip='PROFILE.AFFINITY.TOOLTIP'>{{
-				'PROFILE.AFFINITY.VALUE' | translate:{value: 3}
-			}}</a>.
-		</p>
-		<md-progress-bar value="39"> </md-progress-bar>
-		<md-list dense>
-			<h3 md-subheader> 👍 {{ 'PROFILE.AGREE' | translate }} </h3>
-			<a md-list-item href="#"> Should Marijuana be legal? </a>
-			<a md-list-item href="#"> Should the rich pay a higher tax rate than the middle class? </a>
-			<h3 md-subheader> 👎 {{ 'PROFILE.DISAGREE' | translate }} </h3>
-			<a md-list-item href="#"> Should same sex marriage be legal? </a>
-		</md-list>
-	</md-card-content>
-
-	<button md-fab *ngIf='username === "andre"' class='fab-button'
-		md-tooltip='PROFILE.FAB.EDIT' tooltip-position='above'>
-		<md-icon> edit </md-icon>
-	</button>
-	
-	<a md-fab *ngIf='username !== "andre"' class='fab-button'
-		routerLink='/answer'
-		md-tooltip='PROFILE.FAB.ANSWER' tooltip-position='before'>
-		<md-icon> thumbs_up_down </md-icon>
-	</a>
+	<tbv-my-profile *ngIf="user.me" [user]='user'></tbv-my-profile>
+	<tbv-other-profile *ngIf="! user.me" [user]='user'></tbv-other-profile>
 </md-card>
