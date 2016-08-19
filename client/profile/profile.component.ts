@@ -3,6 +3,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
+import { TranslateService } from 'ng2-translate/ng2-translate';
+
 const model = {
 	'andre': {
 		me: true,
@@ -62,8 +64,14 @@ export class ProfileComponent implements OnInit {
 	user: Object;
 
 	constructor(
-		private route: ActivatedRoute
-	) { }
+		private route: ActivatedRoute,
+		translate: TranslateService
+	) {
+		// I think this should be done only in AppComponent
+		// is it a lazy loading issue?
+		translate.setDefaultLang('en');
+		translate.use('en');
+	}
 
 	ngOnInit() {
 		this.route.params.subscribe(params => {

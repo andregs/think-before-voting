@@ -11,7 +11,7 @@ import { NavItemComponent } from './nav-item.component';
 })
 export class NavigationComponent implements AfterContentInit {
 
-	@ViewChild(MdSidenav) sidenav: MdSidenav;
+	@ViewChild('sidenav') sidenav: MdSidenav;
 	@ContentChildren(NavItemComponent) items: QueryList<NavItemComponent>;
 
 	ngAfterContentInit() {
