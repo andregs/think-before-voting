@@ -6,6 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { TranslateService } from 'ng2-translate/ng2-translate';
 
 import { ProfileService } from './profile.service';
+import { User } from '../auth/user.model';
 
 @Component({
 	selector: 'tbv-profile',
@@ -14,7 +15,7 @@ import { ProfileService } from './profile.service';
 })
 export class ProfileComponent implements OnInit {
 
-	user: Object;
+	user: User;
 
 	constructor(
 		private route: ActivatedRoute,

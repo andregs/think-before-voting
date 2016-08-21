@@ -22,7 +22,7 @@ export class User {
 	@autoserialize disagree: string[];
 
 	get _id() {
-		return this._key === undefined ? undefined : `question/${this._key}`;
+		return this._key === undefined ? undefined : `user/${this._key}`;
 	}
 
 }
