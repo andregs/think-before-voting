@@ -1,7 +1,7 @@
-<md-card>
+<md-card *ngIf='question'>
 	<md-card-subtitle>
 		{{ 'QUESTION.BY' | translate }}
-		<a routerLink='/user/{{question.author.username}}'> {{ question.author.name }} </a>
+		<a routerLink='/user/{{question.questioner.username}}'> {{ question.questioner.name }} </a>
 	</md-card-subtitle>
 	<md-card-title> {{ question.title }} </md-card-title>
 

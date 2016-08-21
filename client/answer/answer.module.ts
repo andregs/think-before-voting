@@ -6,6 +6,7 @@ import { SharedModule } from '../shared/shared.module';
 
 import { routing } from './answer.routing';
 import { AnswerComponent }  from './answer.component';
+import { QuestionService }  from './question.service';
 
 @NgModule({
 	imports: [
@@ -15,5 +16,8 @@ import { AnswerComponent }  from './answer.component';
 	declarations: [
 		AnswerComponent,
 	],
+	providers: [
+		QuestionService
+	]
 })
 export default class AnswerModule { }

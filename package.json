@@ -15,8 +15,8 @@
     "url": "https://github.com/andregs/think-before-voting.git"
   },
   "scripts": {
-    "db:create": "arangosh --javascript.execute script/create-db.script.js",
-    "db:drop": "arangosh --javascript.execute-string db._dropDatabase('think')",
+    "db:create": "arangosh --server.authentication false --javascript.execute script/create-db.script.js",
+    "db:drop": "arangosh --server.authentication false --javascript.execute-string db._dropDatabase('think')",
     "nodemon": "nodemon --watch server",
     "nodemon:debug": "nodemon --debug-brk --watch server",
     "dev": "npm-run-all --silent -p tsc:watch nodemon",
@@ -35,7 +35,7 @@
     "pretest": "npm run lint",
     "test": "echo \"TODO: testing...\"",
     "typings:install": "typings install",
-    "postinstall": "npm-run-all -p typings:install"
+    "postinstall": "npm-run-all -p typings:install db:create"
   },
   "devDependencies": {
     "nodemon": "1.10.0",

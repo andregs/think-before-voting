@@ -1,35 +1,31 @@
 'use strict';
 
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
-const model = {
-	author: {
-		username: 'eneas',
-		name: 'Enéas Carneiro'
-	},
-	title: "What's more important for you?",
-	options: [
-		"Quality improvement in public health.",
-		"Fighting deforestation."
-	],
-	stats: [
-		Math.floor(Math.random() * (90 - 20 + 1)) + 20,
-		Math.floor(Math.random() * (90 - 20 + 1)) + 20,
-		Math.floor(Math.random() * (90 - 20 + 1)) + 20,
-		Math.floor(Math.random() * (90 - 20 + 1)) + 20,
-	]
-};
+import { QuestionService } from './question.service';
+import { Question } from './question.model';
 
 @Component({
 	selector: 'tbv-answer',
 	templateUrl: 'client/answer/answer.component.html',
 	styleUrls: ['client/answer/answer.component.css'],
 })
-export class AnswerComponent {
+export class AnswerComponent implements OnInit {
 
-	question = model;
+	question: Question;
 	current = 0;
 	answer: number;
+
+	constructor(
+		private questionService: QuestionService
+	) {}
+
+	ngOnInit() {
+		this.questionService.next().subscribe(
+			value => this.question = value,
+			error => console.error(error)
+		);
+	}
 
 	changeStats() {
 		this.current = (this.current + 1) % this.question.stats.length;
