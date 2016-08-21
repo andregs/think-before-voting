@@ -1,12 +1,12 @@
 <md-card-content>
 	<p>
-		<span [innerHtml]="user.affinity.text() | translate"></span>
+		<span [innerHtml]="user.affinity + '' | translate"></span>
 		<!-- https://github.com/angular/material2/issues/1045 -->
 		<a routerLink='/answer' md-tooltip='PROFILE.AFFINITY.TOOLTIP'>{{
 			'PROFILE.AFFINITY.VALUE' | translate:{value: user.affinity.answers}
 		}}</a>.
 	</p>
-	<md-progress-bar value="{{ user.affinity.percent() }}"> </md-progress-bar>
+	<md-progress-bar value="{{ user.affinity.percent }}"> </md-progress-bar>
 	<md-list dense>
 		<h3 md-subheader> 👍 {{ 'PROFILE.AGREE' | translate }} </h3>
 		<a md-list-item href="#" *ngFor='let answer of user.agree'>

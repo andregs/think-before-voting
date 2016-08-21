@@ -2,6 +2,7 @@
 
 import express = require('express');
 import path = require('path');
+import _ = require('lodash');
 
 const app = express();
 
@@ -26,9 +27,7 @@ app.use('/api/*', function (req, res, next) {
 	db.collection('user')
 		.firstExample({username: 'andre'})
 		.then(user => {
-			console.log(user);
-			req['user']._id = user._id;
-			req['user']._key = user._key;
+			req['user'] = _.pick(user, '_id', '_key');
 			next();
 		})
 		.catch((err) => {
@@ -38,6 +37,7 @@ app.use('/api/*', function (req, res, next) {
 });
 
 require('./routes/question.router.js')(app, db);
+require('./routes/user.router.js')(app, db);
 
 function renderIndex(req: express.Request, res: express.Response) {
 	res.sendFile(path.resolve(__dirname, '../client/index.html'));

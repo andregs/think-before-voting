@@ -15,8 +15,43 @@ graph = gm._create('qaGraph', [
 	{ from: ["question"], collection: "questioner", to: ["user"] },
 ]);
 
-var andre = graph.user.save({ username: 'andre', email: 'andregs@gmail.com', name: 'André Gomes' });
-var eneas = graph.user.save({ username: 'eneas', email: 'eneas@prona.com.br', name: 'Enéas Carneiro' });
+var andre = graph.user.save({
+	username: 'andre',
+	email: 'andregs@gmail.com',
+	name: 'André Gomes',
+	location: 'Belo Horizonte, MG, Brasil',
+	following: 1,
+	followers: 0,
+	news: [
+		{ type: 'ANSWERED', who: 'Justin Trudeau', questions: 3 },
+		{ type: 'FOLLOWER', who: 'Ilya Brotzky' },
+		{ type: 'ANSWERED', who: 'Enéas Carneiro', questions: 6 },
+	],
+	answers: [
+		'Should Marijuana be legal?',
+		'Should the rich pay a higher tax rate than the middle class?',
+		'Should same sex marriage be legal?',
+	],
+});
+var eneas = graph.user.save({
+	username: 'eneas',
+	email: 'eneas@prona.com.br',
+	name: 'Enéas Carneiro',
+	location: 'São Paulo, SP, Brasil',
+	followed: true,
+	affinity: {
+		match: 2,
+		answers: 3,
+	},
+	agree: [
+		'Should Marijuana be legal?',
+		'Should the rich pay a higher tax rate than the middle class?',
+	],
+	disagree: [
+		'Should same sex marriage be legal?',
+	],
+});
+
 var q1 = graph.question.save({
 	title: "What's more important for you?",
 	options: [

@@ -1,6 +1,8 @@
 'use strict';
 
-import { autoserialize } from 'cerialize';
+import { autoserialize, autoserializeAs } from 'cerialize';
+
+import { Affinity } from './affinity.model';
 
 export class User {
 
@@ -8,6 +10,16 @@ export class User {
 	@autoserialize username: string;
 	@autoserialize email: number;
 	@autoserialize name: string;
+	@autoserialize me: boolean;
+	@autoserialize location: string;
+	@autoserialize following: number;
+	@autoserialize followers: number;
+	@autoserialize followed: boolean;
+	@autoserialize news: any[];
+	@autoserialize answers: string[];
+	@autoserializeAs(Affinity) affinity: Affinity[];
+	@autoserialize agree: string[];
+	@autoserialize disagree: string[];
 
 	get _id() {
 		return this._key === undefined ? undefined : `question/${this._key}`;
