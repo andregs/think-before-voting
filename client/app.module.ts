@@ -9,6 +9,7 @@ import { routing } from './app.routing';
 import { SharedModule } from './shared/shared.module';
 import AnswerModule from './answer/answer.module';
 import ProfileModule from './profile/profile.module';
+import PartyModule from './party/party.module';
 
 @NgModule({
 	imports: [
@@ -17,6 +18,7 @@ import ProfileModule from './profile/profile.module';
 		SharedModule.forRoot(),
 		AnswerModule,
 		ProfileModule,
+		PartyModule,
 	],
 	declarations: [
 		AppComponent,

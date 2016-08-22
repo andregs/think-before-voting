@@ -1,0 +1,20 @@
+'use strict';
+
+import { autoserialize, autoserializeAs } from 'cerialize';
+
+import { User } from '../auth/user.model';
+
+export class Party {
+
+	@autoserialize _key: string;
+	@autoserialize abbreviation: string;
+	@autoserialize name: string;
+	@autoserialize location: string;
+	@autoserializeAs(User) admins: User[];
+	@autoserializeAs(User) candidates: User[];
+
+	get _id() {
+		return this._key === undefined ? undefined : `party/${this._key}`;
+	}
+
+}

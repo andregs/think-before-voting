@@ -38,6 +38,7 @@ app.use('/api/*', function (req, res, next) {
 
 require('./routes/question.router.js')(app, db);
 require('./routes/user.router.js')(app, db);
+require('./routes/party.router.js')(app, db);
 
 function renderIndex(req: express.Request, res: express.Response) {
 	res.sendFile(path.resolve(__dirname, '../client/index.html'));
@@ -45,6 +46,7 @@ function renderIndex(req: express.Request, res: express.Response) {
 
 app.get('/', renderIndex);
 app.get('/user/:name', renderIndex);
+app.get('/party/:abbreviation', renderIndex);
 app.get('/answer', renderIndex);
 app.get('/ask', renderIndex);
 app.get('/candidates', renderIndex);

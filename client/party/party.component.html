@@ -1,0 +1,26 @@
+<md-card *ngIf='party'>
+	<!--<img id="avatar" md-card-sm-image src="client/assets/anyone.png">-->
+	<md-card-title>
+		{{ party.abbreviation | uppercase }} -
+		{{ party.name }}
+	</md-card-title>
+	<md-card-subtitle>
+		<p> {{ party.location }} </p>
+		<div>
+			<a href="#">Some</a>
+			&nbsp;&nbsp;♦&nbsp;&nbsp;
+			<a href="#">Actions</a>
+		</div>
+	</md-card-subtitle>
+
+	<md-card-content>
+		<p>
+			Admins
+			{{ party.admins | json }}
+		</p>
+		<p>
+			Candidates
+			{{ party.candidates | json }}
+		</p>
+	</md-card-content>
+</md-card>
