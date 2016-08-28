@@ -1,0 +1,13 @@
+<md-card>
+	<md-card-title> {{ 'HOME.TITLE' | translate }} </md-card-title>
+
+	<md-card-content>
+		<button md-button color='primary' (click)='authService.login()'>
+			{{ 'HOME.LOGIN' | translate }}
+		</button>
+		<button md-button (click)='authService.logout()'>
+			{{ 'HOME.LOGOUT' | translate }}
+		</button>
+		<pre>User {{ authService.user | json }}</pre>
+	</md-card-content>
+</md-card>

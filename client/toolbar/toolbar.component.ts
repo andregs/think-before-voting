@@ -1,26 +1,37 @@
 'use strict';
 
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
 	selector: 'tbv-toolbar',
 	templateUrl: 'client/toolbar/toolbar.component.html',
 	styleUrls: ['client/toolbar/toolbar.component.css'],
 })
-export class ToolbarComponent implements OnInit {
+export class ToolbarComponent {
 
 	opened = false;
 
 	@Output()
 	toggleNav = new EventEmitter<boolean>();
 
-	constructor() {}
-
-	ngOnInit() {}
+	constructor(
+		private authService: AuthService,
+		private router: Router
+	) { }
 
 	toggle() {
 		this.opened = !this.opened;
 		this.toggleNav.emit(this.opened);
+	}
+
+	goToMe() {
+		if (this.authService.authenticated) {
+			this.router.navigate(['profile', this.authService.user.nickname]);
+		} else {
+			this.authService.login();
+		}
 	}
 
 }

@@ -2,6 +2,11 @@
 	"APP": {
 		"TITLE": "Pense & Vote"
 	},
+	"HOME": {
+		"TITLE": "Esta é a página inicial",
+		"LOGIN": "Entrar",
+		"LOGOUT": "Sair"
+	},
 	"MENU": {
 		"ANSWER": "Responder",
 		"ASK": "Perguntar",

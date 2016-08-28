@@ -2,6 +2,11 @@
 	"APP": {
 		"TITLE": "Think Before Voting"
 	},
+	"HOME": {
+		"TITLE": "This is the homepage",
+		"LOGIN": "Login",
+		"LOGOUT": "Logout"
+	},
 	"MENU": {
 		"ANSWER": "Answer",
 		"ASK": "Ask",

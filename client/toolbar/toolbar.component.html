@@ -3,11 +3,13 @@
 		<md-icon>menu</md-icon>
 	</button>
 
-	<h1 id='app-title'> {{ 'APP.TITLE' | translate }} </h1>
+	<h1 id='app-title'>
+		<a routerLink="/"> {{ 'APP.TITLE' | translate }} </a>
+	</h1>
 
 	<md-input #search placeholder="{{search.value ? '' : '🔍'}}"></md-input>
 
-	<button md-icon-button routerLink='/user/andre'>
+	<button md-icon-button (click)='goToMe()'>
 		<md-icon>person</md-icon>
 	</button>
 </md-toolbar>

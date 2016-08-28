@@ -2,14 +2,16 @@
 
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Http }      from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 import { MaterialModule } from './material.module';
 
-import { TranslateModule, TranslateLoader, TranslateStaticLoader } from 'ng2-translate/ng2-translate';
+import { TranslateModule } from 'ng2-translate/ng2-translate';
 
+import { AUTH_PROVIDERS }  from 'angular2-jwt';
+
+import { AuthService }  from '../auth/auth.service';
 import { ToolbarComponent }  from '../toolbar/toolbar.component';
 import { NavigationComponent }  from '../navigation/navigation.component';
 import { NavItemComponent }  from '../navigation/nav-item.component';
@@ -17,12 +19,7 @@ import { NavItemComponent }  from '../navigation/nav-item.component';
 @NgModule({
 	imports: [
 		CommonModule,
-		TranslateModule.forRoot({
-			provide: TranslateLoader,
-			useFactory: (http: Http) =>
-				new TranslateStaticLoader(http, '/client/assets/i18n', '.json'),
-			deps: [Http]
-		}),
+		TranslateModule,
 		MaterialModule,
 		RouterModule,
 	],
@@ -39,13 +36,16 @@ import { NavItemComponent }  from '../navigation/nav-item.component';
 		ToolbarComponent,
 		NavigationComponent,
 		NavItemComponent,
+	],
+	providers: [
+		AUTH_PROVIDERS,
+		AuthService,
 	]
 })
 export class SharedModule {
 	static forRoot(): ModuleWithProviders {
 		return {
-			ngModule: SharedModule,
-			providers: []
+			ngModule: SharedModule
 		};
 	}
 }

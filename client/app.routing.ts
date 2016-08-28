@@ -2,9 +2,12 @@
 
 import { Routes, RouterModule } from '@angular/router';
 
+import { HomeComponent } from './home/home.component';
+
 const appRoutes: Routes = [
-	{ path: '', redirectTo: 'answer', pathMatch: 'full' },
-	{ path: 'user', loadChildren: 'profile/profile.module' },
+	{ path: '', component: HomeComponent },
+	{ path: 'answer', loadChildren: 'answer/answer.module' },
+	{ path: 'profile', loadChildren: 'profile/profile.module' },
 	{ path: 'party', loadChildren: 'party/party.module' },
 ];
 

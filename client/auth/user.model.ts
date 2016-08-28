@@ -7,9 +7,15 @@ import { Affinity } from './affinity.model';
 export class User {
 
 	@autoserialize _key: string;
-	@autoserialize username: string;
-	@autoserialize email: number;
+	@autoserializeAs('user_id') auth0Id: string;
+	@autoserialize email: string;
 	@autoserialize name: string;
+	@autoserializeAs('email_verified') emailVerified: boolean;
+	@autoserialize picture: string;
+	@autoserialize nickname: string;
+	@autoserializeAs(Date, 'created_at') createdAt: Date;
+	@autoserializeAs(Date, 'updated_at') updatedAt: Date;
+
 	@autoserialize me: boolean;
 	@autoserialize location: string;
 	@autoserialize following: number;
@@ -22,7 +28,7 @@ export class User {
 	@autoserialize disagree: string[];
 
 	get _id() {
-		return this._key === undefined ? undefined : `user/${this._key}`;
+		if (this._key) return `user/${this._key}`;
 	}
 
 }

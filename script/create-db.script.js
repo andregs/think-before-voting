@@ -16,7 +16,7 @@ graph = gm._create('qaGraph', [
 ]);
 
 var andre = graph.user.save({
-	username: 'andre',
+	nickname: 'andre',
 	email: 'andregs@gmail.com',
 	name: 'André Gomes',
 	location: 'Belo Horizonte, MG, Brasil',
@@ -34,7 +34,7 @@ var andre = graph.user.save({
 	],
 });
 var eneas = graph.user.save({
-	username: 'eneas',
+	nickname: 'eneas',
 	email: 'eneas@prona.com.br',
 	name: 'Enéas Carneiro',
 	location: 'São Paulo, SP, Brasil',

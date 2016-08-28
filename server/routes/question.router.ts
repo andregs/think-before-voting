@@ -19,7 +19,7 @@ function questionRoutes(app: Express, db) {
 			for user in 1 outbound q graph 'qaGraph'
 			return merge (
 				keep(q, '_key', 'title', 'options', 'answers'),
-				{ questioner: keep(user, '_key', 'username', 'name') }
+				{ questioner: keep(user, '_key', 'nickname', 'name') }
 			)
 		`)
 			.then(cursor => cursor.all())

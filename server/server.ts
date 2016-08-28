@@ -23,11 +23,17 @@ const password = process.env.ARANGODB_PASSWORD;
 const url = `http://${username}:${password}@localhost:8529`;
 const db = arangojs({ url, databaseName: 'think' });
 
+let jwt = require('express-jwt');
+let jwtCheck = jwt({
+	audience: process.env.AUTH0_CLIENT_ID,
+	secret: new Buffer(process.env.AUTH0_SECRET, 'base64'),
+});
+app.use('/api/*', jwtCheck);
 app.use('/api/*', function (req, res, next) {
 	db.collection('user')
-		.firstExample({username: 'andre'})
+		.firstExample({ auth0Id: req['user'].sub })
 		.then(user => {
-			req['user'] = _.pick(user, '_id', '_key');
+			req['user'] = _.pick(user, '_id', '_key', 'auth0Id');
 			next();
 		})
 		.catch((err) => {
@@ -45,7 +51,7 @@ function renderIndex(req: express.Request, res: express.Response) {
 };
 
 app.get('/', renderIndex);
-app.get('/user/:name', renderIndex);
+app.get('/profile/:name', renderIndex);
 app.get('/party/:abbreviation', renderIndex);
 app.get('/answer', renderIndex);
 app.get('/ask', renderIndex);

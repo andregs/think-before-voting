@@ -1,27 +1,32 @@
 'use strict';
 
 import { NgModule } from '@angular/core';
+import { Http } from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
 
+import { TranslateModule, TranslateLoader, TranslateStaticLoader } from 'ng2-translate/ng2-translate';
+
 import { AppComponent } from './app.component';
+import { HomeComponent } from './home/home.component';
 import { routing } from './app.routing';
 
 import { SharedModule } from './shared/shared.module';
-import AnswerModule from './answer/answer.module';
-import ProfileModule from './profile/profile.module';
-import PartyModule from './party/party.module';
 
 @NgModule({
 	imports: [
 		BrowserModule,
 		routing,
+		TranslateModule.forRoot({
+			provide: TranslateLoader,
+			useFactory: (http: Http) =>
+				new TranslateStaticLoader(http, '/client/assets/i18n', '.json'),
+			deps: [Http]
+		}),
 		SharedModule.forRoot(),
-		AnswerModule,
-		ProfileModule,
-		PartyModule,
 	],
 	declarations: [
 		AppComponent,
+		HomeComponent,
 	],
 	bootstrap: [AppComponent]
 })

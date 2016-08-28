@@ -22,12 +22,12 @@ function partyRoutes(app: Express, db) {
 			admins = (
 				for v,e in 1 inbound p graph 'partyGraph'
 					filter is_same_collection('admin', e)
-					return keep(v, '_key', 'username', 'name')
+					return keep(v, '_key', 'nickname', 'name')
 			),
 			candidates = (
 				for v,e in 1 inbound p graph 'partyGraph'
 					filter is_same_collection('candidate', e)
-					return keep(v, '_key', 'username', 'name')
+					return keep(v, '_key', 'nickname', 'name')
 			)
 			return merge(p, {
 				admins, candidates,
