@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { Deserialize } from 'cerialize';
 import { AuthHttp } from 'angular2-jwt';
 
-import { User } from '../auth/user.model';
+import { User } from '../shared/auth/user.model';
 
 @Injectable()
 export class ProfileService {
