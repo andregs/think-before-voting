@@ -4,7 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { ProfileService } from './profile.service';
-import { User } from '../auth/user.model';
+import { User } from '../shared/auth/user.model';
 
 @Component({
 	selector: 'tbv-profile',

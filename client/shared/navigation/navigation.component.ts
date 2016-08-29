@@ -6,8 +6,8 @@ import { NavItemComponent } from './nav-item.component';
 
 @Component({
 	selector: 'tbv-navigation',
-	templateUrl: 'client/navigation/navigation.component.html',
-	styleUrls: ['client/navigation/navigation.component.css'],
+	templateUrl: 'client/shared/navigation/navigation.component.html',
+	styleUrls: ['client/shared/navigation/navigation.component.css'],
 })
 export class NavigationComponent implements AfterContentInit {
 

@@ -6,8 +6,8 @@ import { AuthService } from '../auth/auth.service';
 
 @Component({
 	selector: 'tbv-toolbar',
-	templateUrl: 'client/toolbar/toolbar.component.html',
-	styleUrls: ['client/toolbar/toolbar.component.css'],
+	templateUrl: 'client/shared/toolbar/toolbar.component.html',
+	styleUrls: ['client/shared/toolbar/toolbar.component.css'],
 })
 export class ToolbarComponent {
 

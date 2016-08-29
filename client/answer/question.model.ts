@@ -2,7 +2,7 @@
 
 import { autoserialize, autoserializeAs } from 'cerialize';
 
-import { User } from '../auth/user.model';
+import { User } from '../shared/auth/user.model';
 
 export class Question {
 
