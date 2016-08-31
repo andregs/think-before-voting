@@ -1,0 +1,36 @@
+<md-card *ngIf='user'>
+	<md-card-title-group>
+		<img id='avatar' md-card-sm-image src="client/assets/anyone.png">
+		<md-card-title> {{ user.name }} </md-card-title>
+		<md-card-subtitle>
+			<p> {{ user.location }} </p>
+			<div> {{ 'PROFILE.EDIT.INSTRUCTION' | translate }} </div>
+		</md-card-subtitle>
+	</md-card-title-group>
+
+	<form (ngSubmit)='onSubmit()' #profileForm='ngForm'>
+		<md-card-content>
+			<p><md-input type='text' name='name' #name='ngModel' required 
+				placeholder="{{ 'PROFILE.EDIT.NAME.HOLDER' | translate }}"
+				[(ngModel)]='user.name'>
+				<md-hint [style.visibility]='showError(name)'>
+					{{ 'PROFILE.EDIT.NAME.REQUIRED' | translate }}
+				</md-hint>
+			</md-input></p>
+
+			<p><md-input type='text' name='location' 
+				placeholder="{{ 'PROFILE.EDIT.LOCATION' | translate }}"
+				[(ngModel)]='user.location'></md-input></p>
+		</md-card-content>
+
+		<md-card-actions>
+			<button type="submit" md-button [disabled]="!profileForm.form.valid">
+				{{ 'PROFILE.EDIT.SAVE' | translate }}
+			</button>
+
+			<a md-button (click)='onCancel()'>
+				{{ 'PROFILE.EDIT.CANCEL' | translate }}
+			</a>
+		</md-card-actions>
+	</form>
+</md-card>

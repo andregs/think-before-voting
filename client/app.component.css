@@ -8,7 +8,7 @@ md-card {
 a {
 	text-decoration: none;
 }
-a:hover {
+a:hover:not([md-button]) {
 	text-decoration: underline;
 }
 .fab-button[md-fab] {

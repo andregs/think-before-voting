@@ -35,6 +35,16 @@
 		"FAB": {
 			"EDIT": "Editar perfil",
 			"ANSWER": "Responda mais para calcular a afinidade política com mais precisão"
+		},
+		"EDIT": {
+			"INSTRUCTION": "Preencha o formulário abaixo e clique em 'Salvar'.",
+			"NAME": {
+				"HOLDER": "Seu Nome",
+				"REQUIRED": "Seu nome é obrigatório."
+			},
+			"LOCATION": "Sua Localização",
+			"SAVE": "Salvar",
+			"CANCEL": "Cancelar"
 		}
 	},
 	"QUESTION": {

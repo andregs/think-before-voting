@@ -29,9 +29,13 @@ function userRoutes(app: Express, db) {
 		var action = String(function (args) {
 			var gm = require("@arangodb/general-graph");
 			var graph = gm._graph('qaGraph');
+			var _ = require('underscore');
+
 			var user = graph.user.firstExample({ auth0Id: args[0].auth0Id });
-			if (user === null) {
+			if (user === null) { // first login (sign up)
 				user = graph.user.save(args[0]);
+			} else if (args[0]._key) { // editing profile
+				user = graph.user.update(args[0]._key, _.pick(args[0], 'name', 'location'));
 			}
 			return user;
 		});

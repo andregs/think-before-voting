@@ -6,6 +6,9 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { TranslateModule, TranslateLoader, TranslateStaticLoader } from 'ng2-translate/ng2-translate';
 
+import { AUTH_PROVIDERS }  from 'angular2-jwt';
+
+import { AuthService }  from './shared/auth/auth.service';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { routing } from './app.routing';
@@ -27,6 +30,10 @@ import { SharedModule } from './shared/shared.module';
 	declarations: [
 		AppComponent,
 		HomeComponent,
+	],
+	providers: [
+		AUTH_PROVIDERS,
+		AuthService,
 	],
 	bootstrap: [AppComponent]
 })

@@ -8,6 +8,7 @@ import { routing } from './profile.routing';
 import { ProfileService }  from './profile.service';
 import { ProfileComponent }  from './profile.component';
 import { MyProfileComponent }  from './my/my-profile.component';
+import { EditProfileComponent }  from './edit/edit-profile.component';
 import { OtherProfileComponent }  from './other/other-profile.component';
 
 @NgModule({
@@ -18,6 +19,7 @@ import { OtherProfileComponent }  from './other/other-profile.component';
 	declarations: [
 		ProfileComponent,
 		MyProfileComponent,
+		EditProfileComponent,
 		OtherProfileComponent,
 	],
 	providers: [

@@ -2,6 +2,8 @@
 
 import { Injectable } from '@angular/core';
 import { Response, Headers, RequestOptions } from '@angular/http';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 
 import { tokenNotExpired, AuthHttp } from 'angular2-jwt';
 
@@ -32,33 +34,12 @@ export class AuthService {
 	);
 
 	constructor(
-		private authHttp: AuthHttp
+		private authHttp: AuthHttp,
+		private router: Router
 	) {
-		const idToken = localStorage.getItem('id_token');
-		if (idToken) this.onAuthenticated(idToken);
 		this.lock.on("authenticated", (result: any) => {
 			localStorage.setItem('id_token', result.idToken);
-			this.onAuthenticated(result.idToken);
-		});
-	}
-
-	public onAuthenticated(idToken: string) {
-		this.lock.getProfile(idToken, (error: any, profile: any) => {
-			if (error) {
-				console.error(error);
-				return;
-			}
-
-			// upsert the User in my own DB
-			DeserializeInto(profile, User, this.user);
-			let body = JSON.stringify(this.user);
-			let headers = new Headers({ 'Content-Type': 'application/json' });
-			let options = new RequestOptions({ headers: headers });
-
-			this.authHttp.post(this.API_URL, body, options).subscribe(
-				(res: Response) => DeserializeInto(res.json(), User, this.user),
-				error => this.logout()
-			);
+			this.user.subscribe();
 		});
 	}
 
@@ -73,9 +54,37 @@ export class AuthService {
 	public logout() {
 		localStorage.removeItem('id_token');
 		this.model = new User();
+		window.location.reload(); // TODO notify instead of reload
 	};
 
-	public get user() {
-		return this.model;
+	public get user(): Observable<User> {
+		const idToken = localStorage.getItem('id_token');
+
+		if (!idToken) {
+			this.model = new User();
+			return Observable.of(this.model);
+		} else if (this.model._key) {
+			return Observable.of(this.model);
+		}
+
+		const getProfileRx: (id: string) => Observable<{}>
+			= Observable.bindNodeCallback(this.lock.getProfile.bind(this.lock));
+		return getProfileRx(idToken)
+			.flatMap((profile: any) => {
+				DeserializeInto(profile, User, this.model);
+				// upsert the User into my own DB
+				let body = JSON.stringify(this.model);
+				let headers = new Headers({ 'Content-Type': 'application/json' });
+				let options = new RequestOptions({ headers: headers });
+				return this.authHttp.post(this.API_URL, body, options);
+			})
+			.map((res: Response) => {
+				DeserializeInto(res.json(), User, this.model);
+				return this.model;
+			})
+			.catch((e: any) => {
+				this.logout();
+				return Observable.throw(e);
+			});
 	}
 }

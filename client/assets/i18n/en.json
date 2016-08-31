@@ -35,6 +35,16 @@
 		"FAB": {
 			"EDIT": "Edit profile",
 			"ANSWER": "Answer more to improve the accuracy of the political affinity"
+		},
+		"EDIT": {
+			"INSTRUCTION": "Fill the form below and hit 'Save'.",
+			"NAME": {
+				"HOLDER": "Your Name",
+				"REQUIRED": "Your name is required."
+			},
+			"LOCATION": "Your Location",
+			"SAVE": "Save",
+			"CANCEL": "Cancel"
 		}
 	},
 	"QUESTION": {

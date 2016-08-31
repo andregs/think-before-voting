@@ -28,7 +28,9 @@ export class ToolbarComponent {
 
 	goToMe() {
 		if (this.authService.authenticated) {
-			this.router.navigate(['profile', this.authService.user.nickname]);
+			this.authService.user.subscribe(
+				user => this.router.navigate(['profile', user.nickname])
+			);
 		} else {
 			this.authService.login();
 		}
