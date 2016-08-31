@@ -9,6 +9,7 @@ import { TranslateModule, TranslateLoader, TranslateStaticLoader } from 'ng2-tra
 import { AUTH_PROVIDERS }  from 'angular2-jwt';
 
 import { AuthService }  from './shared/auth/auth.service';
+import { AuthGuard }  from './shared/auth/auth-guard.service';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { routing } from './app.routing';
@@ -34,6 +35,7 @@ import { SharedModule } from './shared/shared.module';
 	providers: [
 		AUTH_PROVIDERS,
 		AuthService,
+		AuthGuard,
 	],
 	bootstrap: [AppComponent]
 })
