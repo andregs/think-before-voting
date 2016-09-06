@@ -1,0 +1,14 @@
+<md-card-title> {{ 'ADMIN.HOME.TITLE' | translate }} </md-card-title>
+
+<md-card-content>
+	<p> {{ 'ADMIN.HOME.INSTRUCTION' | translate }} </p>
+
+	<md-nav-list>
+		<md-list-item *ngFor='let option of options'>
+			<a md-line [routerLink]='option.link'>
+				{{ 'ADMIN.HOME.OPTIONS.' + option.title | translate }}
+			</a>
+		</md-list-item>
+	</md-nav-list>
+
+</md-card-content>

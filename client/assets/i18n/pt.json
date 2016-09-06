@@ -1,6 +1,14 @@
 {
 	"APP": {
-		"TITLE": "Pense & Vote"
+		"TITLE": "Pense & Vote",
+		"CONFIRMATION": "Você tem certeza?",
+		"ERROR": "Erro {{code}}",
+		"500": "MAS POR QUÊ? ლ(ಠ_ಠლ)",
+		"404": "Tá bom, não achei. Fui! ᕕ(ᐛ)ᕗ",
+		"401": "Desculpe. Receio que você não possa fazer isso. ಠ_ಠ",
+		"FORM": {
+			"REQUIRED": "Este é um campo obrigatório."
+		}
 	},
 	"HOME": {
 		"TITLE": "Esta é a página inicial",
@@ -10,7 +18,22 @@
 	"MENU": {
 		"ANSWER": "Responder",
 		"ASK": "Perguntar",
-		"CANDIDATES": "Candidatos"
+		"CANDIDATES": "Candidatos",
+		"ADMIN": "Administração"
+	},
+	"ADMIN": {
+		"TITLE": "Área Administrativa",
+		"HOME": {
+			"TITLE": "Oi, chefe!",
+			"INSTRUCTION": "O que tem de bom pra hoje?",
+			"OPTIONS": {
+				"PARTY_LIST": "Lista de Partidos Políticos",
+				"ADD_PARTY": "Criar Novo Partido"
+			}
+		},
+		"PARTY": {
+			"TITLE": "Partidos Políticos"
+		}
 	},
 	"PROFILE": {
 		"FOLLOWING": "Seguindo",
@@ -38,10 +61,7 @@
 		},
 		"EDIT": {
 			"INSTRUCTION": "Preencha o formulário abaixo e clique em 'Salvar'.",
-			"NAME": {
-				"HOLDER": "Seu Nome",
-				"REQUIRED": "Seu nome é obrigatório."
-			},
+			"NAME": "Seu Nome",
 			"LOCATION": "Sua Localização",
 			"SAVE": "Salvar",
 			"CANCEL": "Cancelar"
@@ -60,5 +80,17 @@
 		},
 		"ANSWER": "Responder",
 		"SKIP": "Pular Pergunta"
+	},
+	"PARTY": {
+		"NEW": "Novo Partido",
+		"DELETE": "Excluir Partido",
+		"EDIT": {
+			"NAME": "Nome do Partido",
+			"ALIAS": "Sigla",
+			"LOCATION": "Local",
+			"SAVE": "Salvar",
+			"CANCEL": "Cancelar",
+			"FAB": "Editar Partido"
+		}
 	}
 }

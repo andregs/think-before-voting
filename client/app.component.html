@@ -4,4 +4,6 @@
 	<tbv-nav-item link="/answer" label="MENU.ANSWER"></tbv-nav-item>
 	<tbv-nav-item link="/ask" label="MENU.ASK"></tbv-nav-item>
 	<tbv-nav-item link="/candidates" label="MENU.CANDIDATES"></tbv-nav-item>
+	<tbv-nav-item link="/admin" label="MENU.ADMIN"
+		[hidden]="!(user && user.is('admin'))"></tbv-nav-item>
 </tbv-navigation>

@@ -1,0 +1,11 @@
+<md-card-title> {{ 'ADMIN.PARTY.TITLE' | translate }} </md-card-title>
+
+<md-card-content>
+	<md-nav-list *ngIf='parties'>
+		<md-list-item *ngFor="let party of parties">
+			<a md-line [routerLink]='["/party", party._key]'>
+				{{ party.name }} ({{ party.alias }})
+			</a>
+		</md-list-item>
+	</md-nav-list>
+</md-card-content>

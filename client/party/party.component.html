@@ -1,17 +1,21 @@
 <md-card *ngIf='party'>
 	<!--<img id="avatar" md-card-sm-image src="client/assets/anyone.png">-->
 	<md-card-title>
-		{{ party.abbreviation | uppercase }} -
-		{{ party.name }}
+		{{ party.name }} ({{ party.alias }})
 	</md-card-title>
 	<md-card-subtitle>
 		<p> {{ party.location }} </p>
-		<div>
-			<a href="#">Some</a>
-			&nbsp;&nbsp;♦&nbsp;&nbsp;
-			<a href="#">Actions</a>
-		</div>
 	</md-card-subtitle>
+
+	<div *ngIf='user && user.is("admin")'>
+		<button class='top-right' md-icon-button [md-menu-trigger-for]="menu">
+			<md-icon>lock</md-icon>
+		</button>
+		<md-menu #menu="mdMenu" x-position='before'>
+			<button md-menu-item (click)='onNew()'> {{ 'PARTY.NEW' | translate }} </button>
+			<button md-menu-item (click)='onDelete()'> {{ 'PARTY.DELETE' | translate }} </button>
+		</md-menu>
+	</div>
 
 	<md-card-content>
 		<p>
@@ -23,4 +27,10 @@
 			{{ party.candidates | json }}
 		</p>
 	</md-card-content>
+
+	<button *ngIf='partyEditable' md-fab class='fab-button'
+		[md-tooltip]="'PARTY.EDIT.FAB' | translate" tooltip-position='above'
+		[routerLink]='["/party/edit", party._key]'>
+		<md-icon> edit </md-icon>
+	</button>
 </md-card>

@@ -7,7 +7,7 @@ import { User } from '../shared/auth/user.model';
 export class Party {
 
 	@autoserialize _key: string;
-	@autoserialize abbreviation: string;
+	@autoserialize alias: string;
 	@autoserialize name: string;
 	@autoserialize location: string;
 	@autoserializeAs(User) admins: User[];

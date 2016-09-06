@@ -1,6 +1,14 @@
 {
 	"APP": {
-		"TITLE": "Think Before Voting"
+		"TITLE": "Think Before Voting",
+		"CONFIRMATION": "Are you sure?",
+		"ERROR": "{{code}} - Error",
+		"500": "BUT WHY? ლ(ಠ_ಠლ)",
+		"404": "ᕕ(ᐛ)ᕗ Ok it’s not here. Bye!",
+		"401": "I'm sorry. I'm afraid you can't do that. ಠ_ಠ",
+		"FORM": {
+			"REQUIRED": "This field is required."
+		}
 	},
 	"HOME": {
 		"TITLE": "This is the homepage",
@@ -10,7 +18,22 @@
 	"MENU": {
 		"ANSWER": "Answer",
 		"ASK": "Ask",
-		"CANDIDATES": "Candidates"
+		"CANDIDATES": "Candidates",
+		"ADMIN": "Administration"
+	},
+	"ADMIN": {
+		"TITLE": "Administration Area",
+		"HOME": {
+			"TITLE": "Hi, boss!",
+			"INSTRUCTION": "What's on tap for today?",
+			"OPTIONS": {
+				"PARTY_LIST": "List of Political Parties",
+				"ADD_PARTY": "Add a New Party"
+			}
+		},
+		"PARTY": {
+			"TITLE": "Political Parties"
+		}
 	},
 	"PROFILE": {
 		"FOLLOWING": "Following",
@@ -38,10 +61,7 @@
 		},
 		"EDIT": {
 			"INSTRUCTION": "Fill the form below and hit 'Save'.",
-			"NAME": {
-				"HOLDER": "Your Name",
-				"REQUIRED": "Your name is required."
-			},
+			"NAME": "Your Name",
 			"LOCATION": "Your Location",
 			"SAVE": "Save",
 			"CANCEL": "Cancel"
@@ -60,5 +80,17 @@
 		},
 		"ANSWER": "Answer",
 		"SKIP": "Skip Question"
+	},
+	"PARTY": {
+		"NEW": "New Party",
+		"DELETE": "Delete Party",
+		"EDIT": {
+			"NAME": "Party Name",
+			"ALIAS": "Alias",
+			"LOCATION": "Location",
+			"SAVE": "Save",
+			"CANCEL": "Cancel",
+			"FAB": "Edit Party"
+		}
 	}
 }

@@ -23,7 +23,7 @@
 </md-tab-group>
 
 <button md-fab class='fab-button'
-	md-tooltip='PROFILE.FAB.EDIT' tooltip-position='above'
+	[md-tooltip]="'PROFILE.FAB.EDIT' | translate" tooltip-position='above'
 	routerLink='/profile/edit'>
 	<md-icon> edit </md-icon>
 </button>

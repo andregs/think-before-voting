@@ -12,6 +12,7 @@ import { AuthService }  from './shared/auth/auth.service';
 import { AuthGuard }  from './shared/auth/auth-guard.service';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
+import { ErrorComponent } from './error/error.component';
 import { routing } from './app.routing';
 
 import { SharedModule } from './shared/shared.module';
@@ -31,6 +32,7 @@ import { SharedModule } from './shared/shared.module';
 	declarations: [
 		AppComponent,
 		HomeComponent,
+		ErrorComponent,
 	],
 	providers: [
 		AUTH_PROVIDERS,

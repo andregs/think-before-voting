@@ -17,6 +17,14 @@ a:hover:not([md-button]) {
 	right: 24px;
 	z-index: 998;
 }
+button.top-right {
+	position: absolute;
+	top: 24px;
+	right: 24px;
+}
+.non-empty::after {
+	content: "\00a0"; /*&nbsp;*/
+}
 
 /* Extra small devices (portrait phones, less than 34em)*/
 @media (max-width: 33.9em) {}

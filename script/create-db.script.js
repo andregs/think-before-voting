@@ -10,6 +10,8 @@ var gm = require('@arangodb/general-graph');
 
 var graph;
 
+// populate DB with some dummy data because this app still is just a prototype
+
 graph = gm._create('qaGraph', [
 	{ from: ["user"], collection: "answer", to: ["question"] },
 	{ from: ["question"], collection: "questioner", to: ["user"] },
@@ -32,6 +34,9 @@ var andre = graph.user.save({
 		'Should the rich pay a higher tax rate than the middle class?',
 		'Should same sex marriage be legal?',
 	],
+	roles: [
+		'admin'
+	]
 });
 var eneas = graph.user.save({
 	nickname: 'eneas',
@@ -50,6 +55,10 @@ var eneas = graph.user.save({
 	disagree: [
 		'Should same sex marriage be legal?',
 	],
+	roles: [
+		'candidate',
+		'party-admin'
+	]
 });
 
 var q1 = graph.question.save({
@@ -108,8 +117,8 @@ graph = gm._create('partyGraph', [
 	{ from: ["user"], collection: "candidate", to: ["party"] },
 ]);
 
-var pt = graph.party.save({ name: 'Partido dos Trabalhadores', abbreviation: 'PT' });
-var prona = graph.party.save({ name: 'Partido da Reedificação da Ordem Nacional', abbreviation: 'PRONA' });
+var pt = graph.party.save({ name: 'Partido dos Trabalhadores', alias: 'PT' });
+var prona = graph.party.save({ name: 'Partido da Reedificação da Ordem Nacional', alias: 'PRONA' });
 
 graph.cover.save(pt._id, br._id, {});
 graph.cover.save(prona._id, br._id, {});

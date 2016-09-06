@@ -1,9 +1,9 @@
 <md-card *ngIf='user'>
 	<md-card-title-group>
 		<img id='avatar' md-card-sm-image src="client/assets/anyone.png">
-		<md-card-title> {{ user.name }} </md-card-title>
+		<md-card-title class='non-empty'> {{ user.name }} </md-card-title>
 		<md-card-subtitle>
-			<p> {{ user.location }} </p>
+			<p class='non-empty'> {{ user.location }} </p>
 			<div> {{ 'PROFILE.EDIT.INSTRUCTION' | translate }} </div>
 		</md-card-subtitle>
 	</md-card-title-group>
@@ -11,10 +11,10 @@
 	<form (ngSubmit)='onSubmit()' #profileForm='ngForm'>
 		<md-card-content>
 			<p><md-input type='text' name='name' #name='ngModel' required 
-				placeholder="{{ 'PROFILE.EDIT.NAME.HOLDER' | translate }}"
+				placeholder="{{ 'PROFILE.EDIT.NAME' | translate }}"
 				[(ngModel)]='user.name'>
 				<md-hint [style.visibility]='showError(name)'>
-					{{ 'PROFILE.EDIT.NAME.REQUIRED' | translate }}
+					{{ 'APP.FORM.REQUIRED' | translate }}
 				</md-hint>
 			</md-input></p>
 

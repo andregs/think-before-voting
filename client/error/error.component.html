@@ -1,0 +1,4 @@
+<md-card *ngIf='code'>
+	<md-card-subtitle> {{ 'APP.ERROR' | translate: {code: code} }} </md-card-subtitle>
+	<md-card-title> {{ 'APP.' + code | translate }} </md-card-title>
+</md-card>

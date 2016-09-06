@@ -1,0 +1,56 @@
+<md-card *ngIf='party'>
+	<!--<img id="avatar" md-card-sm-image src="client/assets/anyone.png">-->
+	<md-card-title>
+		{{ party.name }} ({{ party.alias }})
+	</md-card-title>
+	<md-card-subtitle>
+		<p class='non-empty'> {{ party.location }} </p>
+	</md-card-subtitle>
+
+	<form (ngSubmit)='onSubmit()' #partyForm='ngForm'>
+		<md-card-content>
+			<p><md-input type="text" name='name' #name="ngModel" required
+				placeholder="{{ 'PARTY.EDIT.NAME' | translate }}"
+				[(ngModel)]='party.name'>
+				<md-hint [style.visibility]='showError(name)'>
+					{{ 'APP.FORM.REQUIRED' | translate }}
+				</md-hint>
+			</md-input></p>
+			
+			<p><md-input type="text" name='alias' #alias="ngModel" required
+				placeholder="{{ 'PARTY.EDIT.ALIAS' | translate }}"
+				[(ngModel)]='party.alias'>
+				<md-hint [style.visibility]='showError(alias)'>
+					{{ 'APP.FORM.REQUIRED' | translate }}
+				</md-hint>
+			</md-input></p>
+			
+			<p><md-input type="text" name='location' #location="ngModel" required
+				placeholder="{{ 'PARTY.EDIT.LOCATION' | translate }}"
+				[(ngModel)]='party.location'>
+				<md-hint [style.visibility]='showError(location)'>
+					{{ 'APP.FORM.REQUIRED' | translate }}
+				</md-hint>
+			</md-input></p>
+
+			<p>
+				Admins
+				{{ party.admins | json }}
+			</p>
+			<p>
+				Candidates
+				{{ party.candidates | json }}
+			</p>
+		</md-card-content>
+
+		<md-card-actions>
+			<button type="submit" md-button [disabled]="!partyForm.form.valid">
+				{{ 'PARTY.EDIT.SAVE' | translate }}
+			</button>
+
+			<a md-button (click)='onCancel()'>
+				{{ 'PARTY.EDIT.CANCEL' | translate }}
+			</a>
+		</md-card-actions>
+	</form>
+</md-card>
