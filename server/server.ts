@@ -50,7 +50,15 @@ function renderIndex(req: express.Request, res: express.Response) {
 	res.sendFile(path.resolve(__dirname, '../client/index.html'));
 };
 
-app.use(renderIndex);
+app.get('/', renderIndex);
+app.get('/admin', renderIndex);
+app.get('/admin/party/list', renderIndex);
+app.get('/profile/*', renderIndex);
+app.get('/party/edit/*', renderIndex);
+app.get('/party/*', renderIndex);
+app.get('/answer', renderIndex);
+app.get('/ask', renderIndex);
+app.get('/candidates', renderIndex);
 
 const port: number = process.env.PORT || 3000;
 const server = app.listen(port, function () {

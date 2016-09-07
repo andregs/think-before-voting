@@ -17,7 +17,7 @@ import { NavItemComponent }  from './navigation/nav-item.component';
 	imports: [
 		CommonModule,
 		TranslateModule,
-		MaterialModule,
+		MaterialModule.forRoot(),
 		RouterModule,
 	],
 	declarations: [

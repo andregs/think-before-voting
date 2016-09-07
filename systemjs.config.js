@@ -1,3 +1,5 @@
+'use strict';
+
 (function iife(/*global*/) {
 	// map tells the System loader where to look for things
 	var map = {
@@ -35,21 +37,26 @@
 	var materialPkgs = [
 		'core',
 		'button',
+		'button-toggle',
 		'card',
+		'checkbox',
 		'grid-list',
 		'icon',
 		'input',
 		'list',
 		'menu',
 		'progress-bar',
+		'progress-circle',
 		'radio',
 		'sidenav',
+		'slide-toggle',
+		'slider',
 		'tabs',
 		'toolbar',
 		'tooltip',
 	];
 	materialPkgs.forEach(function (pkg) {
-		packages['@angular2-material/' + pkg] = { main: '/' + pkg + '.js' };
+		packages['@angular2-material/' + pkg] = { format: 'cjs', main: '/' + pkg + '.umd.js' };
 	});
 	var paths = {
 	};
