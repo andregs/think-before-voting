@@ -12,6 +12,7 @@ export class User {
 	// auth0 fields
 
 	@autoserializeAs('user_id') auth0Id: string;
+	@autoserializeAs('username') _key: string;
 	@autoserialize email: string;
 	@autoserialize name: string;
 	@autoserializeAs('email_verified') emailVerified: boolean;
@@ -22,7 +23,7 @@ export class User {
 
 	// my custom fields
 
-	@autoserialize _key: string;
+	@autoserialize _rev: string;
 	@autoserialize me: boolean;
 	@autoserialize location: string;
 	@autoserialize following: number;

@@ -29,7 +29,7 @@ export class AuthService {
 		'8w82FlSkzDwMpyMe7pS9KGITEbpTvIOR',
 		'andregs.auth0.com',
 		{
-			usernameStyle: 'username', // FIXME why is this not working?
+			usernameStyle: 'username',
 			closable: false,
 			language: 'en', // TODO should use the same language as the app
 			auth: {
@@ -48,7 +48,7 @@ export class AuthService {
 			this.user.subscribe(); // to fill the cache
 			if (this.redirectUrl)
 				this.router.navigate([this.redirectUrl]);
-			Observable.of(true).delay(2500) // to preserve the 'thanks' animation
+			Observable.of(true).delay(2231) // to preserve the 'thanks' animation
 				.subscribe(val => this.lock.hide());
 		});
 	}
@@ -82,7 +82,7 @@ export class AuthService {
 		if (!idToken) { // not authenticated
 			this.model = new User();
 			return Observable.of(this.model);
-		} else if (this.model._key) { // authenticated and in cache
+		} else if (this.model._rev) { // authenticated and in cache
 			return Observable.of(this.model);
 		}
 
@@ -93,12 +93,13 @@ export class AuthService {
 			= Observable.bindNodeCallback(this.lock.getProfile.bind(this.lock));
 		return getProfileRx(idToken)
 			.flatMap((profile: any) => {
-				// send (upsert) the auth0 profile to our own DB
+				// send the auth0 profile to our own DB
 				DeserializeInto(profile, User, this.model);
-				let body = JSON.stringify(this.model);
-				let headers = new Headers({ 'Content-Type': 'application/json' });
-				let options = new RequestOptions({ headers: headers });
-				return this.authHttp.post(API_URL, body, options);
+				const body = JSON.stringify(this.model);
+				const headers = new Headers({ 'Content-Type': 'application/json' });
+				const options = new RequestOptions({ headers: headers });
+				const url = `${API_URL}/${this.model._key}/upsert`;
+				return this.authHttp.post(url, body, options);
 			})
 			.map((res: Response) => { // cache the result
 				DeserializeInto(res.json(), User, this.model);

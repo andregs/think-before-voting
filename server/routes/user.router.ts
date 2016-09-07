@@ -6,18 +6,27 @@ import { sendError } from '../shared/functions';
 
 module.exports = userRoutes;
 
+/** REST endpoints for user management. */
 function userRoutes(app: Express, db) {
 
-	app.route('/api/user/:username').get(find);
+	app.route('/api/user/:username/upsert')
+		.post(upsert);
 
-	app.route('/api/user').post(post);
+	app.route('/api/user/:username')
+		.get(get);
 
 	const aqlQuery = require('arangojs').aqlQuery;
 
-	function find(req: Request, res: Response): void {
+	/**
+	 * Endpoint to select a user by its given username.
+	 * 
+	 * Example:
+	 * GET /api/user/andre
+	 */
+	function get(req: Request, res: Response): void {
 		db.query(aqlQuery`
 		for u in user
-			filter u.nickname == ${req.params.username}
+			filter u._key == ${req.params.username}
 			return merge(u, {me: u._id == ${req['user']._id}})
 		`)
 			.then(cursor => cursor.all())
@@ -25,19 +34,29 @@ function userRoutes(app: Express, db) {
 			.catch(err => sendError(err, res));
 	}
 
-	function post(req: Request, res: Response): void {
+	/**
+	 * Endpoint to create or update a user.
+	 * 
+	 * Example:
+	 * POST /api/user/andre/upsert
+	 * { "_key": "andre", "name": "André Gomes" ... }
+	 */
+	function upsert(req: Request, res: Response): void {
 		var action = String(function (args) {
 			var gm = require("@arangodb/general-graph");
 			var graph = gm._graph('qaGraph');
 			var _ = require('underscore');
 
-			var user = graph.user.firstExample({ auth0Id: args[0].auth0Id });
+			var userData = _.omit(args[0], _.isUndefined);
+			var user = graph.user.firstExample({_key: userData._key});
+
 			if (user === null) { // first login (sign up)
-				user = graph.user.save(args[0]);
-			} else if (args[0]._key) { // editing profile
-				user = graph.user.update(args[0]._key, _.pick(args[0], 'name', 'location'));
+				graph.user.save(userData);
+			} else { // sign in or edit profile
+				graph.user.update(userData._key, userData);
 			}
-			return user;
+
+			return graph.user.firstExample({_key: userData._key});
 		});
 
 		const collections = { read: 'user', write: 'user' };

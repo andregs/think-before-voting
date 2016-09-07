@@ -6,14 +6,21 @@ import { sendError } from '../shared/functions';
 
 module.exports = questionRoutes;
 
+/** REST endpoints for questions & answers management. */
 function questionRoutes(app: Express, db) {
 
 	app.route('/api/question/next').get(next);
 
 	const aqlQuery = require('arangojs').aqlQuery;
 
+	/**
+	 * Endpoint to select a random unanswered question.
+	 * 
+	 * Example:
+	 * GET /api/question/next
+	 */
 	function next(req: Request, res: Response): void {
-		// TODO select a random unanswered question
+		// FIXME the query below is totally fake
 		db.query(aqlQuery`
 		for q in question limit 1
 			for user in 1 outbound q graph 'qaGraph'
