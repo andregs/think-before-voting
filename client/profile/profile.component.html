@@ -1,6 +1,6 @@
 <md-card *ngIf='user'>
 	<img id="avatar" md-card-sm-image src="client/assets/anyone.png">
-	<md-card-title> {{ user.name }} </md-card-title>
+	<md-card-title> {{ user.displayName }} </md-card-title>
 	<md-card-subtitle [ngSwitch]='user.me'>
 		<p> {{ user.location }} </p>
 		<div *ngSwitchCase='true'>

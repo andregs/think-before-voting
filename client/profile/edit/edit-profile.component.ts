@@ -32,7 +32,8 @@ export class EditProfileComponent implements OnInit {
 
 	/** Submit button event handler. */
 	onSubmit() {
-		this.profileService.post(this.model).subscribe(
+		// TODO should update auth0 profile
+		this.profileService.save(this.model).subscribe(
 			user => {
 				this.router.navigate(['profile', this.model._key]);
 			},

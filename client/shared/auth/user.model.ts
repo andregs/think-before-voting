@@ -36,16 +36,20 @@ export class User {
 	@autoserialize disagree: string[];
 	@autoserializeAs('roles') private _roles: string[];
 
-	get _id() {
-		if (this._key) return `user/${this._key}`;
-	}
-
-	get roles() { return this._roles; }
-
 	/** Checks whether the user has the given role. */
 	is(role: Role): boolean {
 		return this._roles && this._roles.includes(role);
 	}
+
+	get _id(): string {
+		if (this._key) return `user/${this._key}`;
+	}
+
+	get displayName(): string {
+		return this.nickname ? this.nickname : this.name;
+	}
+
+	get roles(): string[] { return this._roles; }
 
 }
 

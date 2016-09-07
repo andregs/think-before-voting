@@ -13,7 +13,8 @@ function userRoutes(app: Express, db) {
 		.post(upsert);
 
 	app.route('/api/user/:username')
-		.get(get);
+		.get(get)
+		.patch(patch);
 
 	const aqlQuery = require('arangojs').aqlQuery;
 
@@ -57,6 +58,30 @@ function userRoutes(app: Express, db) {
 			}
 
 			return graph.user.firstExample({_key: userData._key});
+		});
+
+		const collections = { read: 'user', write: 'user' };
+		db.transaction(collections, action, [req.body])
+			.then(json => res.json(json))
+			.catch(err => sendError(err, res));
+	}
+
+	/**
+	 * Endpoint to update a user.
+	 * 
+	 * Example:
+	 * PATCH /api/user/andre
+	 * { "name": "André Gomes", "nickname": "André" ... }
+	 */
+	function patch(req: Request, res: Response): void {
+		var action = String(function (args) {
+			var gm = require("@arangodb/general-graph");
+			var graph = gm._graph('qaGraph');
+			var _ = require('underscore');
+
+			var userData = _.omit(args[0], _.isUndefined);
+			var user = graph.user.update(userData._key, userData);
+			return user;
 		});
 
 		const collections = { read: 'user', write: 'user' };

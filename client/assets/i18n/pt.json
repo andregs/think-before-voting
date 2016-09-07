@@ -62,6 +62,7 @@
 		"EDIT": {
 			"INSTRUCTION": "Preencha o formulário abaixo e clique em 'Salvar'.",
 			"NAME": "Seu Nome",
+			"NICKNAME": "Seu Apelido",
 			"LOCATION": "Sua Localização",
 			"SAVE": "Salvar",
 			"CANCEL": "Cancelar"

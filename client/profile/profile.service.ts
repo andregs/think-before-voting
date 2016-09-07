@@ -9,19 +9,21 @@ import { AuthHttp } from 'angular2-jwt';
 import { AuthService } from '../shared/auth/auth.service';
 import { User } from '../shared/auth/user.model';
 
+const API_URL = 'api/user';
+
+/** This service provides methods for user profile management. */
 @Injectable()
 export class ProfileService {
-
-	private API_URL = 'api/user';
 
 	constructor(
 		private http: AuthHttp,
 		private authService: AuthService
 	) { }
 
+	/** Finds user by key. */
 	find(username?: string): Observable<User> {
 		if (username) {
-			return this.http.get(`${this.API_URL}/${username}`)
+			return this.http.get(`${API_URL}/${username}`)
 				.map((res: Response) => {
 					const json = res.json();
 					return Deserialize(json, User);
@@ -31,13 +33,16 @@ export class ProfileService {
 		}
 	}
 
-	post(user: User): Observable<User> {
-		let body = JSON.stringify(user);
-		let headers = new Headers({ 'Content-Type': 'application/json' });
-		let options = new RequestOptions({ headers: headers });
-		return this.http.post(this.API_URL, body, options)
+	/** Saves modifications of the given user. */
+	save(user: User): Observable<User> {
+		const body = JSON.stringify(user);
+		const headers = new Headers({ 'Content-Type': 'application/json' });
+		const options = new RequestOptions({ headers: headers });
+		const url = `${API_URL}/${user._key}`;
+		return this.http.patch(url, body, options)
 			.map((res: Response) => {
-				return Deserialize(res.json(), User);
+				const updated = Deserialize(res.json(), User);
+				return updated;
 			});
 	}
 }

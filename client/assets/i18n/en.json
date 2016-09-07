@@ -62,6 +62,7 @@
 		"EDIT": {
 			"INSTRUCTION": "Fill the form below and hit 'Save'.",
 			"NAME": "Your Name",
+			"NICKNAME": "Your Nickname",
 			"LOCATION": "Your Location",
 			"SAVE": "Save",
 			"CANCEL": "Cancel"
