@@ -1,11 +1,7 @@
 <md-card *ngIf='party'>
 	<!--<img id="avatar" md-card-sm-image src="client/assets/anyone.png">-->
-	<md-card-title>
-		{{ party.name }} ({{ party.alias }})
-	</md-card-title>
-	<md-card-subtitle>
-		<p> {{ party.location }} </p>
-	</md-card-subtitle>
+	<md-card-title> {{ party._key }} </md-card-title>
+	<md-card-subtitle> <p> {{ party.name }} </p> </md-card-subtitle>
 
 	<div *ngIf='user && user.is("admin")'>
 		<button class='top-right' md-icon-button [md-menu-trigger-for]="menu">

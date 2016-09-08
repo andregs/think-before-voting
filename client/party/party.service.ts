@@ -54,7 +54,8 @@ export class PartyService {
 	save(party: Party): Observable<Party> {
 		const body = JSON.stringify(party);
 		const options = this.defaultOptions();
-		const stream = party._key ?
+		console.log('party rev', party._rev, 'key', party._key);
+		const stream = party._rev ?
 			this.http.patch(`${API_URL}/${party._key}`, body, options) :
 			this.http.post(API_URL, body, options);
 

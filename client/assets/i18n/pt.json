@@ -7,7 +7,9 @@
 		"404": "Tá bom, não achei. Fui! ᕕ(ᐛ)ᕗ",
 		"401": "Desculpe. Receio que você não possa fazer isso. ಠ_ಠ",
 		"FORM": {
-			"REQUIRED": "Este é um campo obrigatório."
+			"REQUIRED": "Este é um campo obrigatório.",
+			"SAVE": "Salvar",
+			"CANCEL": "Cancelar"
 		}
 	},
 	"HOME": {
@@ -63,9 +65,7 @@
 			"INSTRUCTION": "Preencha o formulário abaixo e clique em 'Salvar'.",
 			"NAME": "Seu Nome",
 			"NICKNAME": "Seu Apelido",
-			"LOCATION": "Sua Localização",
-			"SAVE": "Salvar",
-			"CANCEL": "Cancelar"
+			"LOCATION": "Sua Localização"
 		}
 	},
 	"QUESTION": {
@@ -88,9 +88,7 @@
 		"EDIT": {
 			"NAME": "Nome do Partido",
 			"ALIAS": "Sigla",
-			"LOCATION": "Local",
-			"SAVE": "Salvar",
-			"CANCEL": "Cancelar",
+			"CODE": "Número",
 			"FAB": "Editar Partido"
 		}
 	}

@@ -42,7 +42,7 @@ export class User {
 	}
 
 	get _id(): string {
-		if (this._key) return `user/${this._key}`;
+		return this._key === undefined ? undefined : `user/${this._key}`;
 	}
 
 	get displayName(): string {

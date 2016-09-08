@@ -1,6 +1,7 @@
 'use strict';
 
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { PartyService } from '../../party/party.service';
 import { Party } from '../../party/party.model';
 
@@ -15,7 +16,8 @@ export class PartyListComponent implements OnInit {
 	parties: Party[];
 
 	constructor(
-		private partyService: PartyService
+		private partyService: PartyService,
+		private router: Router
 	) { }
 
 	/**
@@ -24,7 +26,7 @@ export class PartyListComponent implements OnInit {
 	ngOnInit() {
 		this.partyService.findAll().subscribe(
 			parties => this.parties = parties,
-			error => console.error(error)
+			error => this.router.navigate(['/error', error.status], { skipLocationChange: true })
 		);
 	}
 

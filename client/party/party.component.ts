@@ -35,14 +35,8 @@ export class PartyComponent implements OnInit {
 	 * @see {@link party.routing.ts}
 	 */
 	ngOnInit() {
-		this.route.data.forEach((data: { model: Party }) => {
-			this.party = data.model;
-		});
-
-		this.authService.user.subscribe(
-			user => this.user = user,
-			error => console.error(error)
-		);
+		this.route.data.forEach((data: { model: Party }) => this.party = data.model);
+		this.authService.user.subscribe(user => this.user = user);
 	}
 
 	/** Navigates to the new party form. */
@@ -57,7 +51,7 @@ export class PartyComponent implements OnInit {
 		if (confirm) {
 			this.partyService.remove(this.party).subscribe(
 				result => this.router.navigate(['/admin/party/list']),
-				error => console.error('on delete', error)
+				error => this.router.navigate(['/error', error.status], { skipLocationChange: true })
 			);
 		}
 	}

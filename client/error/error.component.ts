@@ -25,8 +25,7 @@ export class ErrorComponent implements OnInit {
 			params => {
 				const errorCode = params['code'] || '404';
 				this.code = ['401', '404'].includes(errorCode) ? errorCode : 500;
-			},
-			error => console.error(`This shouldn't happen`, error)
+			}
 		);
 	}
 

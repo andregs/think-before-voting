@@ -29,10 +29,7 @@ function partyRoutes(app: Express, db) {
 	function getAll(req: Request, res: Response): void {
 		db.query(aqlQuery`
 		for p in party
-			let location = (
-				for v in 1 outbound p graph 'partyGraph' return v.name
-			),
-			admins = (
+			let admins = (
 				for v,e in 1 inbound p graph 'partyGraph'
 					filter is_same_collection('admin', e)
 					return keep(v, '_key', 'nickname', 'name')
@@ -42,10 +39,7 @@ function partyRoutes(app: Express, db) {
 					filter is_same_collection('candidate', e)
 					return keep(v, '_key', 'nickname', 'name')
 			)
-			return merge(p, {
-				admins, candidates,
-				location: location[0]
-			})
+			return merge(p, { admins, candidates })
 		`)
 			.then(cursor => cursor.all())
 			.then(values => values.length ?
@@ -59,16 +53,13 @@ function partyRoutes(app: Express, db) {
 	 * Endpoint to select a political party by its given key.
 	 * 
 	 * Example:
-	 * GET /api/party/123
+	 * GET /api/party/PCdoB
 	 */
 	function get(req: Request, res: Response): void {
 		db.query(aqlQuery`
 		for p in party
-			filter p._key == ${req.params.key.toUpperCase()}
-			let location = (
-				for v in 1 outbound p graph 'partyGraph' return v.name
-			),
-			admins = (
+			filter p._key == ${req.params.key}
+			let admins = (
 				for v,e in 1 inbound p graph 'partyGraph'
 					filter is_same_collection('admin', e)
 					return keep(v, '_key', 'nickname', 'name')
@@ -78,10 +69,7 @@ function partyRoutes(app: Express, db) {
 					filter is_same_collection('candidate', e)
 					return keep(v, '_key', 'nickname', 'name')
 			)
-			return merge(p, {
-				admins, candidates,
-				location: location[0]
-			})
+			return merge(p, { admins, candidates })
 		`)
 			.then(cursor => cursor.all())
 			.then(values => values.length ?
@@ -115,7 +103,7 @@ function partyRoutes(app: Express, db) {
 	 * Endpoint to update a political party.
 	 * 
 	 * Example:
-	 * PATCH /api/party/123
+	 * PATCH /api/party/PCdoB
 	 */
 	function patch(req: Request, res: Response): void {
 		var action = String(function (args) {
@@ -125,7 +113,7 @@ function partyRoutes(app: Express, db) {
 
 			var result = graph.party.update(
 				args[0]._key,
-				_.pick(args[0], 'name', 'alias')
+				_.pick(args[0], '_rev', 'name', 'code')
 			);
 			return result;
 		});
@@ -140,7 +128,7 @@ function partyRoutes(app: Express, db) {
 	 * Endpoint to delete a political party.
 	 * 
 	 * Example:
-	 * DELETE /api/party/123
+	 * DELETE /api/party/PCdoB
 	 */
 	function remove(req: Request, res: Response): void {
 		var action = String(function (args) {
@@ -152,7 +140,7 @@ function partyRoutes(app: Express, db) {
 
 		const collections = {
 			read: ['party'],
-			write: ['party', 'cover', 'admin', 'candidate']
+			write: ['party', 'admin', 'candidate']
 		};
 		const params = req.params.key;
 		db.transaction(collections, action, [params])

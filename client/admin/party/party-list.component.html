@@ -4,7 +4,7 @@
 	<md-nav-list *ngIf='parties'>
 		<md-list-item *ngFor="let party of parties">
 			<a md-line [routerLink]='["/party", party._key]'>
-				{{ party.name }} ({{ party.alias }})
+				{{ party.name }} ({{ party._key }})
 			</a>
 		</md-list-item>
 	</md-nav-list>

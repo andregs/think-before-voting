@@ -45,13 +45,13 @@ export class EditPartyComponent implements OnInit {
 	onSubmit() {
 		this.partyService.save(this.party).subscribe(
 			party => this.router.navigate(['party', party._key]),
-			error => console.error(error)
+			error => this.router.navigate(['/error', error.status], { skipLocationChange: true })
 		);
 	}
 
 	/** Cancel button event handler. */
 	onCancel() {
-		if (this.party._key) {
+		if (this.party._rev) {
 			this.router.navigate(['party', this.party._key]);
 		} else {
 			this.router.navigate(['/admin/party/list']);

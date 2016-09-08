@@ -7,7 +7,9 @@
 		"404": "ᕕ(ᐛ)ᕗ Ok it’s not here. Bye!",
 		"401": "I'm sorry. I'm afraid you can't do that. ಠ_ಠ",
 		"FORM": {
-			"REQUIRED": "This field is required."
+			"REQUIRED": "This field is required.",
+			"SAVE": "Save",
+			"CANCEL": "Cancel"
 		}
 	},
 	"HOME": {
@@ -63,9 +65,7 @@
 			"INSTRUCTION": "Fill the form below and hit 'Save'.",
 			"NAME": "Your Name",
 			"NICKNAME": "Your Nickname",
-			"LOCATION": "Your Location",
-			"SAVE": "Save",
-			"CANCEL": "Cancel"
+			"LOCATION": "Your Location"
 		}
 	},
 	"QUESTION": {
@@ -88,9 +88,7 @@
 		"EDIT": {
 			"NAME": "Party Name",
 			"ALIAS": "Alias",
-			"LOCATION": "Location",
-			"SAVE": "Save",
-			"CANCEL": "Cancel",
+			"CODE": "Party Code",
 			"FAB": "Edit Party"
 		}
 	}

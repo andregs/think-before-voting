@@ -1,10 +1,12 @@
 'use strict';
 
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { QuestionService } from './question.service';
 import { Question } from './question.model';
 
+/** This component manages the answer question page. */
 @Component({
 	selector: 'tbv-answer',
 	templateUrl: 'client/answer/answer.component.html',
@@ -17,16 +19,19 @@ export class AnswerComponent implements OnInit {
 	answer: number;
 
 	constructor(
-		private questionService: QuestionService
+		private questionService: QuestionService,
+		private router: Router
 	) {}
 
+	/** Requests one unanswered question. */
 	ngOnInit() {
 		this.questionService.next().subscribe(
 			value => this.question = value,
-			error => console.error(error)
+			error => this.router.navigate(['/error', error.status], { skipLocationChange: true })
 		);
 	}
 
+	/** Cycles through stats data. */
 	changeStats() {
 		this.current = (this.current + 1) % this.question.stats.length;
 	}

@@ -19,15 +19,14 @@ export class AppComponent {
 		private translate: TranslateService,
 		private authService: AuthService
 	) {
-		translate.setDefaultLang('en');
-		translate.use('en');
+		translate.setDefaultLang('pt');
+		translate.use('pt');
 	}
 
 	/** Gets the authenticated user for authorization purposes. */
 	ngOnInit() {
 		this.authService.user.subscribe(
-			user => this.user = user,
-			error => console.error(error)
+			user => this.user = user
 		);
 	}
 

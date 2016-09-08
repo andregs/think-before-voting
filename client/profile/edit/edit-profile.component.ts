@@ -26,7 +26,7 @@ export class EditProfileComponent implements OnInit {
 	ngOnInit() {
 		this.profileService.find().subscribe(
 			user => this.model = user,
-			error => console.error(error)
+			error => this.router.navigate(['/error', error.status], { skipLocationChange: true })
 		);
 	}
 
@@ -34,10 +34,8 @@ export class EditProfileComponent implements OnInit {
 	onSubmit() {
 		// TODO should update auth0 profile
 		this.profileService.save(this.model).subscribe(
-			user => {
-				this.router.navigate(['profile', this.model._key]);
-			},
-			error => console.error(error)
+			user => this.router.navigate(['profile', this.model._key]),
+			error => this.router.navigate(['/error', error.status], { skipLocationChange: true })
 		);
 	}
 

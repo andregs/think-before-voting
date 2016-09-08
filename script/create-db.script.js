@@ -6,6 +6,8 @@ var password = process.env.ARANGODB_PASSWORD;
 db._createDatabase("think", {}, [{ username: username, passwd: password }]);
 db._useDatabase('think');
 
+var internal = require('internal');
+var _ = require('underscore');
 var gm = require('@arangodb/general-graph');
 
 var graph;
@@ -17,49 +19,9 @@ graph = gm._create('qaGraph', [
 	{ from: ["question"], collection: "questioner", to: ["user"] },
 ]);
 
-var andre = graph.user.save({
-	_key: 'andre',
-	email: 'andregs@gmail.com',
-	name: 'André Gomes',
-	location: 'Belo Horizonte, MG, Brasil',
-	following: 1,
-	followers: 0,
-	news: [
-		{ type: 'ANSWERED', who: 'Justin Trudeau', questions: 3 },
-		{ type: 'FOLLOWER', who: 'Ilya Brotzky' },
-		{ type: 'ANSWERED', who: 'Enéas Carneiro', questions: 6 },
-	],
-	answers: [
-		'Should Marijuana be legal?',
-		'Should the rich pay a higher tax rate than the middle class?',
-		'Should same sex marriage be legal?',
-	],
-	roles: [
-		'admin'
-	]
-});
-var eneas = graph.user.save({
-	_key: 'eneas',
-	email: 'eneas@prona.com.br',
-	name: 'Enéas Carneiro',
-	location: 'São Paulo, SP, Brasil',
-	followed: true,
-	affinity: {
-		match: 2,
-		answers: 3,
-	},
-	agree: [
-		'Should Marijuana be legal?',
-		'Should the rich pay a higher tax rate than the middle class?',
-	],
-	disagree: [
-		'Should same sex marriage be legal?',
-	],
-	roles: [
-		'candidate',
-		'party-admin'
-	]
-});
+var users = internal.load('./script/users.json');
+var andre = graph.user.save(users[0]);
+var eneas = graph.user.save(users[1]);
 
 var q1 = graph.question.save({
 	title: "What's more important for you?",
@@ -79,50 +41,34 @@ graph = gm._create('socialGraph', [
 
 graph.follow.save(andre._id, eneas._id, {});
 
+// data from http://www.tse.jus.br/eleicoes/estatisticas/repositorio-de-dados-eleitorais
+
 graph = gm._create('worldGraph', [
 	{ from: ["location"], collection: "include", to: ["location"] },
 ]);
+var country = graph.location.save({ _key: 'BR', name: 'Brasil' });
+var states = internal.load('./script/states.json');
+var cities = internal.load('./script/cities.json');
 
-var br = graph.location.save({ name: 'Brasil', type: 'country', abbreviation: 'BR' });
-var sp = graph.location.save({ name: 'São Paulo', type: 'state', abbreviation: 'SP' });
-var sbc = graph.location.save({ name: 'São Bernardo do Campo', type: 'city' });
-var sa = graph.location.save({ name: 'Santo André', type: 'city' });
-var mg = graph.location.save({ name: 'Minas Gerais', type: 'state', abbreviation: 'MG' });
-var bh = graph.location.save({ name: 'Belo Horizonte', type: 'city' });
-var moc = graph.location.save({ name: 'Montes Claros', type: 'city' });
-var ca = graph.location.save({ name: 'Canada', type: 'country', abbreviation: 'CA' });
-var bc = graph.location.save({ name: 'British Columbia', type: 'province', abbreviation: 'BC' });
-var va = graph.location.save({ name: 'Vancouver', type: 'city' });
-var vi = graph.location.save({ name: 'Victoria', type: 'city' });
-var on = graph.location.save({ name: 'Ontario', type: 'province', abbreviation: 'ON' });
-var to = graph.location.save({ name: 'Toronto', type: 'city' });
-var ot = graph.location.save({ name: 'Ottawa', type: 'city' });
+states.forEach(s => {
+	var state = graph.location.save(s);
+	graph.include.save(country._id, state._id, {});
 
-graph.include.save(br._id, sp._id, {});
-graph.include.save(sp._id, sbc._id, {});
-graph.include.save(sp._id, sa._id, {});
-graph.include.save(br._id, mg._id, {});
-graph.include.save(mg._id, bh._id, {});
-graph.include.save(mg._id, moc._id, {});
-graph.include.save(ca._id, bc._id, {});
-graph.include.save(bc._id, va._id, {});
-graph.include.save(bc._id, vi._id, {});
-graph.include.save(ca._id, on._id, {});
-graph.include.save(on._id, to._id, {});
-graph.include.save(on._id, ot._id, {});
+	var stateCities = _.filter(cities, c => c.uf === state._key);
+	stateCities.forEach(c => {
+		var city = graph.location.save({ name: c.name });
+		graph.include.save(state._id, city._id, {});
+	});
+});
 
 graph = gm._create('partyGraph', [
-	{ from: ["party"], collection: "cover", to: ["location"] },
 	{ from: ["user"], collection: "admin", to: ["party"] },
 	{ from: ["user"], collection: "candidate", to: ["party"] },
 ]);
 
-var pt = graph.party.save({ name: 'Partido dos Trabalhadores', alias: 'PT' });
-var prona = graph.party.save({ name: 'Partido da Reedificação da Ordem Nacional', alias: 'PRONA' });
+var parties = internal.load('./script/parties.json');
+parties.forEach(p => graph.party.save(p));
 
-graph.cover.save(pt._id, br._id, {});
-graph.cover.save(prona._id, br._id, {});
-graph.admin.save(andre._id, pt._id, {});
-graph.admin.save(andre._id, prona._id, {});
+var prona = graph.party.save({ _key: 'PRONA', name: 'Partido da Reedificação da Ordem Nacional', code: 80 });
 graph.admin.save(eneas._id, prona._id, {});
-graph.candidate.save(eneas._id, prona._id, { office: 'president' });
+graph.candidate.save(eneas._id, prona._id, { office: 'Presidente' });

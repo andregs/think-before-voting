@@ -1,7 +1,7 @@
 'use strict';
 
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { ProfileService } from './profile.service';
 import { User } from '../shared/auth/user.model';
@@ -17,6 +17,7 @@ export class ProfileComponent implements OnInit {
 
 	constructor(
 		private route: ActivatedRoute,
+		private router: Router,
 		private profileService: ProfileService
 	) {}
 
@@ -25,7 +26,7 @@ export class ProfileComponent implements OnInit {
 			.flatMap(params => this.profileService.find(params['name']))
 			.subscribe(
 				user => this.user = user,
-				error => console.error(error)
+				error => this.router.navigate(['/error', error.status], { skipLocationChange: true })
 			);
 	}
 
