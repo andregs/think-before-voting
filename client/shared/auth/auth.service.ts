@@ -3,11 +3,9 @@
 import { Injectable } from '@angular/core';
 import { Response, Headers, RequestOptions } from '@angular/http';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
-
+import { Observable, BehaviorSubject } from 'rxjs';
 import { tokenNotExpired, AuthHttp } from 'angular2-jwt';
-
-import { DeserializeInto } from 'cerialize';
+import { Deserialize, DeserializeKeysFrom } from 'cerialize';
 
 import { User } from './user.model';
 
@@ -22,7 +20,7 @@ const API_URL = 'api/user';
 @Injectable()
 export class AuthService {
 
-	private model = new User();
+	private userSource = new BehaviorSubject<User>(new User());
 	private redirectUrl: string;
 
 	lock = new Auth0Lock(
@@ -43,9 +41,12 @@ export class AuthService {
 		private authHttp: AuthHttp,
 		private router: Router
 	) {
+		// this emits a user if he/she is already signed in
+		this.onAuthenticated();
+		// this registers a callback to emit a user when he/she signs in
 		this.lock.on("authenticated", (result: any) => {
 			localStorage.setItem('id_token', result.idToken);
-			this.user.subscribe(); // to fill the cache
+			this.onAuthenticated();
 			if (this.redirectUrl)
 				this.router.navigate([this.redirectUrl]);
 			Observable.of(true).delay(2231) // to preserve the 'thanks' animation
@@ -71,43 +72,44 @@ export class AuthService {
 	/** Ends the session. */
 	public logout() {
 		localStorage.removeItem('id_token');
-		this.model = new User();
-		window.location.reload(); // TODO notify instead of reload
+		this.userSource.next(new User());
 	};
 
 	/** The authenticated user's profile. */
 	public get user(): Observable<User> {
+		return this.userSource.asObservable();
+	}
+
+	/** 
+	 * Handler for the authenticated event.
+	 * Requests Auth0 profile, sends it to our DB and then emit a User object.
+	 */
+	private onAuthenticated(): void {
 		const idToken = localStorage.getItem('id_token');
-
-		if (!idToken) { // not authenticated
-			this.model = new User();
-			return Observable.of(this.model);
-		} else if (this.model._rev) { // authenticated and in cache
-			return Observable.of(this.model);
+		if (idToken) { // is authenticated
+			const getProfileRx: (id: string) => Observable<{}>
+				= Observable.bindNodeCallback(this.lock.getProfile.bind(this.lock));
+			getProfileRx(idToken)
+				.flatMap((profile: any) => {
+					DeserializeKeysFrom(User.keyTransformer);
+					const user: User = Deserialize(profile, User);
+					DeserializeKeysFrom(s => s);
+					const body = JSON.stringify(user);
+					const headers = new Headers({ 'Content-Type': 'application/json' });
+					const options = new RequestOptions({ headers: headers });
+					const url = `${API_URL}/${user._key}/upsert`;
+					return this.authHttp.post(url, body, options);
+				})
+				.subscribe(
+					(res: Response) => {
+						const user = Deserialize(res.json(), User);
+						this.userSource.next(user);
+					},
+					error => {
+						localStorage.removeItem('id_token'); // logout
+						this.userSource.error(error);
+					}
+				);
 		}
-
-		// authenticated but not in cache, so we have to request the profile
-
-		// start by requesting the auth0 profile
-		const getProfileRx: (id: string) => Observable<{}>
-			= Observable.bindNodeCallback(this.lock.getProfile.bind(this.lock));
-		return getProfileRx(idToken)
-			.flatMap((profile: any) => {
-				// send the auth0 profile to our own DB
-				DeserializeInto(profile, User, this.model);
-				const body = JSON.stringify(this.model);
-				const headers = new Headers({ 'Content-Type': 'application/json' });
-				const options = new RequestOptions({ headers: headers });
-				const url = `${API_URL}/${this.model._key}/upsert`;
-				return this.authHttp.post(url, body, options);
-			})
-			.map((res: Response) => { // cache the result
-				DeserializeInto(res.json(), User, this.model);
-				return this.model;
-			})
-			.catch((e: any) => {
-				this.logout();
-				return Observable.throw(e);
-			});
 	}
 }

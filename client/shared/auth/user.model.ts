@@ -1,6 +1,6 @@
 'use strict';
 
-import { autoserialize, autoserializeAs } from 'cerialize';
+import { deserialize, deserializeAs } from 'cerialize';
 
 import { Affinity } from './affinity.model';
 
@@ -11,30 +11,30 @@ export class User {
 
 	// auth0 fields
 
-	@autoserializeAs('user_id') auth0Id: string;
-	@autoserializeAs('username') _key: string;
-	@autoserialize email: string;
-	@autoserialize name: string;
-	@autoserializeAs('email_verified') emailVerified: boolean;
-	@autoserialize picture: string;
-	@autoserialize nickname: string;
-	@autoserializeAs(Date, 'created_at') createdAt: Date;
-	@autoserializeAs(Date, 'updated_at') updatedAt: Date;
+	@deserialize auth0Id: string;
+	@deserialize email: string;
+	@deserialize name: string;
+	@deserialize emailVerified: boolean;
+	@deserialize picture: string;
+	@deserialize nickname: string;
+	@deserializeAs(Date) createdAt: Date;
+	@deserializeAs(Date) updatedAt: Date;
 
 	// my custom fields
 
-	@autoserialize _rev: string;
-	@autoserialize me: boolean;
-	@autoserialize location: string;
-	@autoserialize following: number;
-	@autoserialize followers: number;
-	@autoserialize followed: boolean;
-	@autoserialize news: any[];
-	@autoserialize answers: string[];
-	@autoserializeAs(Affinity) affinity: Affinity[];
-	@autoserialize agree: string[];
-	@autoserialize disagree: string[];
-	@autoserializeAs('roles') private _roles: string[];
+	@deserialize _key: string;
+	@deserialize _rev: string;
+	@deserialize me: boolean;
+	@deserialize location: string;
+	@deserialize following: number;
+	@deserialize followers: number;
+	@deserialize followed: boolean;
+	@deserialize news: any[];
+	@deserialize answers: string[];
+	@deserializeAs(Affinity) affinity: Affinity[];
+	@deserialize agree: string[];
+	@deserialize disagree: string[];
+	@deserializeAs('roles') private _roles: string[];
 
 	/** Checks whether the user has the given role. */
 	is(role: Role): boolean {
@@ -50,6 +50,26 @@ export class User {
 	}
 
 	get roles(): string[] { return this._roles; }
+
+	/**
+	 * Maps Auth0 keys to our format.
+	 * Usage:
+	 * ```
+	 * DeserializeKeysFrom(User.keyTransformer); // enable
+	 * const user: User = Deserialize(auth0Json, User);
+	 * DeserializeKeysFrom(s => s); // disable
+	 * ```
+	 */
+	static keyTransformer(key: string): string {
+		switch (key) {
+			case '_key': return 'username';
+			case 'auth0Id': return 'user_id';
+			case 'emailVerified': return 'email_verified';
+			case 'createdAt': return 'created_at';
+			case 'updatedAt': return 'updated_at';
+		}
+		return key;
+	}
 
 }
 
