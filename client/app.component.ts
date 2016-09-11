@@ -30,4 +30,9 @@ export class AppComponent {
 		);
 	}
 
+	/** Boolean flag to show/hide the link to the admin area. */
+	isAdminUser(): boolean {
+		return this.authService.authenticated && this.user && this.user.is('admin');
+	}
+
 }

@@ -42,7 +42,7 @@ export class User {
 	}
 
 	get _id(): string {
-		return this._key === undefined ? undefined : `user/${this._key}`;
+		return this._key ? `user/${this._key}` : undefined;
 	}
 
 	get displayName(): string {
@@ -57,7 +57,7 @@ export class User {
 	 * ```
 	 * DeserializeKeysFrom(User.keyTransformer); // enable
 	 * const user: User = Deserialize(auth0Json, User);
-	 * DeserializeKeysFrom(s => s); // disable
+	 * DeserializeKeysFrom(null); // disable
 	 * ```
 	 */
 	static keyTransformer(key: string): string {

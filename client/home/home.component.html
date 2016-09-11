@@ -1,7 +1,7 @@
 <md-card>
 	<md-card-title> {{ 'HOME.TITLE' | translate }} </md-card-title>
 
-	<md-card-content *ngIf='user'>
+	<md-card-content>
 		<button md-button
 			(click)='authService.login()'
 			[disabled]='authService.authenticated' color='primary'>
@@ -14,6 +14,6 @@
 			{{ 'HOME.LOGOUT' | translate }}
 		</button>
 		
-		<pre>User {{ user | json }}</pre>
+		<pre> {{ authService.user | async | json }} </pre>
 	</md-card-content>
 </md-card>

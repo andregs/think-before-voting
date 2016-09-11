@@ -3,7 +3,7 @@
 import { Injectable } from '@angular/core';
 import { Response, Headers, RequestOptions } from '@angular/http';
 import { Router } from '@angular/router';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable, ReplaySubject } from 'rxjs';
 import { tokenNotExpired, AuthHttp } from 'angular2-jwt';
 import { Deserialize, DeserializeKeysFrom } from 'cerialize';
 
@@ -20,7 +20,7 @@ const API_URL = 'api/user';
 @Injectable()
 export class AuthService {
 
-	private userSource = new BehaviorSubject<User>(new User());
+	private userSource = new ReplaySubject<User>(1);
 	private redirectUrl: string;
 
 	lock = new Auth0Lock(
@@ -29,7 +29,7 @@ export class AuthService {
 		{
 			usernameStyle: 'username',
 			closable: false,
-			language: 'en', // TODO should use the same language as the app
+			language: 'pt-BR', // TODO should use the same language as the app
 			auth: {
 				redirect: false, // should be true? https://github.com/auth0/lock/issues/71
 			}
@@ -72,7 +72,6 @@ export class AuthService {
 	/** Ends the session. */
 	public logout() {
 		localStorage.removeItem('id_token');
-		this.userSource.next(new User());
 	};
 
 	/** The authenticated user's profile. */
@@ -86,30 +85,29 @@ export class AuthService {
 	 */
 	private onAuthenticated(): void {
 		const idToken = localStorage.getItem('id_token');
-		if (idToken) { // is authenticated
+		if (this.authenticated && idToken) {
 			const getProfileRx: (id: string) => Observable<{}>
 				= Observable.bindNodeCallback(this.lock.getProfile.bind(this.lock));
 			getProfileRx(idToken)
 				.flatMap((profile: any) => {
 					DeserializeKeysFrom(User.keyTransformer);
 					const user: User = Deserialize(profile, User);
-					DeserializeKeysFrom(s => s);
+					DeserializeKeysFrom(null);
 					const body = JSON.stringify(user);
 					const headers = new Headers({ 'Content-Type': 'application/json' });
 					const options = new RequestOptions({ headers: headers });
 					const url = `${API_URL}/${user._key}/upsert`;
 					return this.authHttp.post(url, body, options);
 				})
-				.subscribe(
-					(res: Response) => {
-						const user = Deserialize(res.json(), User);
-						this.userSource.next(user);
-					},
-					error => {
-						localStorage.removeItem('id_token'); // logout
-						this.userSource.error(error);
-					}
-				);
+				.subscribe((res: Response) => {
+					const user = Deserialize(res.json(), User);
+					this.userSource.next(user);
+					this.userSource.complete();
+				},
+				error => {
+					localStorage.removeItem('id_token'); // logout
+					this.userSource.error(error);
+				});
 		}
 	}
 }

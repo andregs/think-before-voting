@@ -33,7 +33,7 @@ export class AuthGuard implements CanActivate {
 					return user.is('admin') ?
 						Observable.of(true) :
 						this.router.navigate(['/error', 401], { skipLocationChange: true });
-				}).toPromise();
+				}).first().toPromise();
 			} else {
 				return Promise.resolve(true);
 			}
