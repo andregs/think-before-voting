@@ -1,0 +1,15 @@
+// Please create an 'app-config.json' file based on this template.
+// Fill each field below. For help, visit:
+// https://docs.arangodb.com/cookbook/Administration/Authentication.html
+// https://manage.auth0.com/#/clients
+{
+	"arangodb": {
+		"username": null,
+		"password": null
+	},
+	"auth0": {
+		"domain": null,
+		"client_id": null,
+		"secret": null
+	}
+}

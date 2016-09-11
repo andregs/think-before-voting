@@ -1,6 +1,6 @@
 'use strict';
 
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { Response, Headers, RequestOptions } from '@angular/http';
 import { Router } from '@angular/router';
 import { Observable, ReplaySubject } from 'rxjs';
@@ -22,25 +22,23 @@ export class AuthService {
 
 	private userSource = new ReplaySubject<User>(1);
 	private redirectUrl: string;
-
-	lock = new Auth0Lock(
-		'8w82FlSkzDwMpyMe7pS9KGITEbpTvIOR',
-		'andregs.auth0.com',
-		{
-			usernameStyle: 'username',
-			closable: false,
-			language: 'pt-BR', // TODO should use the same language as the app
-			auth: {
-				redirect: false, // should be true? https://github.com/auth0/lock/issues/71
-			}
-		}
-	);
+	private lock: any;
 
 	/** Creates the service and registers the callback to the Auth0 authenticated event. */
 	constructor(
+		@Inject('config') private config: any,
 		private authHttp: AuthHttp,
 		private router: Router
 	) {
+		this.lock = new Auth0Lock(
+			this.config.client_id,
+			this.config.domain, {
+				usernameStyle: 'username',
+				closable: false,
+				language: 'pt-BR', // TODO should use the same language as the app
+				auth: { redirect: false } // should be true? https://github.com/auth0/lock/issues/71
+			}
+		);
 		// this emits a user if he/she is already signed in
 		this.onAuthenticated();
 		// this registers a callback to emit a user when he/she signs in

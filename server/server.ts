@@ -4,29 +4,35 @@ import express = require('express');
 import path = require('path');
 import _ = require('lodash');
 
+const config = require('../app-config');
 const app = express();
 
 // let favicon = require('serve-favicon');
 // app.use(favicon(__dirname + '/../client/favicon.ico'));
 
+var hbs = require('express-handlebars');
+app.engine('handlebars', hbs());
+app.set('view engine', 'handlebars');
+app.set('views', 'server/views/');
+
 app.use('/systemjs.config.js', express.static(path.resolve(__dirname, '../systemjs.config.js')));
 app.use('/client', express.static(path.resolve(__dirname, '../client')));
 app.use('/node_modules', express.static(path.resolve(__dirname, '../node_modules')));
 
-let bodyParser = require('body-parser');
+const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 // app.use(bodyParser.urlencoded({ extended: true }));
 
 const arangojs = require('arangojs');
-const username = process.env.ARANGODB_USERNAME;
-const password = process.env.ARANGODB_PASSWORD;
+const username = config.arangodb.username;
+const password = config.arangodb.password;
 const url = `http://${username}:${password}@localhost:8529`;
 const db = arangojs({ url, databaseName: 'think' });
 
-let jwt = require('express-jwt');
-let jwtCheck = jwt({
-	audience: process.env.AUTH0_CLIENT_ID,
-	secret: new Buffer(process.env.AUTH0_SECRET, 'base64'),
+const jwt = require('express-jwt');
+const jwtCheck = jwt({
+	audience: config.auth0.client_id,
+	secret: new Buffer(config.auth0.secret, 'base64'),
 });
 app.use('/api/*', jwtCheck);
 app.use('/api/*', function (req, res, next) {
@@ -46,8 +52,9 @@ require('./routes/question.router.js')(app, db);
 require('./routes/user.router.js')(app, db);
 require('./routes/party.router.js')(app, db);
 
+const params = _.pick(config.auth0, 'domain', 'client_id');
 function renderIndex(req: express.Request, res: express.Response) {
-	res.sendFile(path.resolve(__dirname, '../client/index.html'));
+	res.render('index', { config: JSON.stringify(params) });
 };
 
 app.get('/', renderIndex);

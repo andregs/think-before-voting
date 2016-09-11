@@ -1,8 +1,8 @@
 [
 	{
-		"_key": "andre",
-		"email": "andregs@gmail.com",
-		"name": "André Gomes",
+		"_key": "admin",
+		"email": "admin@example.com",
+		"name": "Admin da Silva",
 		"location": "Belo Horizonte, MG, Brasil",
 		"following": 1,
 		"followers": 0,

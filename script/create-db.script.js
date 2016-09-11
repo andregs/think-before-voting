@@ -1,7 +1,8 @@
 'use strict';
 
-var username = process.env.ARANGODB_USERNAME;
-var password = process.env.ARANGODB_PASSWORD;
+var config = require('../app-config');
+var username = config.arangodb.username;
+var password = config.arangodb.password;
 
 db._createDatabase("think", {}, [{ username: username, passwd: password }]);
 db._useDatabase('think');
