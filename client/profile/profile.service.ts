@@ -22,15 +22,13 @@ export class ProfileService {
 
 	/** Finds user by key. */
 	find(username?: string): Observable<User> {
-		if (username) {
-			return this.http.get(`${API_URL}/${username}`)
-				.map((res: Response) => {
-					const json = res.json();
-					return Deserialize(json, User);
-				});
-		} else {
-			return this.authService.user;
-		}
+		return this.authService.user.flatMap(user => {
+			if (username && username !== user._key) {
+				return this.http.get(`${API_URL}/${username}`)
+					.map((res: Response) => Deserialize(res.json(), User));
+			}
+			return Observable.of(user);
+		});
 	}
 
 	/** Saves modifications of the given user. */

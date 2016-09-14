@@ -57,11 +57,13 @@ function userRoutes(app: Express, db) {
 				graph.user.update(userData._key, userData);
 			}
 
-			return graph.user.firstExample({ _key: userData._key });
+			user = graph.user.firstExample({ _key: userData._key });
+			user.me = user._id === args[1]._id;
+			return user;
 		});
 
 		const collections = { read: 'user', write: 'user' };
-		db.transaction(collections, action, [req.body])
+		db.transaction(collections, action, [req.body, req['user']])
 			.then(json => res.json(json))
 			.catch(err => sendError(err, res));
 	}
