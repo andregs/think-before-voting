@@ -49,7 +49,7 @@ function userRoutes(app: Express, db) {
 			var _ = require('underscore');
 
 			var userData = _.omit(args[0], _.isUndefined);
-			var user = graph.user.firstExample({_key: userData._key});
+			var user = graph.user.firstExample({ _key: userData._key });
 
 			if (user === null) { // first login (sign up)
 				graph.user.save(userData);
@@ -57,7 +57,7 @@ function userRoutes(app: Express, db) {
 				graph.user.update(userData._key, userData);
 			}
 
-			return graph.user.firstExample({_key: userData._key});
+			return graph.user.firstExample({ _key: userData._key });
 		});
 
 		const collections = { read: 'user', write: 'user' };
@@ -76,15 +76,25 @@ function userRoutes(app: Express, db) {
 	function patch(req: Request, res: Response): void {
 		var action = String(function (args) {
 			var gm = require("@arangodb/general-graph");
-			var graph = gm._graph('qaGraph');
+			var graph = gm._graph('userGraph');
 			var _ = require('underscore');
 
-			var userData = _.omit(args[0], _.isUndefined);
+			var userData = _.omit(args[0],
+				(v, k) => _.isUndefined(v, k) || k === 'location');
 			var user = graph.user.update(userData._key, userData);
+			if (args[0].location) {
+				userData._id = 'user/' + userData._key;
+				args[0].location._id = 'location/' + args[0].location._key;
+				graph.livesIn.removeByExample({ _from: userData._id });
+				graph.livesIn.save(userData._id, args[0].location._id, {});
+			}
 			return user;
 		});
 
-		const collections = { read: 'user', write: 'user' };
+		const collections = {
+			read: ['user', 'livesIn'],
+			write: ['user', 'livesIn']
+		};
 		db.transaction(collections, action, [req.body])
 			.then(json => res.json(json))
 			.catch(err => sendError(err, res));

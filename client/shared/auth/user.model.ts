@@ -1,8 +1,9 @@
 'use strict';
 
-import { deserialize, deserializeAs } from 'cerialize';
+import { autoserialize, autoserializeAs, deserialize, deserializeAs } from 'cerialize';
 
 import { Affinity } from './affinity.model';
+import { Location } from '../location.model';
 
 /**
  * Model class to represent a user of the app.
@@ -13,19 +14,19 @@ export class User {
 
 	@deserialize auth0Id: string;
 	@deserialize email: string;
-	@deserialize name: string;
+	@autoserialize name: string;
 	@deserialize emailVerified: boolean;
 	@deserialize picture: string;
-	@deserialize nickname: string;
+	@autoserialize nickname: string;
 	@deserializeAs(Date) createdAt: Date;
 	@deserializeAs(Date) updatedAt: Date;
 
 	// my custom fields
 
-	@deserialize _key: string;
-	@deserialize _rev: string;
+	@autoserialize _key: string;
+	@autoserialize _rev: string;
 	@deserialize me: boolean;
-	@deserialize location: string;
+	@autoserializeAs(Location) location: Location;
 	@deserialize following: number;
 	@deserialize followers: number;
 	@deserialize followed: boolean;

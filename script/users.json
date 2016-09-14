@@ -3,7 +3,6 @@
 		"_key": "admin",
 		"email": "admin@example.com",
 		"name": "Admin da Silva",
-		"location": "Belo Horizonte, MG, Brasil",
 		"following": 1,
 		"followers": 0,
 		"news": [
@@ -24,7 +23,6 @@
 		"_key": "eneas",
 		"email": "eneas@prona.com.br",
 		"name": "Enéas Carneiro",
-		"location": "São Paulo, SP, Brasil",
 		"followed": true,
 		"affinity": {
 			"match": 2,

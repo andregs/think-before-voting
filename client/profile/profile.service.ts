@@ -3,7 +3,7 @@
 import { Injectable } from '@angular/core';
 import { Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs';
-import { Deserialize } from 'cerialize';
+import { Deserialize, Serialize } from 'cerialize';
 import { AuthHttp } from 'angular2-jwt';
 
 import { AuthService } from '../shared/auth/auth.service';
@@ -35,7 +35,7 @@ export class ProfileService {
 
 	/** Saves modifications of the given user. */
 	save(user: User): Observable<User> {
-		const body = JSON.stringify(user);
+		const body = JSON.stringify(Serialize(user));
 		const headers = new Headers({ 'Content-Type': 'application/json' });
 		const options = new RequestOptions({ headers: headers });
 		const url = `${API_URL}/${user._key}`;

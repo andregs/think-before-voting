@@ -2,13 +2,12 @@
 
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-
-import { MaterialModule } from './material.module';
-
 import { TranslateModule } from 'ng2-translate/ng2-translate';
 
+import { MaterialModule } from './material.module';
+import { LocationService }  from './location.service';
 import { ToolbarComponent }  from './toolbar/toolbar.component';
 import { NavigationComponent }  from './navigation/navigation.component';
 import { NavItemComponent }  from './navigation/nav-item.component';
@@ -30,9 +29,13 @@ import { NavItemComponent }  from './navigation/nav-item.component';
 		TranslateModule,
 		MaterialModule,
 		FormsModule,
+		ReactiveFormsModule,
 		ToolbarComponent,
 		NavigationComponent,
 		NavItemComponent,
+	],
+	providers: [
+		LocationService,
 	]
 })
 export class SharedModule {

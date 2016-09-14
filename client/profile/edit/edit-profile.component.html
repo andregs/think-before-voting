@@ -8,30 +8,38 @@
 		</md-card-subtitle>
 	</md-card-title-group>
 
-	<form (ngSubmit)='onSubmit()' #profileForm='ngForm'>
+	<form [formGroup]='profileForm' (ngSubmit)='onSubmit()'>
 		<md-card-content>
 			
-			<p><md-input type='text' name='name' #name='ngModel' required 
-				placeholder="{{ 'PROFILE.EDIT.NAME' | translate }}"
-				[(ngModel)]='user.name'>
-				<md-hint [style.visibility]='showError(name)'>
+			<p><md-input type='text' id='name' formControlName='name' required
+				placeholder="{{ 'PROFILE.EDIT.NAME' | translate }}">
+				<md-hint [style.visibility]='showError("name")'>
 					{{ 'APP.FORM.REQUIRED' | translate }}
 				</md-hint>
 			</md-input></p>
 
-			<p><md-input type='text' name='nickname' #nickname='ngModel' 
-				placeholder="{{ 'PROFILE.EDIT.NICKNAME' | translate }}"
-				[(ngModel)]='user.nickname'>
+			<p><md-input type='text' id='nickname' formControlName='nickname' 
+				placeholder="{{ 'PROFILE.EDIT.NICKNAME' | translate }}">
 			</md-input></p>
 
-			<p><md-input type='text' name='location' 
-				placeholder="{{ 'PROFILE.EDIT.LOCATION' | translate }}"
-				[(ngModel)]='user.location'></md-input></p>
+			<p><md-input type='text' id='location' formControlName='location'
+				required autocomplete='off'
+				placeholder="{{ 'PROFILE.EDIT.LOCATION' | translate }}">
+				<md-hint [style.visibility]='showError("location")'>
+					{{ 'APP.FORM.REQUIRED' | translate }}
+				</md-hint>
+			</md-input></p>
+			
+			<md-nav-list dense *ngIf='locations'>
+				<a md-list-item (click)="onChoose(location)" *ngFor='let location of locations'>
+					{{ location }}
+				</a>
+			</md-nav-list>
 
 		</md-card-content>
 
 		<md-card-actions>
-			<button type="submit" md-button [disabled]="!profileForm.form.valid">
+			<button type="submit" md-button [disabled]="!profileForm.valid">
 				{{ 'APP.FORM.SAVE' | translate }}
 			</button>
 

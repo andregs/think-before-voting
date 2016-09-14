@@ -51,6 +51,7 @@ app.use('/api/*', function (req, res, next) {
 require('./routes/question.router.js')(app, db);
 require('./routes/user.router.js')(app, db);
 require('./routes/party.router.js')(app, db);
+require('./routes/location.router.js')(app, db);
 
 const params = _.pick(config.auth0, 'domain', 'client_id');
 function renderIndex(req: express.Request, res: express.Response) {

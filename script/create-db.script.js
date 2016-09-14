@@ -15,14 +15,18 @@ var graph;
 
 // populate DB with some dummy data because this app still is just a prototype
 
-graph = gm._create('qaGraph', [
-	{ from: ["user"], collection: "answer", to: ["question"] },
-	{ from: ["question"], collection: "questioner", to: ["user"] },
+graph = gm._create('userGraph', [
+	{ from: ['user'], collection: 'livesIn', to: ['location'] },
 ]);
 
 var users = internal.load('./script/users.json');
 var andre = graph.user.save(users[0]);
 var eneas = graph.user.save(users[1]);
+
+graph = gm._create('qaGraph', [
+	{ from: ["user"], collection: "answer", to: ["question"] },
+	{ from: ["question"], collection: "questioner", to: ["user"] },
+]);
 
 var q1 = graph.question.save({
 	title: "What's more important for you?",
