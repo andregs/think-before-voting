@@ -14,6 +14,12 @@
 			{{ 'HOME.LOGOUT' | translate }}
 		</button>
 		
-		<pre> {{ authService.user | async | json }} </pre>
+		<p>
+			{{ 'APP.LANGUAGE' | translate }}:
+			<button md-button (click)='toggleLanguage()'>
+				{{ translate.currentLang | uppercase }}
+			</button>
+		</p>
 	</md-card-content>
+
 </md-card>

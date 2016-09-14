@@ -1,6 +1,7 @@
 {
 	"APP": {
 		"TITLE": "Think Before Voting",
+		"LANGUAGE": "Language",
 		"CONFIRMATION": "Are you sure?",
 		"ERROR": "{{code}} - Error",
 		"500": "BUT WHY? ლ(ಠ_ಠლ)",

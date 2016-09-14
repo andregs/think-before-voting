@@ -1,6 +1,7 @@
 {
 	"APP": {
 		"TITLE": "Pense & Vote",
+		"LANGUAGE": "Idioma",
 		"CONFIRMATION": "Você tem certeza?",
 		"ERROR": "Erro {{code}}",
 		"500": "MAS POR QUÊ? ლ(ಠ_ಠლ)",

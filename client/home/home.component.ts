@@ -1,6 +1,7 @@
 'use strict';
 
 import { Component } from '@angular/core';
+import { TranslateService } from 'ng2-translate/ng2-translate';
 
 import { AuthService } from '../shared/auth/auth.service';
 
@@ -11,7 +12,13 @@ import { AuthService } from '../shared/auth/auth.service';
 export class HomeComponent {
 
 	constructor(
-		private authService: AuthService
+		private authService: AuthService,
+		private translate: TranslateService,
 	) { }
+
+	toggleLanguage() {
+		const lang = this.translate.currentLang === 'pt' ? 'en' : 'pt';
+		this.translate.use(lang);
+	}
 
 }

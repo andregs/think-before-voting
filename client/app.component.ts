@@ -19,7 +19,7 @@ export class AppComponent {
 		private translate: TranslateService,
 		private authService: AuthService
 	) {
-		translate.setDefaultLang('pt');
+		translate.setDefaultLang('en');
 		translate.use('pt');
 	}
 
