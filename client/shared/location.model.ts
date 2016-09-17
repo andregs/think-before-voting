@@ -11,8 +11,8 @@ export class Location {
 	@autoserialize _rev: string;
 	@autoserialize name: string;
 
-	get _id(): string {
-		return this._key ? `location/${this._key}` : undefined;
+	constructor(_key: string) {
+		this._key = _key;
 	}
 
 	toString() {

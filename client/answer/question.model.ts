@@ -4,6 +4,7 @@ import { autoserialize, autoserializeAs } from 'cerialize';
 
 import { User } from '../shared/auth/user.model';
 
+/** Model class to represent a question to be answered. */
 export class Question {
 
 	@autoserialize _key: string;
@@ -19,9 +20,5 @@ export class Question {
 		Math.floor(Math.random() * (90 - 20 + 1)) + 20,
 		Math.floor(Math.random() * (90 - 20 + 1)) + 20,
 	];
-
-	get _id() {
-		return this._key === undefined ? undefined : `question/${this._key}`;
-	}
 
 }

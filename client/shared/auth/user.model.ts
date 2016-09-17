@@ -42,10 +42,6 @@ export class User {
 		return this._roles && this._roles.includes(role);
 	}
 
-	get _id(): string {
-		return this._key ? `user/${this._key}` : undefined;
-	}
-
 	get displayName(): string {
 		return this.nickname ? this.nickname : this.name;
 	}
@@ -70,6 +66,10 @@ export class User {
 			case 'updatedAt': return 'updated_at';
 		}
 		return key;
+	}
+
+	toString() {
+		return this.displayName;
 	}
 
 }

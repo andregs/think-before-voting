@@ -20,7 +20,7 @@ graph = gm._create('userGraph', [
 ]);
 
 var users = internal.load('./script/users.json');
-var andre = graph.user.save(users[0]);
+var admin = graph.user.save(users[0]);
 var eneas = graph.user.save(users[1]);
 
 graph = gm._create('qaGraph', [
@@ -38,13 +38,13 @@ var q1 = graph.question.save({
 });
 graph.questioner.save(q1._id, eneas._id, {});
 graph.answer.save(eneas._id, q1._id, { chosen: 1, opinion: 'meu nome ENÉÉÉAS!' });
-graph.answer.save(andre._id, q1._id, { chosen: 0, opinion: 'foo bar' });
+graph.answer.save(admin._id, q1._id, { chosen: 0, opinion: 'foo bar' });
 
 graph = gm._create('socialGraph', [
 	{ from: ["user"], collection: "follow", to: ["user"] },
 ]);
 
-graph.follow.save(andre._id, eneas._id, {});
+graph.follow.save(admin._id, eneas._id, {});
 
 // data from http://www.tse.jus.br/eleicoes/estatisticas/repositorio-de-dados-eleitorais
 
@@ -67,13 +67,18 @@ states.forEach(s => {
 });
 
 graph = gm._create('partyGraph', [
-	{ from: ["user"], collection: "admin", to: ["party"] },
-	{ from: ["user"], collection: "candidate", to: ["party"] },
+	{ from: ["party"], collection: "member", to: ["user"] },
+	{ from: ["user"], collection: "candidate", to: ["location"] },
 ]);
 
 var parties = internal.load('./script/parties.json');
-parties.forEach(p => graph.party.save(p));
+parties.forEach(p => {
+	var party = graph.party.save(p);
+	graph.member.save(party._id, admin._id, { admin: true });
+});
 
+// TODO adjust Enéas roles
 var prona = graph.party.save({ _key: 'PRONA', name: 'Partido da Reedificação da Ordem Nacional', code: 80 });
-graph.admin.save(eneas._id, prona._id, {});
-graph.candidate.save(eneas._id, prona._id, { office: 'Presidente' });
+graph.member.save(prona._id, admin._id, { admin: true } );
+graph.member.save(prona._id, eneas._id, { admin: true });
+graph.candidate.save(eneas._id, 'location/BR', { office: 'Presidente' });

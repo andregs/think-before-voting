@@ -5,47 +5,102 @@
 		<p class='non-empty'> {{ party.name }} </p>
 	</md-card-subtitle>
 
-	<form (ngSubmit)='onSubmit()' #partyForm='ngForm'>
-		<md-card-content>
-			<p><md-input type="text" name='alias' #alias="ngModel" required *ngIf='!party._rev'
-				placeholder="{{ 'PARTY.EDIT.ALIAS' | translate }}"
-				[(ngModel)]='party._key'>
-				<md-hint [style.visibility]='showError(alias)'>
+	<md-card-content>
+		<form (ngSubmit)='onPartySubmit()' [formGroup]='partyForm'>
+			<p *ngIf='!party._rev'><md-input type="text" id='alias' formControlName='alias'
+				required placeholder="{{ 'PARTY.EDIT.ALIAS' | translate }}">
+				<md-hint [style.visibility]='showError(partyForm, "alias")'>
 					{{ 'APP.FORM.REQUIRED' | translate }}
 				</md-hint>
 			</md-input></p>
 
-			<p><md-input type="text" name='name' #name="ngModel" required
-				placeholder="{{ 'PARTY.EDIT.NAME' | translate }}"
-				[(ngModel)]='party.name'>
-				<md-hint [style.visibility]='showError(name)'>
+			<p><md-input type="text" id='name' formControlName='name'
+				required placeholder="{{ 'PARTY.EDIT.NAME' | translate }}">
+				<md-hint [style.visibility]='showError(partyForm, "name")'>
 					{{ 'APP.FORM.REQUIRED' | translate }}
 				</md-hint>
 			</md-input></p>
 			
-			<p><md-input type="number" name='code' #code="ngModel"
-				placeholder="{{ 'PARTY.EDIT.CODE' | translate }}"
-				[(ngModel)]='party.code'>
+			<p><md-input type="number" id='code' formControlName='code'
+				placeholder="{{ 'PARTY.EDIT.CODE' | translate }}">
 			</md-input></p>
+
+			<md-card-actions>
+				<button type="submit" md-button [disabled]="!partyForm.valid">
+					{{ 'APP.FORM.SAVE' | translate }}
+				</button>
+
+				<a md-button (click)='onCancel()'>
+					{{ 'APP.FORM.CANCEL' | translate }}
+				</a>
+			</md-card-actions>
+		</form>
+
+		<form *ngIf='party._rev' (ngSubmit)='onAddMember()' [formGroup]='addMemberForm'>
+			<md-card-subtitle> {{ 'PARTY.EDIT.MEMBERS.TITLE' | translate }} </md-card-subtitle>
+
+			<p><label for="office">{{ 'PARTY.EDIT.MEMBERS.OFFICE' | translate }}: </label>
+			<select id="office" formControlName='office' required>
+				<option *ngFor='let o of offices' [value]='o'> {{ o }} </option>
+			</select></p>
+
+			<p><md-input type='text' id='user' formControlName='user'
+				required autocomplete='off'
+				placeholder="{{ 'PARTY.EDIT.MEMBERS.USER' | translate }}">
+				<md-hint [style.visibility]='showError(addMemberForm, "user")'>
+					{{ 'APP.FORM.REQUIRED' | translate }}
+				</md-hint>
+			</md-input></p>
+
+			<md-nav-list dense *ngIf='autoCompleteUsers && !autoCompleteLocations'>
+				<a md-list-item (click)="onChooseUser(u)" *ngFor='let u of autoCompleteUsers'>
+					{{ u }}
+				</a>
+			</md-nav-list>
+
+			<p><md-input *ngIf='isLocationVisible()'
+				type='text' id='location' formControlName='location'
+				required autocomplete='off'
+				placeholder="{{ 'PARTY.EDIT.MEMBERS.LOCATION' | translate }}">
+				<md-hint [style.visibility]='showError(addMemberForm, "location")'>
+					{{ 'APP.FORM.REQUIRED' | translate }}
+				</md-hint>
+			</md-input></p>
+
+			<md-nav-list dense *ngIf='autoCompleteLocations && !autoCompleteUsers'>
+				<a md-list-item (click)="onChooseLocation(l)" *ngFor='let l of autoCompleteLocations'>
+					{{ l }}
+				</a>
+			</md-nav-list>
+
+			<md-card-actions>
+				<button type="submit" md-button [disabled]="!addMemberForm.valid">
+					{{ 'APP.FORM.ADD' | translate }}
+				</button>
+			</md-card-actions>
+
+			<table *ngIf='party && party.members' width='100%'>
+				<tr *ngFor='let member of party.members'>
+					<td>
+						<a [routerLink]='["/profile", member.user._key]'>
+							{{ member.user.displayName }}
+						</a> <br>
+						<span *ngIf='member.candidate'>
+							{{ member.candidate.office }} -
+							{{ member.candidate.location.name }}
+						</span>
+					</td>
+					<td>
+						<button type="button" md-icon-button (click)='toggleAdmin(member)'>
+							<md-icon>{{ member.admin ? 'vpn_key' : 'remove' }}</md-icon>
+						</button>
+						<button type="button" md-icon-button (click)='onDelete(member)'>
+							<md-icon>delete</md-icon>
+						</button>
+					</td>
+				</tr>
+			</table>
+		</form>
 			
-			<p>
-				Admins
-				{{ party.admins | json }}
-			</p>
-			<p>
-				Candidates
-				{{ party.candidates | json }}
-			</p>
-		</md-card-content>
-
-		<md-card-actions>
-			<button type="submit" md-button [disabled]="!partyForm.form.valid">
-				{{ 'APP.FORM.SAVE' | translate }}
-			</button>
-
-			<a md-button (click)='onCancel()'>
-				{{ 'APP.FORM.CANCEL' | translate }}
-			</a>
-		</md-card-actions>
-	</form>
+	</md-card-content>
 </md-card>

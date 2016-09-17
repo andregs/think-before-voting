@@ -1,20 +1,31 @@
 'use strict';
 
 import { autoserialize, autoserializeAs } from 'cerialize';
+import _ from 'lodash';
 
 import { User } from '../shared/auth/user.model';
+import { Member } from './member.model';
 
+/** Model class to represent a political party. */
 export class Party {
 
 	@autoserialize _key: string;
 	@autoserialize _rev: string;
 	@autoserialize code: number;
 	@autoserialize name: string;
-	@autoserializeAs(User) admins: User[];
-	@autoserializeAs(User) candidates: User[];
+	@autoserializeAs(Member) members: Member[];
 
-	get _id() {
-		return this._key === undefined ? undefined : `party/${this._key}`;
+	/** Checks whether the given user is an admin of the party. */
+	isAdmin(user: User): boolean {
+		return user && (user.is('admin') || -1 !== _.findIndex(
+			this.members,
+			m => m.admin && m.user._key === user._key
+		));
+	}
+
+	/** Removes the given member of the party. */
+	remove(member: Member): void {
+		_.remove(this.members, m => m._key === member._key);
 	}
 
 }

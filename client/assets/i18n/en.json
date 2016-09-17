@@ -10,7 +10,8 @@
 		"FORM": {
 			"REQUIRED": "This field is required.",
 			"SAVE": "Save",
-			"CANCEL": "Cancel"
+			"CANCEL": "Cancel",
+			"ADD": "Add"
 		}
 	},
 	"HOME": {
@@ -90,7 +91,13 @@
 			"NAME": "Party Name",
 			"ALIAS": "Alias",
 			"CODE": "Party Code",
-			"FAB": "Edit Party"
+			"FAB": "Edit Party",
+			"MEMBERS": {
+				"TITLE": "Members Management",
+				"OFFICE": "Office",
+				"USER": "User",
+				"LOCATION": "Office Location"
+			}
 		}
 	}
 }

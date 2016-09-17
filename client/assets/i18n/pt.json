@@ -10,7 +10,8 @@
 		"FORM": {
 			"REQUIRED": "Este é um campo obrigatório.",
 			"SAVE": "Salvar",
-			"CANCEL": "Cancelar"
+			"CANCEL": "Cancelar",
+			"ADD": "Adicionar"
 		}
 	},
 	"HOME": {
@@ -90,7 +91,13 @@
 			"NAME": "Nome do Partido",
 			"ALIAS": "Sigla",
 			"CODE": "Número",
-			"FAB": "Editar Partido"
+			"FAB": "Editar Partido",
+			"MEMBERS": {
+				"TITLE": "Gestão dos Membros",
+				"OFFICE": "Função",
+				"USER": "Usuário",
+				"LOCATION": "Localidade da Função"
+			}
 		}
 	}
 }

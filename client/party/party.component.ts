@@ -3,7 +3,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from 'ng2-translate/ng2-translate';
-import _ from 'lodash';
 
 import { AuthService } from '../shared/auth/auth.service';
 import { User } from '../shared/auth/user.model';
@@ -58,13 +57,9 @@ export class PartyComponent implements OnInit {
 
 	/** 
 	 * Checks if the authenticated user can edit the party.
-	 * The party is editable when the user is a system admin or a party admin.
 	 */
 	get partyEditable(): boolean {
-		return this.user && (
-			this.user.is('admin') ||
-			-1 < _.findIndex(this.party.admins, a => a._key === this.user._key)
-		);
+		return this.party && this.party.isAdmin(this.user);
 	}
 
 }
