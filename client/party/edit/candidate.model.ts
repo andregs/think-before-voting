@@ -2,7 +2,7 @@
 
 import { autoserialize, autoserializeAs } from 'cerialize';
 
-import { Location } from '../shared/location.model';
+import { Location } from '../../shared/location.model';
 
 export type Office = 'Presidente'
 	| 'Vice-Presidente'

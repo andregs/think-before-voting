@@ -8,9 +8,9 @@ import { AuthHttp, } from 'angular2-jwt';
 import _ from 'lodash';
 
 import { Party } from './party.model';
-import { Office } from './candidate.model';
+import { Office } from './edit/candidate.model';
 import { Location } from '../shared/location.model';
-import { Member } from './member.model';
+import { Member } from './edit/member.model';
 import { User } from '../shared/auth/user.model';
 
 const API_URL = 'api/party';

@@ -2,10 +2,10 @@
 
 import { autoserialize, autoserializeAs } from 'cerialize';
 
-import { User } from '../shared/auth/user.model';
+import { User } from '../../shared/auth/user.model';
 import { Candidate } from './candidate.model';
 import { Office } from './candidate.model';
-import { Location } from '../shared/location.model';
+import { Location } from '../../shared/location.model';
 
 /** 
  * Model class to represent a member of a political party.

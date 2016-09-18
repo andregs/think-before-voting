@@ -4,7 +4,7 @@ import { autoserialize, autoserializeAs } from 'cerialize';
 import _ from 'lodash';
 
 import { User } from '../shared/auth/user.model';
-import { Member } from './member.model';
+import { Member } from './edit/member.model';
 
 /** Model class to represent a political party. */
 export class Party {

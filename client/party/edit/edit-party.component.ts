@@ -11,8 +11,8 @@ import 'rxjs/add/operator/retry';
 
 import { PartyService } from '../party.service';
 import { Party } from '../party.model';
-import { Office } from '../candidate.model';
-import { Member } from '../member.model';
+import { Office } from './candidate.model';
+import { Member } from './member.model';
 import { User } from '../../shared/auth/user.model';
 import { Location } from '../../shared/location.model';
 import { LocationService } from '../../shared/location.service';
