@@ -3,7 +3,7 @@
 	<md-card-title> {{ party._key }} </md-card-title>
 	<md-card-subtitle> <p> {{ party.name }} </p> </md-card-subtitle>
 
-	<div *ngIf='user && user.is("admin")'>
+	<div *ngIf='user && user.admin'>
 		<button class='top-right' md-icon-button [md-menu-trigger-for]="menu">
 			<md-icon>lock</md-icon>
 		</button>
