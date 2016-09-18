@@ -1,11 +1,11 @@
 {
 	"globalDependencies": {
-		"core-js": "registry:dt/core-js#0.0.0+20160725163759",
+		"core-js": "registry:dt/core-js#0.0.0+20160914114559",
 		"express": "registry:dt/express#4.0.0+20160708185218",
-		"express-serve-static-core": "registry:dt/express-serve-static-core#4.0.0+20160829034835",
+		"express-serve-static-core": "registry:dt/express-serve-static-core#4.0.0+20160914120416",
 		"hammerjs": "registry:dt/hammerjs#2.0.8+20160724063812",
 		"mime": "registry:dt/mime#0.0.0+20160316155526",
-		"node": "registry:dt/node#6.0.0+20160906151955",
+		"node": "registry:dt/node#6.0.0+20160915134512",
 		"serve-static": "registry:dt/serve-static#0.0.0+20160606155157"
 	},
 	"dependencies": {
