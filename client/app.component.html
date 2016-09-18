@@ -1,8 +1,8 @@
 <tbv-toolbar (toggleNav)='sidenav.toggle()'></tbv-toolbar>
 
 <tbv-navigation #sidenav>
-	<tbv-nav-item link="/answer" label="MENU.ANSWER"></tbv-nav-item>
-	<tbv-nav-item link="/ask" label="MENU.ASK"></tbv-nav-item>
+	<tbv-nav-item link="/qa/answer" label="MENU.ANSWER"></tbv-nav-item>
+	<tbv-nav-item link="/qa/ask" label="MENU.ASK"></tbv-nav-item>
 	<tbv-nav-item link="/candidates" label="MENU.CANDIDATES"></tbv-nav-item>
 	<tbv-nav-item link="/admin" label="MENU.ADMIN" [hidden]="! isAdminUser()"></tbv-nav-item>
 </tbv-navigation>

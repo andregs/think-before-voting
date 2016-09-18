@@ -1,29 +1,29 @@
 <md-card *ngIf='question'>
 	<md-card-subtitle>
 		{{ 'QUESTION.BY' | translate }}
-		<a routerLink='/profile/{{question.questioner._key}}'> {{ question.questioner.displayName }} </a>
+		<a routerLink='/profile/{{question.questioner._key}}'> {{ question.questioner }} </a>
 	</md-card-subtitle>
 	<md-card-title> {{ question.title }} </md-card-title>
 
 	<button class='top-right' md-icon-button [md-menu-trigger-for]="menu">
-		<md-icon>more_vert</md-icon>
+		<md-icon>expand_more</md-icon>
 	</button>
 	<md-menu #menu="mdMenu" x-position='before'>
-		<button md-menu-item> {{ 'QUESTION.EDIT' | translate }} </button>
-		<button md-menu-item> {{ 'QUESTION.DELETE' | translate }} </button>
+		<button md-menu-item> {{ 'APP.FORM.EDIT' | translate }} </button>
+		<button md-menu-item> {{ 'APP.FORM.DELETE' | translate }} </button>
 	</md-menu>
 
 	<md-radio-group [(ngModel)]='answer'>
-		<md-radio-button value="1"> {{ question.options[0] }} </md-radio-button>
-		<md-radio-button value="2"> {{ question.options[1] }} </md-radio-button>
+		<md-radio-button value="1"> {{ question.optionA }} </md-radio-button>
+		<md-radio-button value="2"> {{ question.optionB }} </md-radio-button>
 	</md-radio-group>
 
-	<md-toolbar id="stats" *ngIf='answer'>
+	<!--<md-toolbar id="stats" *ngIf='answer'>
 		<button md-button (click)='changeStats()'>
 			{{ statsLabel | translate }}
 		</button>
 		<md-progress-bar value="{{ stats }}"> </md-progress-bar>
-	</md-toolbar>
+	</md-toolbar>-->
 
 	<md-card-content class="opinion">
 		<textarea placeholder="{{ 'QUESTION.OPINION' | translate }}" [disabled]='!answer'></textarea>

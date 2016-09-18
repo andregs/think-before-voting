@@ -1,0 +1,44 @@
+<md-card>
+	<md-card-subtitle *ngIf='question.questioner'>
+		{{ 'QUESTION.BY' | translate }}
+		<a routerLink='/profile/{{question.questioner._key}}'> {{ question.questioner }} </a>
+	</md-card-subtitle>
+	<md-card-title> {{ getTitle() }} </md-card-title>
+
+	<form (ngSubmit)='onSubmit()' #askForm='ngForm'>
+
+		<md-card-content>
+			<p><md-input type="text" name='title' #title='ngModel' required
+				[(ngModel)]='question.title'
+				placeholder="{{ 'QUESTION.EDIT.TITLE' | translate }}">
+				<md-hint [style.visibility]='showError(title)'>
+					{{ 'APP.FORM.REQUIRED' | translate }}
+				</md-hint>
+			</md-input></p>
+			
+			<p><md-input type="text" name='optionA' #optionA='ngModel' required
+				[(ngModel)]='question.optionA'
+				placeholder="{{ 'QUESTION.EDIT.OPTION_A' | translate }}">
+				<md-hint [style.visibility]='showError(optionA)'>
+					{{ 'APP.FORM.REQUIRED' | translate }}
+				</md-hint>
+			</md-input></p>
+			
+			<p><md-input type="text" name='optionB' #optionB='ngModel' required
+				[(ngModel)]='question.optionB'
+				placeholder="{{ 'QUESTION.EDIT.OPTION_B' | translate }}">
+				<md-hint [style.visibility]='showError(optionB)'>
+					{{ 'APP.FORM.REQUIRED' | translate }}
+				</md-hint>
+			</md-input></p>
+		</md-card-content>
+
+		<md-card-actions>
+			<button type="submit" md-button [disabled]="!askForm.form.valid">
+				{{ 'APP.FORM.SAVE' | translate }}
+			</button>
+		</md-card-actions>
+
+	</form>
+
+</md-card>

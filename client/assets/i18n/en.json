@@ -10,6 +10,8 @@
 		"FORM": {
 			"REQUIRED": "This field is required.",
 			"SAVE": "Save",
+			"EDIT": "Edit",
+			"DELETE": "Delete",
 			"CANCEL": "Cancel",
 			"ADD": "Add"
 		}
@@ -72,8 +74,12 @@
 	},
 	"QUESTION": {
 		"BY" : "Question by",
-		"EDIT": "Edit",
-		"DELETE": "Delete",
+		"NEW": "Ask a New Question",
+		"EDIT": {
+			"TITLE": "Question Text",
+			"OPTION_A": "Option A",
+			"OPTION_B": "Option B"
+		},
 		"OPINION": "Your opinion",
 		"STATS": {
 			"NETWORK": "My Network",

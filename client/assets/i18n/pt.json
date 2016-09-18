@@ -10,6 +10,8 @@
 		"FORM": {
 			"REQUIRED": "Este é um campo obrigatório.",
 			"SAVE": "Salvar",
+			"EDIT": "Editar",
+			"DELETE": "Excluir",
 			"CANCEL": "Cancelar",
 			"ADD": "Adicionar"
 		}
@@ -72,8 +74,12 @@
 	},
 	"QUESTION": {
 		"BY" : "Pergunta de",
-		"EDIT": "Editar",
-		"DELETE": "Excluir",
+		"NEW": "Faça uma Nova Pergunta",
+		"EDIT": {
+			"TITLE": "Enunciado da Questão",
+			"OPTION_A": "Alternativa A",
+			"OPTION_B": "Alternativa B"
+		},
 		"OPINION": "Sua opinião",
 		"STATS": {
 			"NETWORK": "Minha Rede",

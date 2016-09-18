@@ -1,6 +1,6 @@
 'use strict';
 
-import { autoserialize, autoserializeAs } from 'cerialize';
+import { autoserialize, deserializeAs, deserialize } from 'cerialize';
 
 import { User } from '../shared/auth/user.model';
 
@@ -8,10 +8,12 @@ import { User } from '../shared/auth/user.model';
 export class Question {
 
 	@autoserialize _key: string;
+	@autoserialize _rev: string;
 	@autoserialize title: string;
-	@autoserialize options: string[];
-	@autoserialize answers: number;
-	@autoserializeAs(User) questioner: User;
+	@autoserialize optionA: string;
+	@autoserialize optionB: string;
+	@deserialize answers: number;
+	@deserializeAs(User) questioner: User;
 
 	stats = [
 		// TODO compute real stats
