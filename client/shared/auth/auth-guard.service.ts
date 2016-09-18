@@ -30,7 +30,7 @@ export class AuthGuard implements CanActivate {
 		if (this.authService.authenticated) {
 			if (route.url.length && route.url[0].path === 'admin') {
 				return this.authService.user.flatMap(user => {
-					return user.is('admin') ?
+					return user.admin ?
 						Observable.of(true) :
 						this.router.navigate(['/error', 401], { skipLocationChange: true });
 				}).first().toPromise();

@@ -35,18 +35,11 @@ export class User {
 	@deserializeAs(Affinity) affinity: Affinity[];
 	@deserialize agree: string[];
 	@deserialize disagree: string[];
-	@deserializeAs('roles') private _roles: string[];
-
-	/** Checks whether the user has the given role. */
-	is(role: Role): boolean {
-		return this._roles && this._roles.includes(role);
-	}
+	@autoserialize admin: boolean;
 
 	get displayName(): string {
 		return this.nickname ? this.nickname : this.name;
 	}
-
-	get roles(): string[] { return this._roles; }
 
 	/**
 	 * Maps Auth0 keys to our format.
@@ -73,5 +66,3 @@ export class User {
 	}
 
 }
-
-type Role = 'admin' | 'party-admin' | 'candidate';

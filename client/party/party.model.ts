@@ -17,7 +17,7 @@ export class Party {
 
 	/** Checks whether the given user is an admin of the party. */
 	isAdmin(user: User): boolean {
-		return user && (user.is('admin') || -1 !== _.findIndex(
+		return user && (user.admin || -1 !== _.findIndex(
 			this.members,
 			m => m.admin && m.user._key === user._key
 		));

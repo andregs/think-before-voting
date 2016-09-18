@@ -15,9 +15,7 @@
 			"Should the rich pay a higher tax rate than the middle class?",
 			"Should same sex marriage be legal?"
 		],
-		"roles": [
-			"admin"
-		]
+		"admin": true
 	},
 	{
 		"_key": "eneas",
@@ -34,10 +32,6 @@
 		],
 		"disagree": [
 			"Should same sex marriage be legal?"
-		],
-		"roles": [
-			"candidate",
-			"party-admin"
 		]
 	}
 ]

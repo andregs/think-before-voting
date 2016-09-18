@@ -77,7 +77,6 @@ parties.forEach(p => {
 	graph.member.save(party._id, admin._id, { admin: true });
 });
 
-// TODO adjust Enéas roles
 var prona = graph.party.save({ _key: 'PRONA', name: 'Partido da Reedificação da Ordem Nacional', code: 80 });
 graph.member.save(prona._id, admin._id, { admin: true } );
 graph.member.save(prona._id, eneas._id, { admin: true });
