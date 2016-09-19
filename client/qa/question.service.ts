@@ -23,7 +23,6 @@ export class QuestionService {
 		private http: AuthHttp,
 		private router: Router,
 	) {
-		console.log('building question service');
 		this.strategy = 'random';
 	}
 
