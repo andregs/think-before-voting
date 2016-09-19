@@ -1,4 +1,4 @@
-<md-card *ngIf='answer'>
+<md-card *ngIf='answer && hasMore'>
 	<md-card-subtitle>
 		{{ 'QUESTION.BY' | translate }}
 		<a routerLink='/profile/{{answer.question.questioner._key}}'>
@@ -31,7 +31,7 @@
 
 		<md-card-content class="opinion">
 			<textarea name='opinion' #opinion='ngModel' [disabled]='!chosen.valid'
-				placeholder="{{ 'QUESTION.OPINION' | translate }}"
+				placeholder="{{ 'ANSWER.OPINION' | translate }}"
 				[(ngModel)]='answer.opinion'></textarea>
 
 			<button type="submit" md-button color='primary'>
@@ -40,5 +40,15 @@
 		</md-card-content>
 	</form>
 
-	<p>{{answer | json}}</p>
+</md-card>
+
+<md-card *ngIf='! hasMore'>
+	<md-card-subtitle> {{ 'ANSWER.DONE.SUBTITLE' | translate }} </md-card-subtitle>
+	<md-card-title> {{ 'ANSWER.DONE.TITLE' | translate }} </md-card-title>
+	<md-card-content>
+		<p>
+			{{ 'ANSWER.DONE.DESCRIPTION' | translate }}
+			<a routerLink='/qa/ask'> {{ 'ANSWER.DONE.TRY_ASK' | translate }} </a>
+		</p>
+	</md-card-content>
 </md-card>

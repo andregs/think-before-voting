@@ -19,4 +19,5 @@ export const routing = RouterModule.forChild([
 		component: AnswerComponent,
 		resolve: { model: AnswerResolveService },
 	},
+	{ path: 'answer', component: AnswerComponent },
 ]);

@@ -80,15 +80,23 @@
 			"OPTION_A": "Option A",
 			"OPTION_B": "Option B"
 		},
-		"OPINION": "Your opinion",
 		"STATS": {
 			"NETWORK": "My Network",
 			"GLOBAL": "Global",
 			"REGION": "My Region",
 			"CITY": "My City"
-		},
+		}
+	},
+	"ANSWER": {
+		"OPINION": "Your opinion",
 		"ANSWER": "Answer",
-		"SKIP": "Skip Question"
+		"SKIP": "Skip Question",
+		"DONE": {
+			"TITLE": "(☞ﾟヮﾟ)☞ You did it!",
+			"SUBTITLE": "No more questions",
+			"DESCRIPTION": "You've answered all questions!",
+			"TRY_ASK": "Try asking something new."
+		}
 	},
 	"PARTY": {
 		"NEW": "New Party",

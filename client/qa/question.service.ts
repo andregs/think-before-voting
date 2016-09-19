@@ -1,6 +1,7 @@
 'use strict';
 
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs';
 import { Deserialize, Serialize } from 'cerialize';
@@ -20,17 +21,10 @@ export class QuestionService {
 
 	constructor(
 		private http: AuthHttp,
+		private router: Router,
 	) {
 		console.log('building question service');
 		this.strategy = 'random';
-	}
-
-	next(): Observable<Question> {
-		return this.http.get(`${QUESTION_URL}/next`)
-			.map((res: Response) => {
-				const json = res.json();
-				return Deserialize(json, Question);
-			});
 	}
 
 	/** Requests a question by its key. */
@@ -82,6 +76,20 @@ export class QuestionService {
 			const saved = Deserialize(response.json(), Answer);
 			return saved;
 		});
+	}
+
+	/** 
+	 * Requests the next unanswered question according to the selected strategy.
+	 * Pass a `skip` param to filter that question out.
+	 */
+	next(skip?: Question): Observable<Question> {
+		let url = QUESTION_URL + '/random';
+		if (skip) url += '?skip=' + skip._key;
+		return this.http.get(url)
+			.map((res: Response) => {
+				const json = res.json();
+				return Deserialize(json, Question) as Question;
+			});
 	}
 
 	private defaultOptions() {

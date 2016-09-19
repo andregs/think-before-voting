@@ -14,12 +14,12 @@ export class Question {
 	@deserialize answers: number;
 	@deserializeAs(User) questioner: User;
 
-	stats = [
-		// TODO compute real stats
-		Math.floor(Math.random() * (90 - 20 + 1)) + 20,
-		Math.floor(Math.random() * (90 - 20 + 1)) + 20,
-		Math.floor(Math.random() * (90 - 20 + 1)) + 20,
-		Math.floor(Math.random() * (90 - 20 + 1)) + 20,
-	];
+	// stats = [
+	// 	// TODO compute real stats
+	// 	Math.floor(Math.random() * (90 - 20 + 1)) + 20,
+	// 	Math.floor(Math.random() * (90 - 20 + 1)) + 20,
+	// 	Math.floor(Math.random() * (90 - 20 + 1)) + 20,
+	// 	Math.floor(Math.random() * (90 - 20 + 1)) + 20,
+	// ];
 
 }

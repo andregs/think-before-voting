@@ -14,6 +14,10 @@ export class Answer {
 	@autoserialize chosen: 0 | 1;
 	@autoserialize opinion: string;
 
+	constructor(question: Question) {
+		this.question = question;
+	}
+
 	/** Callback after the object is serialized. */
 	public static OnSerialized(instance: Answer, json: any) {
 		json.question = _.pick(instance.question, '_key', '_rev');

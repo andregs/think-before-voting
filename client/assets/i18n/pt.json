@@ -80,15 +80,23 @@
 			"OPTION_A": "Alternativa A",
 			"OPTION_B": "Alternativa B"
 		},
-		"OPINION": "Sua opinião",
 		"STATS": {
 			"NETWORK": "Minha Rede",
 			"GLOBAL": "Global",
 			"REGION": "Meu Estado",
 			"CITY": "Minha Cidade"
-		},
+		}
+	},
+	"ANSWER": {
+		"OPINION": "Sua opinião",
 		"ANSWER": "Responder",
-		"SKIP": "Pular Pergunta"
+		"SKIP": "Pular Pergunta",
+		"DONE": {
+			"TITLE": "(☞ﾟヮﾟ)☞ Você conseguiu!",
+			"SUBTITLE": "Fim das perguntas",
+			"DESCRIPTION": "Você respondeu tudo!",
+			"TRY_ASK": "Que tal criar uma nova pergunta?"
+		}
 	},
 	"PARTY": {
 		"NEW": "Novo Partido",

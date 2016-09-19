@@ -9,8 +9,8 @@ module.exports = questionRoutes;
 /** REST endpoints for questions & answers management. */
 function questionRoutes(app: Express, db) {
 
-	app.route('/api/question/next')
-		.get(next);
+	app.route('/api/question/random')
+		.get(random);
 
 	app.route('/api/question/:key')
 		.get(get)
@@ -23,22 +23,35 @@ function questionRoutes(app: Express, db) {
 
 	/**
 	 * Endpoint to select a random unanswered question.
+	 * Optionally pass a question key in `skip` to filter that question out.
 	 * 
 	 * Example:
-	 * GET /api/question/next
+	 * GET /api/question/random?skip=123
 	 */
-	function next(req: Request, res: Response): void {
-		// FIXME the query below is totally fake
+	function random(req: Request, res: Response): void {
+		// [user] -answer-> [question] -questioner-> [user]
 		db.query(aqlQuery`
-		for q in question limit 1
-			for user in 1 outbound q graph 'qaGraph'
-			return merge (
-				keep(q, '_key', 'title', 'options', 'answers'),
-				{ questioner: keep(user, '_key', 'nickname', 'name') }
-			)
+		for q in question
+		let answers = (
+			for a in answer
+			filter a._from == ${req['user']._id}
+			filter a._to == q._id
+			return 1
+		)
+		filter length(answers) == 0
+		filter q._key != ${ req.query.skip || null }
+		sort rand()
+		limit 1
+		for user in 1 outbound q graph 'qaGraph'
+		return merge (q,
+			{ questioner: keep(user, '_key', 'nickname', 'name') }
+		)
 		`)
 			.then(cursor => cursor.all())
-			.then(values => res.json(values[0]))
+			.then(values => values.length ?
+				res.json(values[0]) :
+				res.sendStatus(404)
+			)
 			.catch(err => sendError(err, res));
 	}
 

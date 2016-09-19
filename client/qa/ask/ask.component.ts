@@ -37,7 +37,7 @@ export class AskComponent implements OnInit {
 
 	/** Gets the question title or a default message. */
 	getTitle(): string {
-		return this.question.title || this.translate.instant('ASK.NEW');
+		return this.question.title || this.translate.instant('QUESTION.NEW');
 	}
 
 	/** Toggles visibility of the error message for the given field. */
