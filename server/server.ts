@@ -48,6 +48,7 @@ app.use('/api/*', function (req, res, next) {
 		});
 });
 
+require('./routes/search.router.js')(app, db);
 require('./routes/question.router.js')(app, db);
 require('./routes/answer.router.js')(app, db);
 require('./routes/user.router.js')(app, db);
@@ -60,6 +61,7 @@ function renderIndex(req: express.Request, res: express.Response) {
 };
 
 app.get('/', renderIndex);
+app.get('/search', renderIndex);
 app.get('/admin', renderIndex);
 app.get('/admin/party/list', renderIndex);
 app.get('/profile/*', renderIndex);

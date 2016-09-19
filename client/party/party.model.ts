@@ -28,4 +28,8 @@ export class Party {
 		_.remove(this.members, m => m._key === member._key);
 	}
 
+	toString() {
+		return `${this.name} (${this._key})`;
+	}
+
 }

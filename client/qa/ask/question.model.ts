@@ -22,4 +22,8 @@ export class Question {
 	// 	Math.floor(Math.random() * (90 - 20 + 1)) + 20,
 	// ];
 
+	toString() {
+		return this.title;
+	}
+
 }

@@ -31,6 +31,11 @@ export class ToolbarComponent {
 		this.toggleNav.emit(this.opened);
 	}
 
+	/** Navigates to the search page. */
+	goToSearch() {
+		this.router.navigate(['search']);
+	}
+
 	/** 
 	 * Navigates to My Profile page if the user is authenticated.
 	 * Displays the login form otherwise.

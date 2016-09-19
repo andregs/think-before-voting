@@ -27,6 +27,16 @@
 		"CANDIDATES": "Candidates",
 		"ADMIN": "Administration"
 	},
+	"SEARCH": {
+		"TITLE": "Search Page",
+		"QUERY": "Search Here",
+		"RESULTS": {
+			"USERS": "Users",
+			"PARTIES": "Parties",
+			"QUESTIONS": "Questions"
+		},
+		"NO_RESULTS": "No results."
+	},
 	"ADMIN": {
 		"TITLE": "Administration Area",
 		"HOME": {

@@ -1,0 +1,42 @@
+<md-card>
+	<md-card-title> {{ 'SEARCH.TITLE' | translate }} </md-card-title>
+	
+	<md-card-content>
+		<form (ngSubmit)='false' [formGroup]='searchForm'>
+
+			<p><md-input type='text' id='query' formControlName='query'
+				required autocomplete='off' autofocus
+				placeholder="{{ 'SEARCH.QUERY' | translate }}">
+			</md-input></p>
+
+			<p *ngIf='searchForm.valid && results && ! hasResults()'>
+				<strong> {{ 'SEARCH.NO_RESULTS' | translate }} </strong>
+			</p>
+
+			<md-nav-list dense *ngIf='hasResults()'>
+				<h3 md-subheader *ngIf='results.users.length'>
+					{{ 'SEARCH.RESULTS.USERS' | translate }}
+				</h3>
+				<a md-list-item *ngFor='let u of results.users' [routerLink]='["/profile", u._key]'>
+					{{ u }}
+				</a>
+				
+				<h3 md-subheader *ngIf='results.parties.length'>
+					{{ 'SEARCH.RESULTS.PARTIES' | translate }}
+				</h3>
+				<a md-list-item *ngFor='let p of results.parties' [routerLink]='["/party", p._key]'>
+					{{ p }}
+				</a>
+				
+				<h3 md-subheader *ngIf='results.questions.length'>
+					{{ 'SEARCH.RESULTS.QUESTIONS' | translate }}
+				</h3>
+				<a md-list-item *ngFor='let q of results.questions' [routerLink]='["/qa/answer", q._key]'>
+					{{ q }}
+				</a>
+			</md-nav-list>
+
+		</form>
+	</md-card-content>
+
+</md-card>

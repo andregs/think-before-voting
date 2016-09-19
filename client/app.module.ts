@@ -8,10 +8,12 @@ import { TranslateModule, TranslateLoader, TranslateStaticLoader } from 'ng2-tra
 
 import { AUTH_PROVIDERS } from 'angular2-jwt';
 
+import { AppComponent } from './app.component';
 import { AuthService } from './shared/auth/auth.service';
 import { AuthGuard } from './shared/auth/auth-guard.service';
-import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
+import { SearchComponent } from './search/search.component';
+import { SearchService } from './search/search.service';
 import { ErrorComponent } from './error/error.component';
 import { routing } from './app.routing';
 
@@ -34,6 +36,7 @@ export function createAppModule(config: any) {
 		declarations: [
 			AppComponent,
 			HomeComponent,
+			SearchComponent,
 			ErrorComponent,
 		],
 		providers: [
@@ -41,6 +44,7 @@ export function createAppModule(config: any) {
 			AUTH_PROVIDERS,
 			AuthService,
 			AuthGuard,
+			SearchService,
 		],
 		bootstrap: [AppComponent]
 	})

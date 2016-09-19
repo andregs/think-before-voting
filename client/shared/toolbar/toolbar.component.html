@@ -7,7 +7,9 @@
 		<a routerLink="/"> {{ 'APP.TITLE' | translate }} </a>
 	</h1>
 
-	<md-input #search placeholder="{{search.value ? '' : '🔍'}}"></md-input>
+	<button md-icon-button (click)='goToSearch()'>
+		<md-icon>search</md-icon>
+	</button>
 
 	<button md-icon-button (click)='goToMe()'>
 		<md-icon>person</md-icon>
