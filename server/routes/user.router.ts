@@ -56,8 +56,6 @@ function userRoutes(app: Express, db) {
 			return merge(u, { me: false, followed })
 		`;
 
-		console.log('query', req['user']._key, req.params.username);
-
 		db.query(req['user']._key === req.params.username ? myself : notMyself)
 			.then(cursor => cursor.all())
 			.then(values => res.json(values[0]))
