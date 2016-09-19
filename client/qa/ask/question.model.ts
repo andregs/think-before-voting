@@ -2,7 +2,7 @@
 
 import { autoserialize, deserializeAs, deserialize } from 'cerialize';
 
-import { User } from '../shared/auth/user.model';
+import { User } from '../../shared/auth/user.model';
 
 /** Model class to represent a question to be answered. */
 export class Question {
@@ -10,8 +10,7 @@ export class Question {
 	@autoserialize _key: string;
 	@autoserialize _rev: string;
 	@autoserialize title: string;
-	@autoserialize optionA: string;
-	@autoserialize optionB: string;
+	@autoserialize options: string[] = [null, null];
 	@deserialize answers: number;
 	@deserializeAs(User) questioner: User;
 

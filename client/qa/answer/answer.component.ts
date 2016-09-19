@@ -5,7 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { TranslateService } from 'ng2-translate/ng2-translate';
 
 import { QuestionService } from '../question.service';
-import { Question } from '../question.model';
+import { Answer } from './answer.model';
 
 /** This component manages the answer question page. */
 @Component({
@@ -15,9 +15,8 @@ import { Question } from '../question.model';
 })
 export class AnswerComponent implements OnInit {
 
-	question: Question;
+	answer: Answer;
 	current = 0;
-	answer: number;
 
 	constructor(
 		private questionService: QuestionService,
@@ -31,8 +30,8 @@ export class AnswerComponent implements OnInit {
 	 * @see {@link QuestionResolveService}
 	 */
 	ngOnInit() {
-		this.route.data.forEach((data: { model: Question }) => {
-			this.question = data.model;
+		this.route.data.forEach((data: { model: Answer }) => {
+			this.answer = data.model;
 		});
 	}
 
@@ -49,12 +48,23 @@ export class AnswerComponent implements OnInit {
 	// 	return 'QUESTION.STATS.' + ['NETWORK', 'GLOBAL', 'REGION', 'CITY'][this.current];
 	// }
 
-	get skipAnswer() {
-		return 'QUESTION.' + (this.answer ? 'ANSWER' : 'SKIP');
+	onSubmit() {
+		if (this.answer.chosen == null) {
+			console.log('skipping');
+		} else {
+			this.questionService.saveAnswer(this.answer).subscribe(
+				answer => console.log('saved, should now skip to the next', answer),
+				this.redirectOnError.bind(this)
+			);
+		}
 	}
 
-	// private redirectOnError(error: { status: any }) {
-	// 	this.router.navigate(['/error', error.status], { skipLocationChange: true });
-	// }
+	get skipAnswer() {
+		return 'QUESTION.' + (this.answer.chosen == null ? 'SKIP' : 'ANSWER');
+	}
+
+	private redirectOnError(error: { status: any }) {
+		this.router.navigate(['/error', error.status], { skipLocationChange: true });
+	}
 
 }

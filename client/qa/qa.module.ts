@@ -8,7 +8,8 @@ import { routing } from './qa.routing';
 import { AskComponent }  from './ask/ask.component';
 import { AnswerComponent }  from './answer/answer.component';
 import { QuestionService }  from './question.service';
-import { QuestionResolveService }  from './question-resolve.service';
+import { QuestionResolveService }  from './ask/question-resolve.service';
+import { AnswerResolveService }  from './answer/answer-resolve.service';
 
 @NgModule({
 	imports: [
@@ -22,6 +23,7 @@ import { QuestionResolveService }  from './question-resolve.service';
 	providers: [
 		QuestionService,
 		QuestionResolveService,
+		AnswerResolveService,
 	]
 })
 export default class QAModule { }

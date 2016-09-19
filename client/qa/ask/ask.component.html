@@ -17,7 +17,7 @@
 			</md-input></p>
 			
 			<p><md-input type="text" name='optionA' #optionA='ngModel' required
-				[(ngModel)]='question.optionA'
+				[(ngModel)]='question.options[0]'
 				placeholder="{{ 'QUESTION.EDIT.OPTION_A' | translate }}">
 				<md-hint [style.visibility]='showError(optionA)'>
 					{{ 'APP.FORM.REQUIRED' | translate }}
@@ -25,7 +25,7 @@
 			</md-input></p>
 			
 			<p><md-input type="text" name='optionB' #optionB='ngModel' required
-				[(ngModel)]='question.optionB'
+				[(ngModel)]='question.options[1]'
 				placeholder="{{ 'QUESTION.EDIT.OPTION_B' | translate }}">
 				<md-hint [style.visibility]='showError(optionB)'>
 					{{ 'APP.FORM.REQUIRED' | translate }}
@@ -38,6 +38,8 @@
 				{{ 'APP.FORM.SAVE' | translate }}
 			</button>
 		</md-card-actions>
+
+		<p>{{ question | json }}</p>
 
 	</form>
 

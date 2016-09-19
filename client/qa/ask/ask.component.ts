@@ -6,7 +6,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { TranslateService } from 'ng2-translate/ng2-translate';
 
 import { QuestionService } from '../question.service';
-import { Question } from '../question.model';
+import { Question } from './question.model';
 
 /** This component manages the ask question page. */
 @Component({

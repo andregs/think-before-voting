@@ -6,7 +6,7 @@ import { Router, Resolve, ActivatedRouteSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 
 import { Question } from './question.model';
-import { QuestionService } from './question.service';
+import { QuestionService } from '../question.service';
 
 /**
  * This guard ensures the requested question is available before the route is activated,

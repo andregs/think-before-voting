@@ -66,7 +66,7 @@ function questionRoutes(app: Express, db) {
 	 * 
 	 * Example:
 	 * POST /api/question
-	 * { title: '', optionA: '', ... }
+	 * { title: '', options: ['', ''], ... }
 	 */
 	function post(req: Request, res: Response): void {
 		var action = String(function (args) {
@@ -99,7 +99,7 @@ function questionRoutes(app: Express, db) {
 	 * 
 	 * Example:
 	 * PATCH /api/question/123
-	 * { title: '', optionA: '', ... }
+	 * { title: '', options: ['', ''], ... }
 	 */
 	function patch(req: Request, res: Response): void {
 		var action = String(function (args) {
@@ -108,7 +108,7 @@ function questionRoutes(app: Express, db) {
 			var _ = require('underscore');
 			return graph.question.update(
 				args[0]._key,
-				_.pick(args[0], 'title', 'optionA', 'optionB')
+				_.pick(args[0], 'title', 'options')
 			);
 		});
 

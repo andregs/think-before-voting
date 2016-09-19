@@ -3,8 +3,9 @@
 import { RouterModule } from '@angular/router';
 
 import { AskComponent } from './ask/ask.component';
-import { QuestionResolveService } from './question-resolve.service';
+import { QuestionResolveService } from './ask/question-resolve.service';
 import { AnswerComponent } from './answer/answer.component';
+import { AnswerResolveService } from './answer/answer-resolve.service';
 
 export const routing = RouterModule.forChild([
 	{
@@ -16,6 +17,6 @@ export const routing = RouterModule.forChild([
 	{
 		path: 'answer/:key',
 		component: AnswerComponent,
-		resolve: { model: QuestionResolveService }
+		resolve: { model: AnswerResolveService },
 	},
 ]);

@@ -6,20 +6,27 @@ import { Observable } from 'rxjs';
 import { Deserialize, Serialize } from 'cerialize';
 import { AuthHttp } from 'angular2-jwt';
 
-import { Question } from './question.model';
+import { Question } from './ask/question.model';
+import { Answer } from './answer/answer.model';
 
-const API_URL = 'api/question';
+const QUESTION_URL = 'api/question';
+const ANSWER_URL = 'api/answer';
 
 /** This service manages Questions & Answers. */
 @Injectable()
 export class QuestionService {
 
+	private strategy: 'random';
+
 	constructor(
 		private http: AuthHttp,
-	) { }
+	) {
+		console.log('building question service');
+		this.strategy = 'random';
+	}
 
 	next(): Observable<Question> {
-		return this.http.get(`${API_URL}/next`)
+		return this.http.get(`${QUESTION_URL}/next`)
 			.map((res: Response) => {
 				const json = res.json();
 				return Deserialize(json, Question);
@@ -28,10 +35,23 @@ export class QuestionService {
 
 	/** Requests a question by its key. */
 	get(key: string): Observable<Question> {
-		return this.http.get(`${API_URL}/${key}`)
+		return this.http.get(`${QUESTION_URL}/${key}`)
 			.map((res: Response) => {
 				const json = res.json();
 				const found = Deserialize(json, Question);
+				return found;
+			});
+	}
+
+	/**
+	 * Requests the authenticated user's answer to the given question.
+	 * If the user has not answered yet then returns a blank Answer.
+	 */
+	getAnswer(questionKey: string): Observable<Answer> {
+		return this.http.get(`${ANSWER_URL}/${questionKey}`)
+			.map((res: Response) => {
+				const json = res.json();
+				const found = Deserialize(json, Answer);
 				return found;
 			});
 	}
@@ -41,11 +61,25 @@ export class QuestionService {
 		const body = JSON.stringify(Serialize(question));
 		const options = this.defaultOptions();
 		const stream = question._rev ?
-			this.http.patch(`${API_URL}/${question._key}`, body, options) :
-			this.http.post(API_URL, body, options);
+			this.http.patch(`${QUESTION_URL}/${question._key}`, body, options) :
+			this.http.post(QUESTION_URL, body, options);
 
 		return stream.map(response => {
 			const saved = Deserialize(response.json(), Question);
+			return saved;
+		});
+	}
+
+	/** Saves (insert/update) the given answer. */
+	saveAnswer(answer: Answer): Observable<Answer> {
+		const body = JSON.stringify(Serialize(answer));
+		const options = this.defaultOptions();
+		const stream = answer._rev ?
+			this.http.patch(`${ANSWER_URL}/${answer._key}`, body, options) :
+			this.http.post(`${ANSWER_URL}/${answer.question._key}`, body, options);
+
+		return stream.map(response => {
+			const saved = Deserialize(response.json(), Answer);
 			return saved;
 		});
 	}

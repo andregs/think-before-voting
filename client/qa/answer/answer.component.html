@@ -1,9 +1,11 @@
-<md-card *ngIf='question'>
+<md-card *ngIf='answer'>
 	<md-card-subtitle>
 		{{ 'QUESTION.BY' | translate }}
-		<a routerLink='/profile/{{question.questioner._key}}'> {{ question.questioner }} </a>
+		<a routerLink='/profile/{{answer.question.questioner._key}}'>
+			{{ answer.question.questioner }}
+		</a>
 	</md-card-subtitle>
-	<md-card-title> {{ question.title }} </md-card-title>
+	<md-card-title> {{ answer.question.title }} </md-card-title>
 
 	<button class='top-right' md-icon-button [md-menu-trigger-for]="menu">
 		<md-icon>expand_more</md-icon>
@@ -13,20 +15,30 @@
 		<button md-menu-item> {{ 'APP.FORM.DELETE' | translate }} </button>
 	</md-menu>
 
-	<md-radio-group [(ngModel)]='answer'>
-		<md-radio-button value="1"> {{ question.optionA }} </md-radio-button>
-		<md-radio-button value="2"> {{ question.optionB }} </md-radio-button>
-	</md-radio-group>
+	<form (submit)='onSubmit()' #answerForm='ngForm'>
+		<md-radio-group name='chosen' #chosen='ngModel'
+			required [(ngModel)]='answer.chosen'>
+			<md-radio-button [value]="0"> {{ answer.question.options[0] }} </md-radio-button>
+			<md-radio-button [value]="1"> {{ answer.question.options[1] }} </md-radio-button>
+		</md-radio-group>
 
-	<!--<md-toolbar id="stats" *ngIf='answer'>
-		<button md-button (click)='changeStats()'>
-			{{ statsLabel | translate }}
-		</button>
-		<md-progress-bar value="{{ stats }}"> </md-progress-bar>
-	</md-toolbar>-->
+		<!--<md-toolbar id="stats" *ngIf='answer'>
+			<button md-button (click)='changeStats()'>
+				{{ statsLabel | translate }}
+			</button>
+			<md-progress-bar value="{{ stats }}"> </md-progress-bar>
+		</md-toolbar>-->
 
-	<md-card-content class="opinion">
-		<textarea placeholder="{{ 'QUESTION.OPINION' | translate }}" [disabled]='!answer'></textarea>
-		<button md-button color='primary'> {{ skipAnswer | translate }} </button>
-	</md-card-content>
+		<md-card-content class="opinion">
+			<textarea name='opinion' #opinion='ngModel' [disabled]='!chosen.valid'
+				placeholder="{{ 'QUESTION.OPINION' | translate }}"
+				[(ngModel)]='answer.opinion'></textarea>
+
+			<button type="submit" md-button color='primary'>
+				{{ skipAnswer | translate }}
+			</button>
+		</md-card-content>
+	</form>
+
+	<p>{{answer | json}}</p>
 </md-card>

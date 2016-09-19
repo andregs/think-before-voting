@@ -49,6 +49,7 @@ app.use('/api/*', function (req, res, next) {
 });
 
 require('./routes/question.router.js')(app, db);
+require('./routes/answer.router.js')(app, db);
 require('./routes/user.router.js')(app, db);
 require('./routes/party.router.js')(app, db);
 require('./routes/location.router.js')(app, db);
