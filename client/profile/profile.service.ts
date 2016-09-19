@@ -22,13 +22,10 @@ export class ProfileService {
 
 	/** Finds user by key. */
 	find(username?: string): Observable<User> {
-		return this.authService.user.flatMap(user => {
-			if (username && username !== user._key) {
-				return this.http.get(`${API_URL}/${username}`)
-					.map((res: Response) => Deserialize(res.json(), User));
-			}
-			return Observable.of(user);
-		});
+		return this.authService.user.flatMap(
+			user => this.http.get(`${API_URL}/${username || user._key}`)
+				.map((res: Response) => Deserialize(res.json(), User))
+		);
 	}
 
 	/** Saves modifications of the given user. */
@@ -41,6 +38,29 @@ export class ProfileService {
 			.map((res: Response) => {
 				const updated = Deserialize(res.json(), User);
 				return updated;
+			});
+	}
+
+	/** Follows the given user. */
+	follow(user: User): Observable<any> {
+		const body: string = null;
+		const headers = new Headers({ 'Content-Type': 'application/json' });
+		const options = new RequestOptions({ headers: headers });
+		const url = `${API_URL}/${user._key}/follow`;
+		return this.http.post(url, body, options)
+			.map((res: Response) => {
+				const created = res.json();
+				return created;
+			});
+	}
+
+	/** Unfollows the given user. */
+	unfollow(user: User): Observable<any> {
+		const url = `${API_URL}/${user._key}/follow`;
+		return this.http.delete(url)
+			.map((res: Response) => {
+				const removed = res.json();
+				return removed;
 			});
 	}
 }

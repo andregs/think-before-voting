@@ -32,7 +32,7 @@ export class User {
 	@deserialize followed: boolean;
 	@deserialize news: any[];
 	@deserialize answers: string[];
-	@deserializeAs(Affinity) affinity: Affinity[];
+	@deserializeAs(Affinity) affinity = new Affinity(0, 0);
 	@deserialize agree: string[];
 	@deserialize disagree: string[];
 	@autoserialize admin: boolean;

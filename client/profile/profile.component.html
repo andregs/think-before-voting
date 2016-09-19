@@ -8,7 +8,7 @@
 			&nbsp;&nbsp;♦&nbsp;&nbsp;
 			<a href="#">{{ 'PROFILE.FOLLOWERS' | translate }} {{ user.followers }}</a>
 		</div>
-		<a *ngSwitchCase='false' (click)='user.followed = !user.followed'>
+		<a *ngSwitchCase='false' (click)='toggleFollow()'>
 			{{ (user.followed ? 'PROFILE.UNFOLLOW' : 'PROFILE.FOLLOW') | translate }}
 		</a>
 	</md-card-subtitle>

@@ -3,8 +3,6 @@
 		"_key": "admin",
 		"email": "admin@example.com",
 		"name": "Admin da Silva",
-		"following": 1,
-		"followers": 0,
 		"news": [
 			{ "type": "ANSWERED", "who": "Justin Trudeau", "questions": 3 },
 			{ "type": "FOLLOWER", "who": "Ilya Brotzky" },
@@ -21,7 +19,6 @@
 		"_key": "eneas",
 		"email": "eneas@prona.com.br",
 		"name": "Enéas Carneiro",
-		"followed": true,
 		"affinity": {
 			"match": 2,
 			"answers": 3

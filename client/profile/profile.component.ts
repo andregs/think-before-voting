@@ -30,4 +30,20 @@ export class ProfileComponent implements OnInit {
 			);
 	}
 
+	/** Follows / unfollows this user. */
+	toggleFollow() {
+		const stream = this.user.followed ?
+			this.profileService.unfollow(this.user) :
+			this.profileService.follow(this.user);
+
+		stream.subscribe(
+			result => this.user.followed = !this.user.followed,
+			this.redirectOnError.bind(this)
+		);
+	}
+
+	private redirectOnError(error: { status: any }) {
+		this.router.navigate(['/error', error.status], { skipLocationChange: true });
+	}
+
 }

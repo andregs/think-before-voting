@@ -63,10 +63,11 @@
 			"FOLLOWER": "{{who}} is now following you."
 		},
 		"AFFINITY": {
+			"UNKNOWN": "The political affinity between you two is <strong> still unknown </strong> based on",
 			"LOW": "The political affinity between you two is <strong> low </strong> based on",
 			"MODERATE": "The political affinity between you two is <strong> moderate </strong> based on",
 			"HIGH": "The political affinity between you two is <strong> high </strong> based on",
-			"VALUE": "{{value}} answers",
+			"VALUE": "{{value}} questions in common",
 			"TOOLTIP": "Answer more"
 		},
 		"AGREE": "You agree on",
