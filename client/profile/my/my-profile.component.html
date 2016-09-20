@@ -3,8 +3,10 @@
 		<template md-tab-label> {{ 'PROFILE.NEWS.FEED' | translate }} </template>
 		<template md-tab-content>
 			<md-list dense>
-				<a md-list-item href="#" *ngFor='let n of user.news'>
-					{{ 'PROFILE.NEWS.' + n.type | translate: n }}
+				<a md-list-item *ngFor='let n of user.news'
+					[routerLink]='["/profile", n.who._key]'
+					[title]="n.when.toLocaleString(translate.currentLang)">
+					{{ 'PROFILE.NEWS.' + n.action | translate: n }}
 				</a>
 			</md-list>
 		</template>

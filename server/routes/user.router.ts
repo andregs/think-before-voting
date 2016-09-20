@@ -30,19 +30,48 @@ function userRoutes(app: Express, db) {
 	 */
 	function get(req: Request, res: Response): void {
 		const myself = aqlQuery`
-		for u in user
-			filter u._id == ${req['user']._id}
+		let period = date_subtract(date_now(), 'P1W')
+		for me in user
+			filter me._id == ${req['user']._id}
 			let followers = first(
-				for v in 1 inbound u graph 'socialGraph'
+				for v in 1 inbound me graph 'socialGraph'
 				collect with count into followers
 				return followers
 			),
 			following = first(
-				for v in 1 outbound u graph 'socialGraph'
+				for v in 1 outbound me graph 'socialGraph'
 				collect with count into following
 				return following
+			),
+			newAnswers = (
+				for u, f in 1 outbound me graph 'socialGraph'
+					for q, a in 1 outbound u graph 'qaGraph'
+					filter a.updatedAt > period
+					collect who = {_key: u._key, name: (u.nickname || u.name)},
+						action = 'ANSWERED'
+						into group = a.updatedAt
+					return {
+						who, action,
+						questions: count(group),
+						when: max(group)
+					}
+			),
+			newFollowers = (
+				for u, f in 1 inbound me graph 'socialGraph'
+				filter f.updatedAt > period
+				return {
+					who: {_key: u._key, name: (u.nickname || u.name)},
+					action: 'FOLLOWED',
+					when: f.updatedAt
+				}
+			),
+			news = (
+				for news in union(newAnswers, newFollowers)
+					sort news.when desc
+					limit 12
+					return news
 			)
-			return merge(u, {me: true, followers, following})
+			return merge(me, {me: true, followers, following, news})
 		`;
 
 		const notMyself = aqlQuery`
@@ -128,9 +157,10 @@ function userRoutes(app: Express, db) {
 			var follow = graph.follow.firstExample({
 				_from: authUser._id, _to: targetUser._id
 			});
+			var now = new Date(), data = { createdAt: now, updatedAt: now };
 
 			if (follow === null) {
-				return graph.follow.save(authUser._id, targetUser._id, {});
+				return graph.follow.save(authUser._id, targetUser._id, data);
 			} else {
 				throw new Error('User is already followed');
 			}

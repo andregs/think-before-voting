@@ -33,8 +33,7 @@ var q1 = graph.question.save({
 	options: [
 		"Quality improvement in public health.",
 		"Fighting deforestation."
-	],
-	answers: 0
+	]
 });
 graph.questioner.save(q1._id, eneas._id, {});
 graph.answer.save(eneas._id, q1._id, { chosen: 1, opinion: 'meu nome ENÉÉÉAS!' });

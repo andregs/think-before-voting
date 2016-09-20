@@ -59,8 +59,8 @@
 		"NEWS": {
 			"FEED": "News Feed",
 			"ANSWERS": "Recent Answers",
-			"ANSWERED": "{{who}} has answered {{questions}} new questions.",
-			"FOLLOWER": "{{who}} is now following you."
+			"ANSWERED": "{{who.name}} has answered {{questions}} new questions.",
+			"FOLLOWED": "{{who.name}} is now following you."
 		},
 		"AFFINITY": {
 			"UNKNOWN": "The political affinity between you two is <strong> still unknown </strong> based on",

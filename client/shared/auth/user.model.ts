@@ -3,6 +3,7 @@
 import { autoserialize, autoserializeAs, deserialize, deserializeAs } from 'cerialize';
 
 import { Affinity } from './affinity.model';
+import { News } from './news.model';
 import { Location } from '../location.model';
 
 /**
@@ -30,7 +31,7 @@ export class User {
 	@deserialize following: number;
 	@deserialize followers: number;
 	@deserialize followed: boolean;
-	@deserialize news: any[];
+	@deserializeAs(News) news: News[];
 	@deserialize answers: string[];
 	@deserializeAs(Affinity) affinity = new Affinity(0, 0);
 	@deserialize agree: string[];
@@ -38,7 +39,7 @@ export class User {
 	@autoserialize admin: boolean;
 
 	get displayName(): string {
-		return this.nickname ? this.nickname : this.name;
+		return this.nickname || this.name;
 	}
 
 	/**

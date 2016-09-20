@@ -3,11 +3,6 @@
 		"_key": "admin",
 		"email": "admin@example.com",
 		"name": "Admin da Silva",
-		"news": [
-			{ "type": "ANSWERED", "who": "Justin Trudeau", "questions": 3 },
-			{ "type": "FOLLOWER", "who": "Ilya Brotzky" },
-			{ "type": "ANSWERED", "who": "Enéas Carneiro", "questions": 6 }
-		],
 		"answers": [
 			"Should Marijuana be legal?",
 			"Should the rich pay a higher tax rate than the middle class?",

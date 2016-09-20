@@ -86,11 +86,11 @@ function questionRoutes(app: Express, db) {
 			var gm = require("@arangodb/general-graph");
 			var graph = gm._graph('qaGraph');
 			var _ = require('underscore');
-			args[0].answers = 0;
+			args[0].createdAt = new Date();
+			args[0].updatedAt = args[0].createdAt;
 			var question = graph.question.save(args[0]);
 			graph.questioner.save(question._id, args[1]._id, {});
 
-			question.answers = 0;
 			question.questioner = _.pick(
 				graph.user.document(args[1]),
 				'_key', 'name', 'nickname'
@@ -119,10 +119,9 @@ function questionRoutes(app: Express, db) {
 			var gm = require("@arangodb/general-graph");
 			var graph = gm._graph('qaGraph');
 			var _ = require('underscore');
-			return graph.question.update(
-				args[0]._key,
-				_.pick(args[0], 'title', 'options')
-			);
+			var questionData = _.pick(args[0], 'title', 'options');
+			questionData.updatedAt = new Date();
+			return graph.question.update(args[0]._key, questionData);
 		});
 
 		const collections = { write: 'question' };

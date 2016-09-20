@@ -1,6 +1,6 @@
 'use strict';
 
-import { autoserialize, autoserializeAs } from 'cerialize';
+import { autoserialize, autoserializeAs, deserializeAs } from 'cerialize';
 import _ from 'lodash';
 
 import { Question } from '../ask/question.model';
@@ -13,6 +13,8 @@ export class Answer {
 	@autoserializeAs(Question) question: Question;
 	@autoserialize chosen: 0 | 1;
 	@autoserialize opinion: string;
+	@deserializeAs(Date) createdAt: Date;
+	@deserializeAs(Date) updatedAt: Date;
 
 	constructor(question: Question) {
 		this.question = question;

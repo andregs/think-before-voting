@@ -72,6 +72,8 @@ function answerRoutes(app: Express, db) {
 			var user = graph.user.document(args[1]._key);
 			var question = graph.question.document(args[2]);
 			var answerData = _.pick(args[0], 'chosen', 'opinion');
+			answerData.createdAt = new Date();
+			answerData.updatedAt = answerData.createdAt;
 			var answer = graph.answer.save(user._id, question._id, answerData);
 			return _.extend(answerData, answer);
 		});
@@ -99,10 +101,9 @@ function answerRoutes(app: Express, db) {
 			var gm = require("@arangodb/general-graph");
 			var graph = gm._graph('qaGraph');
 			var _ = require('underscore');
-			return graph.answer.update(
-				args[0]._key,
-				_.pick(args[0], 'chosen', 'opinion')
-			);
+			var answerData = _.pick(args[0], 'chosen', 'opinion');
+			answerData.updatedAt = new Date();
+			return graph.answer.update(args[0]._key, answerData);
 		});
 
 		const collections = { write: 'answer' };
