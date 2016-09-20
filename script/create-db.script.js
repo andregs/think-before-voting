@@ -13,37 +13,25 @@ var gm = require('@arangodb/general-graph');
 
 var graph;
 
-// populate DB with some dummy data because this app still is just a prototype
-
 graph = gm._create('userGraph', [
 	{ from: ['user'], collection: 'livesIn', to: ['location'] },
 ]);
 
-var users = internal.load('./script/users.json');
-var admin = graph.user.save(users[0]);
-var eneas = graph.user.save(users[1]);
+var admin = graph.user.save({
+	"_key": "admin",
+	"email": "admin@example.com",
+	"name": "Admin da Silva",
+	"admin": true
+});
 
 graph = gm._create('qaGraph', [
 	{ from: ["user"], collection: "answer", to: ["question"] },
 	{ from: ["question"], collection: "questioner", to: ["user"] },
 ]);
 
-var q1 = graph.question.save({
-	title: "What's more important for you?",
-	options: [
-		"Quality improvement in public health.",
-		"Fighting deforestation."
-	]
-});
-graph.questioner.save(q1._id, eneas._id, {});
-graph.answer.save(eneas._id, q1._id, { chosen: 1, opinion: 'meu nome ENÉÉÉAS!' });
-graph.answer.save(admin._id, q1._id, { chosen: 0, opinion: 'foo bar' });
-
 graph = gm._create('socialGraph', [
 	{ from: ["user"], collection: "follow", to: ["user"] },
 ]);
-
-graph.follow.save(admin._id, eneas._id, {});
 
 // data from http://www.tse.jus.br/eleicoes/estatisticas/repositorio-de-dados-eleitorais
 
@@ -75,8 +63,3 @@ parties.forEach(p => {
 	var party = graph.party.save(p);
 	graph.member.save(party._id, admin._id, { admin: true });
 });
-
-var prona = graph.party.save({ _key: 'PRONA', name: 'Partido da Reedificação da Ordem Nacional', code: 80 });
-graph.member.save(prona._id, admin._id, { admin: true } );
-graph.member.save(prona._id, eneas._id, { admin: true });
-graph.candidate.save(eneas._id, 'location/BR', { office: 'Presidente' });

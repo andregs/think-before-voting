@@ -39,20 +39,7 @@ function partyRoutes(app: Express, db) {
 	function getAll(req: Request, res: Response): void {
 		// [party] -member-> [user] -candidate-> [location]
 		db.query(aqlQuery`
-		for pa in party
-		return merge(pa, { members: (
-			for user, member in 1 outbound pa graph 'partyGraph'
-			return merge(keep(member, '_key', 'admin'), {
-				user: keep(user, '_key', 'name', 'nickname'),
-				candidate: first(
-					/* first() is better than array with a single element */
-					for location, candidate in 1 outbound user graph 'partyGraph'
-					return merge(keep(candidate, '_key', 'office'), {
-						location: keep(location, '_key', 'name')
-					})
-				)
-			})
-		)})
+		for pa in party sort pa.name return pa
 		`)
 			.then(cursor => cursor.all())
 			.then(values => values.length ?
@@ -76,7 +63,7 @@ function partyRoutes(app: Express, db) {
 		return merge(pa, { members: (
 			for user, member in 1 outbound pa graph 'partyGraph'
 			return merge(keep(member, '_key', 'admin'), {
-				user: keep(user, '_key', 'name', 'nickname'),
+				user: keep(user, '_key', 'name', 'nickname', 'admin'),
 				candidate: first(
 					/* first() is better than array with a single element */
 					for location, candidate in 1 outbound user graph 'partyGraph'
