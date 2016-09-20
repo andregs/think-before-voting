@@ -2,7 +2,9 @@
 
 Tinder-like app to help voters choose candidates. Made with Angular 2 & Node.js.
 
-Development Status: Prototyping.
+Development Status: not even alpha.
+
+![Demo Animation](client/assets/tbv-demo.gif?raw=true "This demo can be a bit outdated")
 
 ### Give it a try:
 
