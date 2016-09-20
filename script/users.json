@@ -19,10 +19,6 @@
 		"_key": "eneas",
 		"email": "eneas@prona.com.br",
 		"name": "Enéas Carneiro",
-		"affinity": {
-			"match": 2,
-			"answers": 3
-		},
 		"agree": [
 			"Should Marijuana be legal?",
 			"Should the rich pay a higher tax rate than the middle class?"

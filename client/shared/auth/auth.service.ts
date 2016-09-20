@@ -5,7 +5,7 @@ import { Response, Headers, RequestOptions } from '@angular/http';
 import { Router } from '@angular/router';
 import { Observable, ReplaySubject } from 'rxjs';
 import { tokenNotExpired, AuthHttp } from 'angular2-jwt';
-import { Deserialize, DeserializeKeysFrom } from 'cerialize';
+import { Serialize, Deserialize, DeserializeKeysFrom } from 'cerialize';
 
 import { User } from './user.model';
 
@@ -91,7 +91,7 @@ export class AuthService {
 					DeserializeKeysFrom(User.keyTransformer);
 					const user: User = Deserialize(profile, User);
 					DeserializeKeysFrom(null);
-					const body = JSON.stringify(user);
+					const body = JSON.stringify(Serialize(user, User));
 					const headers = new Headers({ 'Content-Type': 'application/json' });
 					const options = new RequestOptions({ headers: headers });
 					const url = `${API_URL}/${user._key}/upsert`;

@@ -52,8 +52,23 @@ function userRoutes(app: Express, db) {
 				for f in follow
 				filter f._from == ${req['user']._id} and f._to == u._id
 				return 1
+			),
+			affinity = (
+				for u2 in [u, ${ req['user']._id }]
+					for v, e in 1 outbound u2 graph 'qaGraph'
+						collect question = e._to into answers = e.chosen
+						filter count(answers) == 2 // questions answered by both users
+						let match = sum(answers) != 1 ? 1 : 0 // flags same answer by both users
+						return {question, match}
 			)
-			return merge(u, { me: false, followed })
+			return merge(u, {
+				me: false,
+				followed,
+				affinity: {
+					answers: count(affinity), 
+					matches: sum(affinity[*].match)
+				}
+			})
 		`;
 
 		db.query(req['user']._key === req.params.username ? myself : notMyself)

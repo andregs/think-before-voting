@@ -12,14 +12,14 @@ export class User {
 
 	// auth0 fields
 
-	@deserialize auth0Id: string;
-	@deserialize email: string;
+	@autoserialize auth0Id: string;
+	@autoserialize email: string;
 	@autoserialize name: string;
-	@deserialize emailVerified: boolean;
-	@deserialize picture: string;
+	@autoserialize emailVerified: boolean;
+	@autoserialize picture: string;
 	@autoserialize nickname: string;
-	@deserializeAs(Date) createdAt: Date;
-	@deserializeAs(Date) updatedAt: Date;
+	@autoserializeAs(Date) createdAt: Date;
+	@autoserializeAs(Date) updatedAt: Date;
 
 	// my custom fields
 
