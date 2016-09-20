@@ -13,7 +13,7 @@ export class Affinity {
 	}
 
 	get percent() {
-		return this.answers === 0 ? 0 : this.matches / this.answers * 100;
+		return this.answers < 5 ? 0 : this.matches / this.answers * 100;
 	}
 
 	toString() {

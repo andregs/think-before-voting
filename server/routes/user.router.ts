@@ -56,7 +56,7 @@ function userRoutes(app: Express, db) {
 			affinity = (
 				for u2 in [u, ${ req['user']._id }]
 					for v, e in 1 outbound u2 graph 'qaGraph'
-						collect question = e._to into answers = e.chosen
+						collect question = {_key: v._key, title: v.title} into answers = e.chosen
 						filter count(answers) == 2 // questions answered by both users
 						let match = sum(answers) != 1 ? 1 : 0 // flags same answer by both users
 						return {question, match}
@@ -64,6 +64,8 @@ function userRoutes(app: Express, db) {
 			return merge(u, {
 				me: false,
 				followed,
+				agree: affinity[* filter CURRENT.match == 1 return CURRENT.question],
+				disagree: affinity[* filter CURRENT.match == 0 return CURRENT.question],
 				affinity: {
 					answers: count(affinity), 
 					matches: sum(affinity[*].match)

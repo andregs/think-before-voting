@@ -72,6 +72,7 @@
 		},
 		"AGREE": "Vocês concordam em",
 		"DISAGREE": "Vocês discordam em",
+		"NOTHING": "Até agora nada.",
 		"FAB": {
 			"EDIT": "Editar perfil",
 			"ANSWER": "Responda mais para calcular a afinidade política com mais precisão"

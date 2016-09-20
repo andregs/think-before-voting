@@ -9,13 +9,20 @@
 	<md-progress-bar value="{{ user.affinity.percent }}"> </md-progress-bar>
 	<md-list dense>
 		<h3 md-subheader> 👍 {{ 'PROFILE.AGREE' | translate }} </h3>
-		<a md-list-item href="#" *ngFor='let answer of user.agree'>
-			{{ answer }}
+		<a md-list-item [routerLink]='["/qa/answer", answer._key]' *ngFor='let answer of user.agree'>
+			{{ answer.title }}
 		</a>
+		<md-list-item  *ngIf='!user.agree.length'>
+			<p> {{ 'PROFILE.NOTHING' | translate }} </p>
+		</md-list-item>
+		
 		<h3 md-subheader> 👎 {{ 'PROFILE.DISAGREE' | translate }} </h3>
-		<a md-list-item href="#" *ngFor='let answer of user.disagree'>
-			{{ answer }}
+		<a md-list-item [routerLink]='["/qa/answer", answer._key]' *ngFor='let answer of user.disagree'>
+			{{ answer.title }}
 		</a>
+		<md-list-item  *ngIf='!user.disagree.length'>
+			<p> {{ 'PROFILE.NOTHING' | translate }} </p>
+		</md-list-item>
 	</md-list>
 </md-card-content>
 
