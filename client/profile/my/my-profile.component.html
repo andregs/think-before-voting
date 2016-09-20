@@ -16,8 +16,10 @@
 		<template md-tab-label> {{ 'PROFILE.NEWS.ANSWERS' | translate }} </template>
 		<template md-tab-content>
 			<md-list dense>
-				<a md-list-item href="#" *ngFor='let answer of user.answers'>
-					{{ answer }}
+				<a md-list-item *ngFor='let answer of user.myAnswers' 
+					[routerLink]='["/qa/answer", answer._key]'
+					[title]="answer.when.toLocaleString(translate.currentLang)">
+					{{ answer.title }}
 				</a>
 			</md-list>
 		</template>

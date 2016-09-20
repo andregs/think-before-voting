@@ -6,6 +6,17 @@ import { Affinity } from './affinity.model';
 import { News } from './news.model';
 import { Location } from '../location.model';
 
+class RecentAnswers {
+
+	// I could have used the existing Answer class, but there's this issue
+	// https://github.com/weichx/cerialize/issues/22
+
+	@deserialize _key: string;
+	@deserialize title: string;
+	@deserializeAs(Date) when: Date;
+
+}
+
 /**
  * Model class to represent a user of the app.
  */
@@ -32,7 +43,7 @@ export class User {
 	@deserialize followers: number;
 	@deserialize followed: boolean;
 	@deserializeAs(News) news: News[];
-	@deserialize answers: string[];
+	@deserializeAs(RecentAnswers) myAnswers: RecentAnswers[];
 	@deserializeAs(Affinity) affinity = new Affinity(0, 0);
 	@deserialize agree: string[];
 	@deserialize disagree: string[];

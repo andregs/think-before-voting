@@ -43,6 +43,15 @@ function userRoutes(app: Express, db) {
 				collect with count into following
 				return following
 			),
+			myAnswers = (
+				for q, a in 1 outbound me graph 'qaGraph'
+				sort a.updatedAt desc
+				limit 12
+				return merge (
+					keep(q, '_key', 'title'),
+					{ when: a.updatedAt }
+				)
+			),
 			newAnswers = (
 				for u, f in 1 outbound me graph 'socialGraph'
 					for q, a in 1 outbound u graph 'qaGraph'
@@ -71,7 +80,10 @@ function userRoutes(app: Express, db) {
 					limit 12
 					return news
 			)
-			return merge(me, {me: true, followers, following, news})
+			return merge(
+				me,
+				{ me: true, followers, following, news, myAnswers }
+			)
 		`;
 
 		const notMyself = aqlQuery`
